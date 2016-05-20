@@ -1,0 +1,197 @@
+.logo_drop {
+    border: 1px solid #dbdbdb;
+    height: 200px;
+    width: 100%;
+    text-align: center;
+}
+
+.logo_drop p {
+    color: #cccccc;
+    font-size: 20px;
+    margin-top: 75px;
+}
+
+.filter_news_container {
+    box-shadow: 0 0 2px #aaa;
+    border-radius: 5px;
+    padding: 10px;
+    max-height: 550px;
+}
+
+@media (max-width: 768px) {
+    .filter_news_container.affix {
+        width: 206px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .filter_news_container.affix {
+        width: 206px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .filter_news_container.affix {
+        width: 206px;
+        top: 100px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .filter_news_container.affix {
+        width: 206px;
+        top: 100px;
+    }
+}
+
+.editable {
+    min-height: 200px;
+    border: 1px solid;
+    padding: 10px;
+}
+
+.my-editor {
+    /*min-height: ;*/
+    font-family: Koodak;
+    width: 100%;
+    min-height: 200px;
+}
+
+.newspaper_template_btn {
+    width: 100%;
+    border-radius: 5px;
+    background: #828282;
+    border: 1px solid #707070 !important;
+    padding: 5px 15px;
+    font-size: 12pt;
+    color: #ffffff !important;
+    vertical-align: middle;
+    margin: 1px !important;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.newspaper_template_btn:hover {
+    background: #989898;
+    color: #fff !important;
+    text-decoration: none;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.newspaper_back_btn {
+    width: 100%;
+    border-radius: 5px;
+    background: #516b82;
+    border: 1px solid #707070 !important;
+    padding: 5px 15px;
+    font-size: 12pt;
+    color: #ffffff !important;
+    vertical-align: middle;
+    margin: 1px !important;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.newspaper_back_btn:hover {
+    background: #4c677e;
+    color: #fff !important;
+    text-decoration: none;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.newspaper_save_btn {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background: #03AF4D;
+    padding: 5px 15px;
+    font-size: 12pt;
+    color: #ffffff !important;
+    vertical-align: middle;
+    margin: 1px !important;
+    /*display: block;*/
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-transition: background 0.2s;
+    -moz-transition: background 0.2s;
+    -ms-transition: background 0.2s;
+    -o-transition: background 0.2s;
+    transition: background 0.2s;
+}
+
+
+.newspaper_save_btn:hover {
+    background: #039249;
+    text-decoration: none;
+    -webkit-transition: background 0.2s;
+    -moz-transition: background 0.2s;
+    -ms-transition: background 0.2s;
+    -o-transition: background 0.2s;
+    transition: background 0.2s;
+}
+
+.newspaper_choose_template_h {
+    background: -webkit-linear-gradient(#FDFDFD, #E9E9E9);
+    background: -o-linear-gradient(#FDFDFD, #E9E9E9);
+    background: -moz-linear-gradient(#FDFDFD, #E9E9E9);
+    background: linear-gradient(#FDFDFD, #E9E9E9);
+    padding: 5px;
+    color: #979898;
+    border-radius: 7px 7px 0 0;
+    box-shadow: 0 0 2px #aaa;
+}
+
+.newspaper_choose_template_b {
+    background: #FFFFFF;
+    padding: 10px;
+    color: #979898;
+    box-shadow: 0 0 2px #aaa;
+    border-radius: 0 0 7px 7px;
+}
+
+.editable-max-height {
+    min-height: 1010px;
+}
+
+.editable-s-max-height {
+    min-height: 1520px;
+}
+
+.editable-s-s-max-height {
+    min-height: 2030px;
+}
+
+.editable-min-height {
+    min-height: 500px;
+}
+
+.yellow-square {
+    background: #b8861e;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+}
+
+.black-box {
+    background: #000000;
+    height: 20px;
+}
+
