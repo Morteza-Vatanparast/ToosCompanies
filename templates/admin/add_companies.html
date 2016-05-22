@@ -1,0 +1,221 @@
+{% extends base.html %}
+{% block other_css %}
+<link rel="stylesheet" type="text/css" href="/static/plugins/bootstrap-fileupload/bootstrap-fileupload.css" />
+{% end block other_css %}
+{% block container %}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default margin-top-30 font-yekan">
+                    <div class="panel-heading"><i class="fa fa-folder-open-o"></i><span>ایجاد و مدیریت واحد های شرکت ها</span> </div>
+                    <div class="panel-body">
+                        <div class="show_box">
+                            <div class="box_header">
+                                <span>افزودن شرکت</span>
+                            </div>
+                            <div class="box_body unit-div pr_drag">
+                                <form id="add_company">
+                                    {% module xsrf_form_html() %}
+                                    <div class="row">
+                                        <div class="col-xs-9">
+                                            <div class="row">
+                                                <div class="col-xs-3 text-right">
+                                                    <span>نام:</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input name="name" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3 text-right">
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <div class="row">
+                                                        <div class="col-md-6 text-center"><span style="margin-left: 10px">صفحه اصلی</span><input type="checkbox" name="main_page" value="True"></div>
+                                                        <div class="col-md-6 text-center"><span style="margin-left: 10px">اسلایدر</span><input type="checkbox" name="slider" value="True"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">لوگو</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                        <div id="photo_show" class="fileupload-new thumbnail" style="width: 184px; height: 134px;">
+                                                            <img  src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                                                        </div>
+                                                        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                                        <div>
+                                                            <span class="btn backgroundBlue colorWhite btn-file">
+                                                            <span data-toggle="modal" href="#cropper-foodlist" class="fileupload-new"><i class="fa fa-paper-clip"></i> انتخاب تصویر </span>
+                                                            <span class="fileupload-exists"><i class="fa fa-undo"></i> تغییر</span>
+                                                            <input name="logo" type="file" class="default add-source" />
+                                                            </span>
+                                                            <a href="#" class="btn backgroundRed colorWhite fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> حذف</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">واحد</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <select class="select" name="unit">
+                                                        <option value="">انتخاب کنید.</option>
+                                                        {% for u in units %}
+                                                            <option value="{{ u['_id'] }}">{{ u['name'] }}</option>
+                                                        {% end %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">عکس ها</span>
+                                                </div>
+                                                <div class="col-xs-3 col-md-offset-3">
+                                                    <div class="R_butt_blue add-image text-center">+ افزودن عکس</div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10 images-uploads">
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">توضیحات</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <textarea class="form-control" cols="10" rows="10" name="description" style="resize: none"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-xs-2 pull-left">
+                                            <button type="submit" class="btn R_butt_green add-unit-btn">افزودن</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% end block container %}
+
+{% block other_scripts %}
+<script type="text/javascript" src="/static/plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+<script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
+<script>
+
+    var trash = '<i class="fa fa-trash-o"></i>';
+
+    var loader = '<img src="{{ static_url('images/loading.gif') }}" width="20" height="20">';
+
+    var __error = false;
+    var __message = false;
+    function check_value(__val, __msg){
+        if((__val == "" || __val == " ") && !__error){
+            __error = true;
+            __message = __msg;
+        }
+        return __val
+    }
+
+    var __a = true;
+    $('#add_company').submit(function(e){
+        if(__a){
+            __a = false;
+            e.preventDefault();
+            var btn =$('.add-unit-btn') ;
+            btn.html(loader);
+            var data = new FormData();
+            data.append('_xsrf', '{{ handler.xsrf_token }}');
+            data.append('name', check_value($('input[name=name]').val(), 'نام را وارد کنید.'));
+            data.append('main_page', $('input[name=main_page]').prop("checked"));
+            data.append('has_slider', $('input[name=slider]').prop("checked"));
+            data.append('description', check_value($('textarea[name=description]').val(), 'توضیحات را وارد کنید.'));
+            data.append('unit', check_value($('select[name=unit]').select2("val"), 'واحد را وارد کنید.'));
+            data.append('logo', $('input[type=file][name=logo]')[0].files[0]);
+            $.each($('input[type=file][name=image]'), function(){
+                data.append('image', $(this)[0].files[0]);
+            });
+            if(__error){
+                Alert.render(__message, function(){
+                    btn.html('افزودن');
+                    __a = true;
+                    __error = false;
+                    return;
+                });
+                __error = false;
+                return;
+            }
+            jQuery.ajax(
+                {
+                    url: '',
+                    type: "post",
+                    data: data,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        var status = response['status'];
+                        var value = response['value'];
+                        var messages = response['messages'];
+                        if (status) {
+                            Alert.render('success', function () {
+                                location.href = "";
+                                __a = true;
+                            });
+                        }else{
+                            var error = '';
+                            for(var i = 0; i < messages.length ; i++){
+                                error += messages[i] + '<br>';
+                            }
+                            if(error == '')
+                                error = 'error';
+                            Alert.render(error, function(){
+                                btn.html('افزودن');
+                                __a = true;
+                            });
+                        }
+                    },
+                    error: function () {
+                        Alert.render('error', function(){
+                            btn.html('افزودن');
+                            __a = true;
+                        });
+                    }
+                });
+        }
+    });
+
+    $(document).on('click', '.add-image', function(){
+        $('.images-uploads').append('<div class="col-md-3 image-row margin-top-20">\
+                <div><i class="fa fa-times delete-image cursor-pointer" style="font-size: 30px; color: red; float: right;"></i></div>\
+                <div class="fileupload fileupload-new" data-provides="fileupload">\
+                <div id="photo_show" class="fileupload-new thumbnail" style="width: 184px; height: 134px;">\
+                    <img  src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />\
+                </div>\
+                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 184px; max-height: 134px; line-height: 20px;"></div>\
+                <div>\
+                    <span class="btn backgroundBlue colorWhite btn-file">\
+                    <span data-toggle="modal" href="#cropper-foodlist" class="fileupload-new"><i class="fa fa-paper-clip"></i> انتخاب تصویر </span>\
+                    <span class="fileupload-exists"><i class="fa fa-undo"></i> تغییر</span>\
+                    <input name="image" type="file" class="default add-source" />\
+                    </span>\
+                    <a href="#" class="btn backgroundRed colorWhite fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> حذف</a>\
+                </div>\
+            </div></div>');
+    });
+
+    $(document).on('click', '.delete-image', function(e){
+        $(e.target).closest('.image-row').remove();
+    });
+
+</script>
+{% end block other_scripts %}

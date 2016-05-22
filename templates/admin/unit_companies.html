@@ -1,0 +1,261 @@
+{% extends base.html %}
+
+{% block container %}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default margin-top-30 font-yekan">
+                    <div class="panel-heading"><i class="fa fa-folder-open-o"></i><span>ایجاد و مدیریت واحد های شرکت ها</span> </div>
+                    <div class="panel-body">
+                        <div class="show_box">
+                            <div class="box_header">
+                                <span>فهرست واحد ها</span>
+                                <div class="new_content_btn show-modal-add-unit" data-toggle="modal">
+                                    <i class="fa fa-plus"></i>ایجاد واحد جدید
+                                </div>
+                            </div>
+                            <div class="box_body unit-div pr_drag">
+                                {% set __a = False %}
+                                {% for unit in units %}
+                                {% set __a = True %}
+                                    <div class="unit unit-row drag" data-unit="{{ unit['_id'] }}" id="{{ unit['_id'] }}">
+                                        <div class="draggable">
+                                            <div class="parent">
+                                                <div class="content_detail">
+                                                    <div class="display-inline-block"><span>{{ unit['name'] }}</span> </div>
+                                                    <div class="display-inline-block content_icon pull-left">
+                                                        <span class="edit-unit" data-unit="{{ unit['_id'] }}" data-name="{{ unit['name'] }}" data-parent="0">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </span>
+                                                        <span class="delete-unit" data-unit="{{ unit['_id'] }}">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% end %}
+                                {% if not __a %}
+                                    <div class="text-center empty">موردی وجود ندارد.</div>
+                                {% end %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade in" id="new_unit_modal" tabindex="-1" role="basic" aria-hidden="false">
+        <div class="modal-dialog" style="font-family: Yekan;width: 70%">
+            <div class="modal-content" style="border-radius: 7px !important; margin-top: 100px">
+                <div class="show_box">
+                    <div class="box_header">
+                        <div class="row">
+                            <div class="col-xs-11">
+                                <span>اضافه کردن واحد شرکت ها</span>
+                            </div>
+                            <div class="col-xs-1 text-left">
+                                <span class="cursor fa fa-times"
+                                      style="font-size:12pt;color: #828282;margin-top: 5px;cursor: pointer"
+                                      data-dismiss="modal" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_body" style="padding: 40px 10px;">
+                        <form id="add_unit">
+                            {% module xsrf_form_html() %}
+                            <input type="hidden" name="action" value="add">
+                            <input type="hidden" class="edit" name="unit">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <div class="row">
+                                        <div class="col-xs-3 text-right">
+                                            <span>نام:</span>
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <input name="name" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3"></div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-xs-2 pull-left">
+                                    <button type="submit" class="btn R_butt_green add-unit-btn">افزودن</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% end block container %}
+
+{% block other_scripts %}
+<script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
+<script>
+
+    var trash = '<i class="fa fa-trash-o"></i>';
+
+    var loader = '<img src="{{ static_url('images/loading.gif') }}" width="20" height="20">';
+
+    var unit = '<div class="unit unit-row"  data-unit="__unit_id__">\
+                <div class="parent">\
+                    <div class="content_detail">\
+                        <div class="display-inline-block"><span>__name__</span><span class="margin-right-35 font-size-10">(دارای <span data-unit="__unit_id__" class="counter-child">0</span> زیرمجموعه)</span> </div>\
+                        <div class="display-inline-block content_icon pull-left">\
+                            <i class="fa fa-pencil"></i>\
+                            <span class="delete-unit" data-unit="__id__">\
+                                <i class="fa fa-trash-o"></i>\
+                            </span>\
+                        </div>\
+                    </div>\
+                </div>\
+                <div class="child">\
+                </div>\
+            </div>';
+
+    var sub_unit = '<div class="content_sub_detail unit-row">\
+                        <div class="display-inline-block"><span>__name__</span> </div>\
+                        <div class="display-inline-block content_icon pull-left">\
+                            <i class="fa fa-pencil"></i>\
+                            <span class="delete-unit" data-unit="__id__">\
+                                <i class="fa fa-trash-o"></i>\
+                            </span>\
+                        </div>\
+                    </div>';
+
+    $(document).on('click', '.show-modal-add-unit', function(){
+        $('input[name=action]').val("add");
+        $('input[name=name]').val('');
+        $('.add-unit-btn').html('افزودن');
+        $('#new_unit_modal').modal('toggle');
+    });
+    $('#new_unit_modal').on('hidden.bs.modal', function () {
+        $('input[name=action]').val("add");
+        $('input[name=name]').val('');
+        $('.add-unit-btn').html('افزودن');
+    });
+
+    var __a = true;
+    $('#add_unit').submit(function(e){
+        if(__a){
+            __a = false;
+            e.preventDefault();
+            var btn =$('.add-unit-btn') ;
+            btn.html(loader);
+            var postData = $("#add_unit").serializeArray();
+            jQuery.ajax(
+                {
+                    url: '',
+                    type: "post",
+                    data: postData,
+                    success: function (response) {
+                        var status = response['status'];
+                        var value = response['value'];
+                        var messages = response['messages'];
+                        if (status) {
+                            Alert.render('success', function () {
+                                location.href = "";
+                            });
+                        }else{
+                            var error = '';
+                            for(var i = 0; i < messages.length ; i++){
+                                error += messages[i] + '<br>';
+                            }
+                            if(error == '')
+                                error = 'error';
+                            Alert.render(error, function(){
+                                btn.html('افزودن');
+                                __a = true;
+                            });
+                        }
+                    },
+                    error: function () {
+                        Alert.render('error', function(){
+                            btn.html('افزودن');
+                            __a = true;
+                        });
+                    }
+                });
+        }
+    });
+
+    var __b = true;
+    $(document).on('click', '.delete-unit', function(e){
+        if(__b){
+            __b = false;
+            Confirm.render(0, 0, 0, 0, 0, function(){
+                var elm = $(e.target).closest('.delete-unit');
+                var unit = elm.attr('data-unit');
+                elm.html(loader.replace(/20/g, '15'));
+                var postData = [
+                    {name: 'unit', value: unit},
+                    {name: '_xsrf', value: '{{ handler.xsrf_token }}'}
+                ];
+                jQuery.ajax(
+                    {
+                        url: '',
+                        type: "delete",
+                        data: postData,
+                        success: function (response) {
+                            var status = response['status'];
+                            var value = response['value'];
+                            var messages = response['messages'];
+                            if (status) {
+                                Alert.render('success', function () {
+                                    elm.closest('.unit-row').remove();
+                                    if (value['parent'] != null){
+                                        var c = $('.counter-child[data-unit=' + value['parent'] + ']');
+                                        c.html(parseInt(c.html()) - 1);
+                                    }
+                                    __b = true;
+                                });
+                            }else{
+                                var error = '';
+                                for(var i = 0; i < messages.length ; i++){
+                                    error += messages[i] + '<br>';
+                                }
+                                if(error == '')
+                                    error = 'error';
+                                Alert.render(error, function(){
+                                    elm.html(trash);
+                                    __b = true;
+                                });
+                            }
+                        },
+                        error: function () {
+                            Alert.render('error', function(){
+                                elm.html(trash);
+                                __b = true;
+                            });
+                        }
+                    });
+            }, function(){
+                __b = true;
+            });
+        }
+    });
+
+    var __c = true;
+    $(document).on('click', '.edit-unit', function(e){
+        if(__c){
+            __c = false;
+            var elm = $(e.target).closest('.edit-unit');
+            var unit = elm.attr('data-unit');
+            var name = elm.attr('data-name');
+            $('input[name=action]').val('edit');
+            $('.add-unit-btn').html('اعمال تغییرات');
+            $('input[name=name]').val(name);
+            $('input.edit[name=unit]').val(unit);
+            $('#new_unit_modal').modal('toggle');
+            __c = true;
+        }
+    });
+</script>
+{% end block other_scripts %}
