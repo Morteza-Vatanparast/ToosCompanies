@@ -6,6 +6,7 @@ from classes.upload_pic import UploadPic
 from handlers.base import BaseHandler
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
+from models.mongodb.province_city import ProvinceCityModel
 from models.mongodb.unit_companies import UnitCompaniesModel
 
 __author__ = 'Morteza'
@@ -29,6 +30,7 @@ class AdminAddCompaniesHandler(BaseHandler):
     def get(self, *args, **kwargs):
         self.data['units'] = UnitCompaniesModel().get_all()
         self.data['industrial_towns'] = IndustrialTownCompaniesModel().get_all()
+        self.data['provinces'] = ProvinceCityModel().get_all_province()
         self.render('admin/add_companies.html', **self.data)
 
     def post(self, *args, **kwargs):
@@ -38,9 +40,18 @@ class AdminAddCompaniesHandler(BaseHandler):
             slider = self.get_argument('slider', 'false')
             active = self.get_argument('active', 'false')
             description = self.get_argument('description', '')
+            address = self.get_argument('address', '')
+            phone = self.get_argument('phone', '')
+            fax = self.get_argument('fax', '')
+            site = self.get_argument('site', '')
+            email = self.get_argument('email', '')
+            ceo = self.get_argument('ceo', '')
+            province = int(self.get_argument('province', ''))
+            city = int(self.get_argument('city', ''))
             unit = ObjectId(self.get_argument('unit', ''))
             industrial_town = ObjectId(self.get_argument('industrial_town', ''))
-            if name != "" and description != "":
+            if name != "" and description != "" and address != "" and phone != "" and fax != "" and site != "" \
+                    and email != "" and ceo != "" and province != "" and city != "":
                 main_page = True if main_page == "true" else False
                 slider = True if slider == "true" else False
                 active = True if active == "true" else False
@@ -52,7 +63,10 @@ class AdminAddCompaniesHandler(BaseHandler):
                     images = UploadPic(handler=self, name='image', folder='image').upload()
                 except:
                     images = []
-                CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo, images=images, unit=unit, active=active, industrial_town=industrial_town).insert()
+                CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo,
+                               images=images, unit=unit, active=active, industrial_town=industrial_town,
+                               address=address, phone=phone, fax=fax, site=site, email=email,
+                               province=province, city=city, ceo=ceo).insert()
             self.status = True
             self.write(self.result)
         except:

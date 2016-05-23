@@ -60,6 +60,77 @@
                                             </div>
                                             <div class="row margin-top-10">
                                                 <div class="col-xs-3">
+                                                    <span class="form_label">آدرس</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <textarea class="form-control" cols="10" rows="5" name="address" style="resize: none"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">تلفن</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input type="text" name="phone" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">فکس</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input type="text" name="fax" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">سایت</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input type="text" name="site" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">ایمیل</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input type="text" name="email" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">مدیر عامل</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input type="text" name="ceo" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">استان</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <select class="select" name="province">
+                                                        <option value="">انتخاب کنید.</option>
+                                                        {% for p in provinces %}
+                                                            <option value="{{ p['_id'] }}">{{ p['name'] }}</option>
+                                                        {% end %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">شهر</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <select class="select" name="city">
+                                                        <option value="">انتخاب کنید.</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
                                                     <span class="form_label">واحد</span>
                                                 </div>
                                                 <div class="col-xs-9">
@@ -96,7 +167,7 @@
                                             </div>
                                             <div class="row margin-top-10">
                                                 <div class="col-xs-3">
-                                                    <span class="form_label">توضیحات</span>
+                                                    <span class="form_label">درباره شرکت</span>
                                                 </div>
                                                 <div class="col-xs-9">
                                                     <textarea class="form-control" cols="10" rows="10" name="description" style="resize: none"></textarea>
@@ -149,6 +220,14 @@
             var data = new FormData();
             data.append('_xsrf', '{{ handler.xsrf_token }}');
             data.append('name', check_value($('input[name=name]').val(), 'نام را وارد کنید.'));
+            data.append('address', check_value($('textarea[name=address]').val(), 'آدرس را وارد کنید.'));
+            data.append('phone', check_value($('input[name=phone]').val(), 'تلفن را وارد کنید.'));
+            data.append('fax', check_value($('input[name=fax]').val(), 'فکس را وارد کنید.'));
+            data.append('site', check_value($('input[name=site]').val(), 'سایت را وارد کنید.'));
+            data.append('email', check_value($('input[name=email]').val(), 'ایمیل را وارد کنید.'));
+            data.append('ceo', check_value($('input[name=ceo]').val(), 'مدیر عامل را وارد کنید.'));
+            data.append('province', check_value($('select[name=province]').select2("val"), 'استان را وارد کنید.'));
+            data.append('city', check_value($('select[name=city]').select2("val"), 'شهر را وارد کنید.'));
             data.append('main_page', $('input[name=main_page]').prop("checked"));
             data.append('has_slider', $('input[name=slider]').prop("checked"));
             data.append('active', $('input[name=active]').prop("checked"));
@@ -231,6 +310,23 @@
 
     $(document).on('click', '.delete-image', function(e){
         $(e.target).closest('.image-row').remove();
+    });
+
+    $('select[name=province]').on("change", function(){
+        var province = $(this).select2("val");
+        var postData = [
+            {name: 'province', value: province},
+            {name: '_xsrf', value: '{{ handler.xsrf_token }}'}
+        ];
+        jQuery.ajax(
+            {
+                url: '{{ reverse_url('province_city') }}',
+                type: "post",
+                data: postData,
+                success: function (response) {
+                    $("select[name=city]").html(response['html']).select2("val", response['selected']);
+                }
+            });
     });
 
 </script>

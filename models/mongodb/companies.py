@@ -2,7 +2,9 @@ from models.mongodb.base_model import MongodbModel
 
 
 class CompaniesModel:
-    def __init__(self, _id=None, name=None, main_page=None, slider=None, description=None, logo=None, images=None, unit=None, active=None, industrial_town=None):
+    def __init__(self, _id=None, name=None, main_page=None, slider=None, description=None, logo=None, images=None,
+                 unit=None, active=None, industrial_town=None, address=None, phone=None, fax=None, site=None,
+                 email=None, province=None, city=None, ceo=None):
         self.id = _id
         self.name = name
         self.main_page = main_page
@@ -13,6 +15,14 @@ class CompaniesModel:
         self.unit = unit
         self.active = active
         self.industrial_town = industrial_town
+        self.address = address
+        self.phone = phone
+        self.fax = fax
+        self.site = site
+        self.email = email
+        self.province = province
+        self.city = city
+        self.ceo = ceo
 
     def insert(self):
         try:
@@ -25,6 +35,14 @@ class CompaniesModel:
                 "images": self.images,
                 "unit": self.unit,
                 "industrial_town": self.industrial_town,
+                "address": self.address,
+                "phone": self.phone,
+                "fax": self.fax,
+                "site": self.site,
+                "email": self.email,
+                "province": self.province,
+                "city": self.city,
+                "ceo": self.ceo,
                 "active": self.active
             }
             MongodbModel(body=__body, collection="companies").insert()

@@ -7,6 +7,7 @@ __author__ = 'Morteza'
 
 url_patterns = [
     ("/", base.IndexHandler, None, "index"),
+    ("/ProvinceCity", base.ProvinceCityHandler, None, "province_city"),
 
     (r'^(?i)/Admin/Companies[/]?$', admin.AdminCompaniesHandler),
     (r'^/Admin/Companies', admin.AdminCompaniesHandler, None, "admin:companies"),
