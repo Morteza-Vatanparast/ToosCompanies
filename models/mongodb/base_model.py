@@ -30,6 +30,8 @@ class MongodbModel(MongodbBaseModel):
             self.collection = self.db.companies
         if collection == 'unit_companies':
             self.collection = self.db.unit_companies
+        if collection == 'industrial_town_companies':
+            self.collection = self.db.industrial_town_companies
 
     def insert(self):
         try:

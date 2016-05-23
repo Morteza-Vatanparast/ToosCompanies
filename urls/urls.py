@@ -20,4 +20,7 @@ url_patterns = [
 
     (r'^(?i)/Admin/UnitCompanies[/]?$', admin.AdminUnitCompaniesHandler),
     (r'^/Admin/UnitCompanies', admin.AdminUnitCompaniesHandler, None, "admin:unit_companies"),
+
+    (r'^(?i)/Admin/IndustrialTownsCompanies[/]?$', admin.AdminIndustrialTownCompaniesHandler),
+    (r'^/Admin/IndustrialTownsCompanies', admin.AdminIndustrialTownCompaniesHandler, None, "admin:industrial_town_companies"),
 ]
