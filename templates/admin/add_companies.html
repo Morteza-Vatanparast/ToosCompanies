@@ -31,8 +31,9 @@
                                                 </div>
                                                 <div class="col-xs-9">
                                                     <div class="row">
-                                                        <div class="col-md-6 text-center"><span style="margin-left: 10px">صفحه اصلی</span><input type="checkbox" name="main_page" value="True"></div>
-                                                        <div class="col-md-6 text-center"><span style="margin-left: 10px">اسلایدر</span><input type="checkbox" name="slider" value="True"></div>
+                                                        <div class="col-md-4 text-center"><span style="margin-left: 10px">صفحه اصلی</span><input type="checkbox" name="main_page" value="True"></div>
+                                                        <div class="col-md-4 text-center"><span style="margin-left: 10px">اسلایدر</span><input type="checkbox" name="slider" value="True"></div>
+                                                        <div class="col-md-4 text-center"><span style="margin-left: 10px">فعال </span><input type="checkbox" name="active" checked value="True"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -137,6 +138,7 @@
             data.append('name', check_value($('input[name=name]').val(), 'نام را وارد کنید.'));
             data.append('main_page', $('input[name=main_page]').prop("checked"));
             data.append('has_slider', $('input[name=slider]').prop("checked"));
+            data.append('active', $('input[name=active]').prop("checked"));
             data.append('description', check_value($('textarea[name=description]').val(), 'توضیحات را وارد کنید.'));
             data.append('unit', check_value($('select[name=unit]').select2("val"), 'واحد را وارد کنید.'));
             data.append('logo', $('input[type=file][name=logo]')[0].files[0]);

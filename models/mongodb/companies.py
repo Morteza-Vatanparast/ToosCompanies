@@ -2,7 +2,7 @@ from models.mongodb.base_model import MongodbModel
 
 
 class CompaniesModel:
-    def __init__(self, _id=None, name=None, main_page=None, slider=None, description=None, logo=None, images=None, unit=None):
+    def __init__(self, _id=None, name=None, main_page=None, slider=None, description=None, logo=None, images=None, unit=None, active=None):
         self.id = _id
         self.name = name
         self.main_page = main_page
@@ -11,6 +11,7 @@ class CompaniesModel:
         self.logo = logo
         self.images = images
         self.unit = unit
+        self.active = active
 
     def insert(self):
         try:
@@ -22,6 +23,7 @@ class CompaniesModel:
                 "logo": self.logo,
                 "images": self.images,
                 "unit": self.unit,
+                "active": self.active
             }
             MongodbModel(body=__body, collection="companies").insert()
             return True

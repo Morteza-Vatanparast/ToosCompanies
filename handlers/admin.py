@@ -12,7 +12,16 @@ __author__ = 'Morteza'
 
 class AdminCompaniesHandler(BaseHandler):
     def get(self, *args, **kwargs):
-        self.render('index.html', **self.data)
+        companies = CompaniesModel().get_all()
+        self.data['companies'] = []
+        for i in companies:
+            try:
+                i['unit_name'] = UnitCompaniesModel(_id=i['_id']).get_one()['name']
+            except:
+                i['unit_name'] = u"وجود ندارد"
+            i['status'] = i['status'] if 'status' in i.keys() else False
+            self.data['companies'].append(i)
+        self.render('admin/companies.html', **self.data)
 
 
 class AdminAddCompaniesHandler(BaseHandler):
@@ -25,11 +34,13 @@ class AdminAddCompaniesHandler(BaseHandler):
             name = self.get_argument('name', '')
             main_page = self.get_argument('main_page', 'false')
             slider = self.get_argument('slider', 'false')
+            active = self.get_argument('active', 'false')
             description = self.get_argument('description', '')
             unit = ObjectId(self.get_argument('unit', ''))
             if name != "" and description != "":
                 main_page = True if main_page == "true" else False
                 slider = True if slider == "true" else False
+                active = True if active == "true" else False
                 try:
                     logo = UploadPic(handler=self, name='logo', folder='logo').upload()[0]
                 except:
@@ -38,7 +49,7 @@ class AdminAddCompaniesHandler(BaseHandler):
                     images = UploadPic(handler=self, name='image', folder='image').upload()
                 except:
                     images = []
-                CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo, images=images, unit=unit).insert()
+                CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo, images=images, unit=unit, active=active).insert()
             self.status = True
             self.write(self.result)
         except:

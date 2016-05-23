@@ -24,6 +24,13 @@ class UnitCompaniesModel:
         except:
             return []
 
+    def get_one(self):
+        try:
+            __body = {"_id": self.id}
+            return MongodbModel(body=__body, collection="unit_companies").get_one()
+        except:
+            return False
+
     def update(self):
         try:
             __body = {
