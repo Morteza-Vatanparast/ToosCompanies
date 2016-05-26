@@ -27,7 +27,7 @@
                                         {% set __a = True %}
                                         <tr class="product-row">
                                             <td>{{ product['name'] }}</td>
-                                            <td><img height="40" width="40" src="{{ static_url('images/product/' + product['image']) }}"></td>
+                                            <td><img height="40" width="40" src="{{ static_url('images/product_image/' + product['image']) }}"></td>
                                             <td>{{ product['type_name'] + " -- " + product['sub_type_name'] }}</td>
                                             <td>
                                                 <span class="delete-product" data-product="{{ product['_id'] }}">

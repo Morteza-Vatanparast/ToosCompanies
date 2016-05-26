@@ -28,9 +28,9 @@
                                         {% set __a = True %}
                                         <tr class="company-row">
                                             <td>{{ company['name'] }}</td>
-                                            <td><img height="40" width="40" src="{{ static_url('images/logo/' + company['logo']) }}"></td>
+                                            <td><img height="40" width="40" src="{{ static_url('images/company_logo/' + company['logo']) }}"></td>
                                             <td>{{ company['unit_name'] }}</td>
-                                            <td>{% if company['status'] %}فعال{% else %}غیر فعال{% end %}</td>
+                                            <td>{% if company['active'] %}فعال{% else %}غیر فعال{% end %}</td>
                                             <td>
                                                 <span class="delete-company" data-company="{{ company['_id'] }}">
                                                     <i class="fa fa-trash-o"></i>

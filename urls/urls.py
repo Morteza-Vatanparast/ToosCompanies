@@ -15,9 +15,9 @@ url_patterns = [
     (r'^(?i)/Admin/AddCompanies[/]?$', admin.AdminAddCompaniesHandler),
     (r'^/Admin/AddCompanies', admin.AdminAddCompaniesHandler, None, "admin:add_companies"),
 
-    (r'^(?i)/Admin/EditCompanies[/]?([\w^/]+)?[/]?$', admin.AdminAddCompaniesHandler),
-    (r'/Admin/EditCompanies', admin.AdminAddCompaniesHandler, None, 'admin:edit_companies'),
-    (r'/Admin/EditCompanies/(id)', admin.AdminAddCompaniesHandler, None, 'admin:edit_companies_by_id'),
+    (r'^(?i)/Admin/EditCompanies[/]?([\w^/]+)?[/]?$', admin.AdminEditCompaniesHandler),
+    (r'/Admin/EditCompanies', admin.AdminEditCompaniesHandler, None, 'admin:edit_companies'),
+    (r'/Admin/EditCompanies/(id)', admin.AdminEditCompaniesHandler, None, 'admin:edit_companies_by_id'),
 
     (r'^(?i)/Admin/UnitCompanies[/]?$', admin.AdminUnitCompaniesHandler),
     (r'^/Admin/UnitCompanies', admin.AdminUnitCompaniesHandler, None, "admin:unit_companies"),
