@@ -1,0 +1,261 @@
+{% extends base.html %}
+
+{% block container %}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default margin-top-30 font-yekan">
+                    <div class="panel-heading"><i class="fa fa-folder-open-o"></i><span>ایجاد و مدیریت انواع</span> </div>
+                    <div class="panel-body">
+                        <div class="show_box">
+                            <div class="box_header">
+                                <span>فهرست انواع</span>
+                                <div class="new_content_btn show-modal-add-type" data-toggle="modal">
+                                    <i class="fa fa-plus"></i>ایجاد نوع جدید
+                                </div>
+                            </div>
+                            <div class="box_body type-div pr_drag">
+                                {% set __a = False %}
+                                {% for _type in type_products %}
+                                    {% set __a = True %}
+                                    <div class="type type-row" data-type="{{ _type['_id'] }}" id="{{ _type['_id'] }}">
+                                        <div class="parent">
+                                            <div class="content_detail">
+                                                <div class="display-inline-block"><span>{{ _type['name'] }}</span></div>
+                                                <div class="display-inline-block content_icon pull-left">
+                                                    <span class="edit-type" data-type="{{ _type['_id'] }}" data-name="{{ _type['name'] }}" data-parent="0">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </span>
+                                                    <span class="delete-type" data-type="{{ _type['_id'] }}">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="child">
+                                            {% for child in _type['child'] %}
+                                                <div class="content_sub_detail type-row">
+                                                    <div class="display-inline-block">{{ child['name'] }}</div>
+                                                    <div class="display-inline-block content_icon pull-left">
+                                                            <span class="edit-type" data-type="{{ child['_id'] }}" data-name="{{ child['name'] }}" data-parent="{{ _type['_id'] }}">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </span>
+                                                        <span class="delete-type" data-type="{{ child['_id'] }}">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            {% end %}
+                                        </div>
+                                    </div>
+                                {% end %}
+                                {% if not __a %}
+                                    <div class="text-center empty">موردی وجود ندارد.</div>
+                                {% end %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade in" id="new_type_modal" tabindex="-1" role="basic" aria-hidden="false">
+        <div class="modal-dialog" style="font-family: Yekan;width: 70%">
+            <div class="modal-content" style="border-radius: 7px !important; margin-top: 100px">
+                <div class="show_box">
+                    <div class="box_header">
+                        <div class="row">
+                            <div class="col-xs-11">
+                                <span>اضافه کردن نوع</span>
+                            </div>
+                            <div class="col-xs-1 text-left">
+                                <span class="cursor fa fa-times"
+                                      style="font-size:12pt;color: #828282;margin-top: 5px;cursor: pointer"
+                                      data-dismiss="modal" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_body" style="padding: 40px 10px">
+                        <form id="add_type">
+                            {% module xsrf_form_html() %}
+                            <input type="hidden" name="action" value="add">
+                            <input type="hidden" class="edit" name="type">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <div class="row">
+                                        <div class="col-xs-3 text-right">
+                                            <span>نام:</span>
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <input name="type-name" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-xs-3 text-right">
+                                            <span>زیر مجموعه کردن نوع:</span>
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <select name="type-parent" style="width: 100%" class="select">
+                                                <option value="0">اصلی</option>
+                                                {% for sub in type_products %}
+                                                    <option value="{{ sub['_id'] }}">{{ sub['name'] }}</option>
+                                                {% end %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3"></div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-xs-2 pull-left">
+                                    <button type="submit" class="btn R_butt_green add-type-btn">افزودن</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% end block container %}
+
+{% block other_scripts %}
+<script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
+<script>
+
+    var trash = '<i class="fa fa-trash-o"></i>';
+
+    var loader = '<img src="{{ static_url('images/loading.gif') }}" width="20" height="20">';
+
+    $(document).on('click', '.show-modal-add-type', function(){
+        $('input[name=action]').val("add");
+        $('input[name=type-name]').val('');
+        $('.add-type-btn').html('افزودن');
+        $('select[name=type-parent]').select2("val", '0');
+        $('#new_type_modal').modal('toggle');
+    });
+    $('#new_type_modal').on('hidden.bs.modal', function () {
+        $('input[name=action]').val("add");
+        $('input[name=type-name]').val('');
+        $('.add-type-btn').html('افزودن');
+        $('select[name=type-parent]').select2("val", '0');
+    });
+
+    var __a = true;
+    $('#add_type').submit(function(e){
+        if(__a){
+            __a = false;
+            e.preventDefault();
+            var btn =$('.add-type-btn') ;
+            btn.html(loader);
+            var postData = $("#add_type").serializeArray();
+            jQuery.ajax(
+                {
+                    url: '',
+                    type: "post",
+                    data: postData,
+                    success: function (response) {
+                        var status = response['status'];
+                        var value = response['value'];
+                        var messages = response['messages'];
+                        if (status) {
+                            Alert.render('success', function () {
+                                location.href = "";
+                            });
+                        }else{
+                            var error = '';
+                            for(var i = 0; i < messages.length ; i++){
+                                error += messages[i] + '<br>';
+                            }
+                            if(error == '')
+                                error = 'error';
+                            Alert.render(error, function(){
+                                btn.html('افزودن');
+                                __a = true;
+                            });
+                        }
+                    },
+                    error: function () {
+                        Alert.render('error', function(){
+                            btn.html('افزودن');
+                            __a = true;
+                        });
+                    }
+                });
+        }
+    });
+
+    var __b = true;
+    $(document).on('click', '.delete-type', function(e){
+        if(__b){
+            __b = false;
+            Confirm.render(0, 0, 0, 0, 0, function(){
+                var elm = $(e.target).closest('.delete-type');
+                var type = elm.attr('data-type');
+                elm.html(loader.replace(/20/g, '15'));
+                var postData = [
+                    {name: 'type', value: type},
+                    {name: '_xsrf', value: '{{ handler.xsrf_token }}'},
+                    {name: 'action', value: 'delete'}
+                ];
+                jQuery.ajax(
+                    {
+                        url: '',
+                        type: "post",
+                        data: postData,
+                        success: function (response) {
+                            var status = response['status'];
+                            var value = response['value'];
+                            var messages = response['messages'];
+                            if (status) {
+                                Alert.render('success', function () {
+                                    elm.closest('.type-row').remove();
+                                    __b = true;
+                                });
+                            }else{
+                                var error = '';
+                                for(var i = 0; i < messages.length ; i++){
+                                    error += messages[i] + '<br>';
+                                }
+                                if(error == '')
+                                    error = 'error';
+                                Alert.render(error, function(){
+                                    elm.html(trash);
+                                    __b = true;
+                                });
+                            }
+                        },
+                        error: function () {
+                            Alert.render('error', function(){
+                                elm.html(trash);
+                                __b = true;
+                            });
+                        }
+                    });
+            }, function(){
+                __b = true;
+            });
+        }
+    });
+
+    var __c = true;
+    $(document).on('click', '.edit-type', function(e){
+        if(__c){
+            __c = false;
+            var elm = $(e.target).closest('.edit-type');
+            var type = elm.attr('data-type');
+            var name = elm.attr('data-name');
+            var parent = elm.attr('data-parent');
+            $('input[name=action]').val('edit');
+            $('.add-type-btn').html('اعمال تغییرات');
+            $('input[name=type-name]').val(name);
+            $('input.edit[name=type]').val(type);
+            $('select[name=type-parent]').select2("val", parent);
+            $('#new_type_modal').modal('toggle');
+            __c = true;
+        }
+    });
+</script>
+{% end block other_scripts %}

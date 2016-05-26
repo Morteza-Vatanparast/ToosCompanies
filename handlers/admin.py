@@ -10,8 +10,10 @@ from classes.upload_pic import UploadPic
 from handlers.base import BaseHandler
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
+from models.mongodb.products import ProductsModel
 from models.mongodb.province_city import ProvinceCityModel
 from models.mongodb.tables import TablesModel
+from models.mongodb.type_products import TypeProductsModel
 from models.mongodb.unit_companies import UnitCompaniesModel
 
 __author__ = 'Morteza'
@@ -29,6 +31,15 @@ class AdminCompaniesHandler(BaseHandler):
             i['status'] = i['status'] if 'status' in i.keys() else False
             self.data['companies'].append(i)
         self.render('admin/companies.html', **self.data)
+
+    def delete(self, *args, **kwargs):
+        try:
+            company = self.get_argument('company', '')
+            CompaniesModel(_id=ObjectId(company)).delete()
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
 
 
 class AdminAddCompaniesHandler(BaseHandler):
@@ -214,3 +225,121 @@ class AdminTablesHandler(BaseHandler):
         except:
             self.write(self.error_result)
 
+
+class AdminTypeProductsHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        self.data['type_products'] = TypeProductsModel().get_all()
+        self.render('admin/type_products.html', **self.data)
+
+    def post(self):
+        try:
+            action = self.get_argument('action', '')
+
+            if action == 'add':
+                _type = dict()
+                self.check_sent_value("type-name", _type, "name", u"نام موضوع را وارد کنید.")
+                self.check_sent_value("type-parent", _type, "parent", u"مجموعه را وارد کنید.")
+                if not len(self.errors):
+                    if _type['parent'] == '0':
+                        _type['parent'] = None
+                    else:
+                        _type['parent'] = ObjectId(_type['parent'])
+                    TypeProductsModel(**_type).insert()
+                    self.status = True
+                else:
+                    self.messages = self.errors
+            elif action == 'edit':
+                _type = dict()
+                self.check_sent_value("type", _type, "_id", u"همه موارد را وارد کنید.")
+                self.check_sent_value("type-name", _type, "name", u"نام موضوع را وارد کنید.")
+                self.check_sent_value("type-parent", _type, "parent", u"مجموعه را وارد کنید.")
+                if not len(self.errors):
+                    if _type['parent'] == '0':
+                        _type['parent'] = None
+                    else:
+                        _type['parent'] = ObjectId(_type['parent'])
+                    _type['_id'] = ObjectId(_type['_id'])
+                    TypeProductsModel(**_type).update()
+                    self.status = True
+                else:
+                    self.messages = self.errors
+            elif action == 'delete':
+                _type = self.get_argument('type', '')
+                TypeProductsModel(_id=ObjectId(_type)).delete()
+                self.status = True
+            else:
+                self.messages = [u"عملیا ت با خطا مواجه شد"]
+
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
+class AdminProductsHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        products = ProductsModel().get_all()
+        self.data['products'] = []
+        for i in products:
+            try:
+                i['type_name'] = TypeProductsModel(_id=i['type']).get_one()['name']
+            except:
+                i['type_name'] = u"وجود ندارد"
+            try:
+                i['sub_type_name'] = TypeProductsModel(_id=i['sub_type']).get_one()['name']
+            except:
+                i['sub_type_name'] = u"وجود ندارد"
+            self.data['products'].append(i)
+        self.render('admin/products.html', **self.data)
+
+    def delete(self, *args, **kwargs):
+        try:
+            product = self.get_argument('product', '')
+            ProductsModel(_id=ObjectId(product)).delete()
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
+class AdminAddProductsHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        self.data['type_products'] = TypeProductsModel().get_all()
+        self.render('admin/add_products.html', **self.data)
+
+    def post(self, *args, **kwargs):
+        try:
+            name = self.get_argument('name', '')
+            try:
+                _type = ObjectId(self.get_argument('type', ''))
+                _sub_type = ObjectId(self.get_argument('sub_type', ''))
+            except:
+                _type = ""
+                _sub_type = ""
+
+            if name != "" and _type != "" and _sub_type != "":
+                try:
+                    image = UploadPic(handler=self, name='image', folder='product').upload()[0]
+                except:
+                    image = 'default.jpg'
+                ProductsModel(name=name, _type=_type, _sub_type=_sub_type, image=image).insert()
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
+class AdminEditProductsHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        products = ProductsModel().get_all()
+        self.data['products'] = []
+        for i in products:
+            try:
+                i['type_name'] = TypeProductsModel(_id=i['type']).get_one()['name']
+            except:
+                i['type_name'] = u"وجود ندارد"
+            try:
+                i['sub_type_name'] = TypeProductsModel(_id=i['sub_type']).get_one()['name']
+            except:
+                i['sub_type_name'] = u"وجود ندارد"
+            self.data['products'].append(i)
+        self.render('admin/products.html', **self.data)

@@ -4,7 +4,11 @@ import datetime
 
 import khayyam
 import tornado.web
+from bson import ObjectId
+
 from models.mongodb.province_city import ProvinceCityModel
+from models.mongodb.type_products import TypeProductsModel
+
 __author__ = 'Morteza'
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -75,6 +79,27 @@ class ProvinceCityHandler(BaseHandler):
                 html = "<option value="">انتخاب کنید.</option>"
                 __a = True
                 for i in cities:
+                    if __a:
+                        selected = str(i['_id'])
+                    html += "<option value=" + str(i['_id']) + ">" + i['name'].encode("utf-8") + "</option>"
+                    __a = False
+            except:
+                html = "<option selected value="">انتخاب کنید.</option>"
+            self.write(dict(html=html, selected=selected))
+        except:
+            self.write(dict(html="<option selected value="">انتخاب کنید.</option>", selected=selected))
+
+
+class SubTypeProductsHandler(BaseHandler):
+    def post(self, *args, **kwargs):
+        selected = ""
+        try:
+            _type = ObjectId(self.get_argument('type', 0))
+            _sub_types = TypeProductsModel(parent=ObjectId(_type)).get_all_sub()
+            try:
+                html = "<option value="">انتخاب کنید.</option>"
+                __a = True
+                for i in _sub_types:
                     if __a:
                         selected = str(i['_id'])
                     html += "<option value=" + str(i['_id']) + ">" + i['name'].encode("utf-8") + "</option>"

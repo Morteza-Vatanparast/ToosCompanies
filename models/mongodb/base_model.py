@@ -38,6 +38,10 @@ class MongodbModel(MongodbBaseModel):
             self.collection = self.db.city
         if collection == 'tables':
             self.collection = self.db.tables
+        if collection == 'type_products':
+            self.collection = self.db.type_products
+        if collection == 'products':
+            self.collection = self.db.products
 
     def insert(self):
         try:

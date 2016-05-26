@@ -4,10 +4,10 @@ from handlers import base
 from handlers import admin
 
 __author__ = 'Morteza'
-
 url_patterns = [
     ("/", base.IndexHandler, None, "index"),
     ("/ProvinceCity", base.ProvinceCityHandler, None, "province_city"),
+    ("/SubTypeProducts", base.SubTypeProductsHandler, None, "sub_type_products"),
 
     (r'^(?i)/Admin/Companies[/]?$', admin.AdminCompaniesHandler),
     (r'^/Admin/Companies', admin.AdminCompaniesHandler, None, "admin:companies"),
@@ -27,4 +27,18 @@ url_patterns = [
 
     (r'^(?i)/Admin/Tables[/]?$', admin.AdminTablesHandler),
     (r'^/Admin/Tables', admin.AdminTablesHandler, None, "admin:tables"),
+
+    (r'^(?i)/Admin/TypeProducts[/]?$', admin.AdminTypeProductsHandler),
+    (r'^/Admin/TypeProducts', admin.AdminTypeProductsHandler, None, "admin:type_products"),
+
+    (r'^(?i)/Admin/Products[/]?$', admin.AdminProductsHandler),
+    (r'^/Admin/Products', admin.AdminProductsHandler, None, "admin:products"),
+
+    (r'^(?i)/Admin/AddProducts[/]?$', admin.AdminAddProductsHandler),
+    (r'^/Admin/AddProducts', admin.AdminAddProductsHandler, None, "admin:add_products"),
+
+    (r'^(?i)/Admin/EditProducts[/]?([\w^/]+)?[/]?$', admin.AdminEditProductsHandler),
+    (r'/Admin/EditProducts', admin.AdminEditProductsHandler, None, 'admin:edit_products'),
+    (r'/Admin/EditProducts/(id)', admin.AdminEditProductsHandler, None, 'admin:edit_products_by_id'),
 ]
+
