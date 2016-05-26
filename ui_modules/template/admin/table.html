@@ -1,0 +1,19 @@
+<table class="table table-bordered source_news_table">
+    <tr>
+        <td>
+            {{ table['name'] }}
+        </td>
+        {% for i in table['trs'][0] %}
+            <td>{{ i['name'] }}</td>
+        {% end %}
+    </tr>
+    {% for i in range(1, len(table['trs'])) %}
+        {% set tr = table['trs'][i] %}
+        <tr>
+            <td>{{ tr['name'] }}</td>
+            {% for td in tr['tds'] %}
+                <td>{{ td['amount'] }}</td>
+            {% end %}
+        </tr>
+    {% end %}
+</table>

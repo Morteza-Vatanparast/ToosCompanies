@@ -24,4 +24,7 @@ url_patterns = [
 
     (r'^(?i)/Admin/IndustrialTownsCompanies[/]?$', admin.AdminIndustrialTownCompaniesHandler),
     (r'^/Admin/IndustrialTownsCompanies', admin.AdminIndustrialTownCompaniesHandler, None, "admin:industrial_town_companies"),
+
+    (r'^(?i)/Admin/Tables[/]?$', admin.AdminTablesHandler),
+    (r'^/Admin/Tables', admin.AdminTablesHandler, None, "admin:tables"),
 ]

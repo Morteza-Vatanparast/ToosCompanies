@@ -4,7 +4,7 @@ from models.mongodb.base_model import MongodbModel
 class CompaniesModel:
     def __init__(self, _id=None, name=None, main_page=None, slider=None, description=None, logo=None, images=None,
                  unit=None, active=None, industrial_town=None, address=None, phone=None, fax=None, site=None,
-                 email=None, province=None, city=None, ceo=None):
+                 email=None, province=None, city=None, ceo=None, mobile=None, mobile2=None, products=None):
         self.id = _id
         self.name = name
         self.main_page = main_page
@@ -17,6 +17,9 @@ class CompaniesModel:
         self.industrial_town = industrial_town
         self.address = address
         self.phone = phone
+        self.mobile = mobile
+        self.mobile2 = mobile2
+        self.products = products
         self.fax = fax
         self.site = site
         self.email = email
@@ -37,13 +40,16 @@ class CompaniesModel:
                 "industrial_town": self.industrial_town,
                 "address": self.address,
                 "phone": self.phone,
+                "mobile": self.mobile,
+                "mobile2": self.mobile2,
                 "fax": self.fax,
                 "site": self.site,
                 "email": self.email,
                 "province": self.province,
                 "city": self.city,
                 "ceo": self.ceo,
-                "active": self.active
+                "active": self.active,
+                "products": self.products
             }
             MongodbModel(body=__body, collection="companies").insert()
             return True

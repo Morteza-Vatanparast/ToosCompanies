@@ -36,6 +36,8 @@ class MongodbModel(MongodbBaseModel):
             self.collection = self.db.province
         if collection == 'city':
             self.collection = self.db.city
+        if collection == 'tables':
+            self.collection = self.db.tables
 
     def insert(self):
         try:

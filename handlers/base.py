@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import datetime
+
+import khayyam
 import tornado.web
 from models.mongodb.province_city import ProvinceCityModel
 __author__ = 'Morteza'
@@ -38,10 +41,28 @@ class BaseHandler(tornado.web.RequestHandler):
     def messages(self, messages):
         self.result['messages'] = messages
 
+    def check_sent_value(self, val, _table, _field, error_msg=None, nullable=False, default=None):
+        vl = self.get_argument(val, None)
+
+        if vl is not None:
+            if not nullable:
+                if vl != '':
+                    _table[_field] = vl
+                else:
+                    if error_msg:
+                        self.errors.append(error_msg)
+            else:
+                _table[_field] = vl if vl else default
+        else:
+            if error_msg:
+                self.errors.append(error_msg)
+
 
 class IndexHandler(BaseHandler):
     def get(self, *args, **kwargs):
-        self.render('index.html')
+        self.data['__now'] = datetime.datetime.now()
+        self.data['__now_name'] = khayyam.JalaliDatetime().now().strftime("%A - %d %B %Y")
+        self.render('index.html', **self.data)
 
 
 class ProvinceCityHandler(BaseHandler):

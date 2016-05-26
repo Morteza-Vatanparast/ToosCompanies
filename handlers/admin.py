@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import json
+
 from bson import ObjectId
 
+from classes.get_url import GetUrl
+from classes.soap import Soap
 from classes.upload_pic import UploadPic
 from handlers.base import BaseHandler
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
 from models.mongodb.province_city import ProvinceCityModel
+from models.mongodb.tables import TablesModel
 from models.mongodb.unit_companies import UnitCompaniesModel
 
 __author__ = 'Morteza'
@@ -135,3 +140,77 @@ class AdminIndustrialTownCompaniesHandler(BaseHandler):
             self.write(self.result)
         except:
             self.write(self.error_result)
+
+
+
+class AdminTablesHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        self.data['tables'] = TablesModel().get_all()
+        self.render('admin/tables.html', **self.data)
+
+    def post(self):
+        try:
+            method = self.get_argument('method')
+            if method == "AddTable":
+                try:
+                    trs = json.loads(self.get_argument('trs', '[]'))
+                except:
+                    trs = []
+                _d = dict()
+                self.check_sent_value("name", _d, "name", u"نام جدول را وارد کنید")
+                self.check_sent_value("base_link", _d, "base_link", u"آدرس سایت را وارد کنید")
+                self.check_sent_value("active", _d, "active")
+                _d['active'] = True if 'active' in _d.keys() else False
+                _d['trs'] = trs
+                if not len(self.errors):
+                    TablesModel().insert(**_d)
+                    self.status = True
+                else:
+                    self.messages = self.errors
+            if method == "EditTable":
+                try:
+                    trs = json.loads(self.get_argument('trs', '[]'))
+                except:
+                    trs = []
+                _d = dict()
+                self.check_sent_value("_id", _d, "_id", u"همه موارد را وارد کنید")
+                self.check_sent_value("name", _d, "name", u"نام جدول را وارد کنید")
+                self.check_sent_value("base_link", _d, "base_link", u"آدرس سایت را وارد کنید")
+                self.check_sent_value("active", _d, "active")
+                _d['active'] = True if 'active' in _d.keys() else False
+                _d['trs'] = trs
+                if not len(self.errors):
+                    TablesModel(_id=ObjectId(_d['_id'])).update(**_d)
+                    self.status = True
+                else:
+                    self.messages = self.errors
+
+            elif method == "PreviewTable":
+                table = self.get_argument('table', '')
+                table = TablesModel(_id=ObjectId(table)).get_one()
+                data = GetUrl(url=table['base_link']).value
+                doc = Soap(document=data).soap
+                for i in range(1, len(table['trs'])):
+                    for td in table['trs'][i]['tds']:
+                        try:
+                            td['amount'] = doc.select_one(td['address']).text.encode('utf-8').strip()
+                        except:
+                            td['amount'] = 'نا مشخص'
+
+                self.value = self.render_string("../ui_modules/template/admin/table.html", table=table)
+                self.status = True
+
+            elif method == "ShowEditTable":
+                table = self.get_argument('table', '')
+                self.value = TablesModel(_id=ObjectId(table)).get_one()
+                self.value['_id'] = str(self.value['_id'])
+                self.status = True
+
+            elif method == "DeleteTable":
+                table = self.get_argument('table', '')
+                TablesModel(_id=ObjectId(table)).delete()
+                self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
