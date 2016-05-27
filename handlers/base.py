@@ -74,9 +74,11 @@ class ProvinceCityHandler(BaseHandler):
         selected = ""
         try:
             province = int(self.get_argument('province', 0))
+            _all = self.get_argument('all', 'false')
+            _all = True if _all == 'true' else False
             cities = ProvinceCityModel(province=province).get_all_city()
+            html = '<option value="all">همه شهر ها</option>' if _all else '<option value="">انتخاب کنید.</option>'
             try:
-                html = "<option value="">انتخاب کنید.</option>"
                 __a = True
                 for i in cities:
                     if __a:
@@ -84,7 +86,7 @@ class ProvinceCityHandler(BaseHandler):
                     html += "<option value=" + str(i['_id']) + ">" + i['name'].encode("utf-8") + "</option>"
                     __a = False
             except:
-                html = "<option selected value="">انتخاب کنید.</option>"
+                pass
             self.write(dict(html=html, selected=selected))
         except:
             self.write(dict(html="<option selected value="">انتخاب کنید.</option>", selected=selected))

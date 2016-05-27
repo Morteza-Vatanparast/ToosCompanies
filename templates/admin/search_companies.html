@@ -1,0 +1,182 @@
+{% extends base.html %}
+{% block other_css %}
+<link rel="stylesheet" type="text/css" href="/static/plugins/bootstrap-fileupload/bootstrap-fileupload.css"/>
+<link type="text/css" rel="stylesheet" href="{{ static_url('plugins/jquery-ui/jquery-ui.css') }}">
+<style>
+    .company-row {
+        box-shadow: 0 0 2px #AAA;
+        border-radius: 5px;
+        padding: 15px;
+        cursor: pointer;
+        background-color: #F8F8F8;
+    }
+    .company-row:hover {
+        background-color: #F0F0F0;
+    }
+</style>
+{% end block other_css %}
+{% block container %}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default margin-top-30 font-yekan">
+                <div class="panel-heading"><i class="fa fa-folder-open-o"></i><span>جستجو شرکت ها</span></div>
+                <div class="panel-body">
+                    <div class="show_box">
+                        <div class="box_header">
+                            <span>جستجو شرکت</span>
+                        </div>
+                        <div class="box_body unit-div pr_drag">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input class="form-control" value="{{ this_name }}" name="name"
+                                           placeholder="نام شرکت">
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control" value="{{ this_ceo }}" name="ceo"
+                                           placeholder="مدیر عامل">
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="form-control" value="{{ this_owner }}" name="owner"
+                                           placeholder="مالک">
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-3">
+                                    <select class="select" name="province">
+                                        <option value="all">همه استان ها</option>
+                                        {% for p in provinces %}
+                                        <option {% if this_province == p['_id'] %}selected{% end %}
+                                                value="{{ p['_id'] }}">{{ p['name'] }}</option>
+                                        {% end %}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="select" name="city">
+                                        <option value="all">همه شهر ها</option>
+                                        {% for c in cities %}
+                                        <option {% if this_city == c['_id'] %}selected{% end %}
+                                                value="{{ c['_id'] }}">{{ c['name'] }}</option>
+                                        {% end %}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="select" name="unit">
+                                        <option value="all">همه واحد ها</option>
+                                        {% for u in units %}
+                                        <option {% if this_unit == u['_id'] %}selected{% end %}
+                                                value="{{ u['_id'] }}">{{ u['name'] }}</option>
+                                        {% end %}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="select" name="industrial_town">
+                                        <option value="all">همه شرکت ها</option>
+                                        {% for i in industrial_towns %}
+                                        <option {% if this_industrial_town == i['_id'] %}selected{% end %}
+                                                value="{{ i['_id'] }}">{{ i['name'] }}</option>
+                                        {% end %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-2 col-md-offset-5">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <button style="border-radius: 5px 0 0 5px; border: 1px solid #ccc;"
+                                                class="btn search">جستجو
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if len(companies) %}
+                    <div class="show_box" style="margin-top: 10px">
+                        <div class="box_header">
+                            <span>نتایج جستجو</span>
+                        </div>
+                        <div class="box_body unit-div pr_drag">
+                            <div class="row">
+                                {% for __c in companies %}
+                                    <div class="col-md-4 col-sm-4 product-row" onclick="location.href='{{ reverse_url('admin:show_companies_by_id', __c['_id']) }}'" style="margin-top: 10px">
+                                        <div class="company-row">
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-4">
+                                                    <img src="{{ static_url('images/company_logo/' + __c['logo']) }}"
+                                                         class="img-circle" style="height: 50px; width: 50px">
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <span>{{ __c['name'] }}</span><br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% end %}
+                            </div>
+                        </div>
+                    </div>
+                    {% end %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% end block container %}
+
+{% block other_scripts %}
+<script type="text/javascript" src="{{ static_url('plugins/bootstrap-fileupload/bootstrap-fileupload.js') }}"></script>
+<script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
+<script>
+
+    var trash = '<i class="fa fa-trash-o"></i>';
+
+    var loader = '<img src="{{ static_url('images/loading.gif') }}" width="15" height="15">';
+
+    $('select[name=province]').on("change", function () {
+        var province = $(this).val();
+        var postData = [
+            {name: 'all', value: "true"},
+            {name: 'province', value: province},
+            {name: '_xsrf', value: '{{ handler.xsrf_token }}'}
+        ];
+        jQuery.ajax(
+                {
+                    url: '{{ reverse_url('province_city') }}',
+                    type: "post",
+                    data: postData,
+                    success: function (response) {
+                        $("select[name=city]").html(response['html']).val("all").trigger('change');
+                    }
+                });
+    });
+
+    $('.search').on("click", function () {
+        var __s = $('input[name=name]').val();
+        var name = __s == "" ? "all" : __s;
+        __s = $('input[name=ceo]').val();
+        var ceo = __s == "" ? "all" : __s;
+        __s = $('input[name=owner]').val();
+        var owner = __s == "" ? "all" : __s;
+        __s = $('select[name=province]').val();
+        var province = __s == "" ? "all" : __s;
+        __s = $('select[name=city]').val();
+        var city = __s == "" ? "all" : __s;
+        __s = $('select[name=unit]').val();
+        var unit = __s == "" ? "all" : __s;
+        __s = $('select[name=industrial_town]').val();
+        var industrial_town = __s == "" ? "all" : __s;
+
+        location.href = "{{ reverse_url('admin:search:companies_by_params',
+         '__name__', '__ceo__', '__owner__', '__province__', '__city__', '__unit__', '__industrial_town__') }}"
+                .replace("__name__", name)
+                .replace("__ceo__", ceo)
+                .replace("__owner__", owner)
+                .replace("__province__", province)
+                .replace("__city__", city)
+                .replace("__unit__", unit)
+                .replace("__industrial_town__", industrial_town);
+    });
+</script>
+{% end block other_scripts %}

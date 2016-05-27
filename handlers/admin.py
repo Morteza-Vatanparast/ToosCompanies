@@ -19,6 +19,85 @@ from models.mongodb.unit_companies import UnitCompaniesModel
 __author__ = 'Morteza'
 
 
+class AdminDashboardHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        self.render('admin/dashboard.html', **self.data)
+
+
+class AdminSearchCompaniesHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        try:
+            name = args[0]
+        except:
+            name = "all"
+        try:
+            ceo = args[1]
+        except:
+            ceo = "all"
+        try:
+            owner = args[2]
+        except:
+            owner = "all"
+        try:
+            province = int(args[3])
+        except:
+            province = "all"
+        try:
+            city = int(args[4])
+        except:
+            city = "all"
+        try:
+            unit = ObjectId(args[5])
+        except:
+            unit = "all"
+        try:
+            industrial_town = ObjectId(args[6])
+        except:
+            industrial_town = "all"
+
+        self.data['companies'] = CompaniesModel().admin_search(name=name, ceo=ceo, owner=owner, province=province,
+                                                               city=city, unit=unit, industrial_town=industrial_town)
+        self.data['this_name'] = name if name != "all" else ""
+        self.data['this_ceo'] = ceo if ceo != "all" else ""
+        self.data['this_owner'] = owner if owner != "all" else ""
+        self.data['this_province'] = province if province != "all" else ""
+        self.data['this_city'] = city if city != "all" else ""
+        self.data['this_unit'] = unit if unit != "all" else ""
+        self.data['this_industrial_town'] = industrial_town if industrial_town != "all" else ""
+        self.data['units'] = UnitCompaniesModel().get_all()
+        self.data['industrial_towns'] = IndustrialTownCompaniesModel().get_all()
+        self.data['provinces'] = ProvinceCityModel().get_all_province()
+        self.data['cities'] = ProvinceCityModel(province=province).get_all_city()
+        self.render('admin/search_companies.html', **self.data)
+
+
+class AdminShowCompaniesHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        try:
+            company = args[0]
+            if company is not None:
+                company = ObjectId(company)
+        except:
+            company = None
+        __company = CompaniesModel(_id=company).get_one()
+        for i in __company['materials']:
+            i['companies'] = CompaniesModel().get_by_products(i['_id'])
+        for i in __company['products']:
+            i['companies'] = CompaniesModel().get_by_materials(i['_id'])
+        self.data['company'] = __company
+        self.render('admin/show_companies.html', **self.data)
+
+
+class AdminSearchProductsHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        self.render('admin/search_products.html', **self.data)
+
+
+class AdminSearchMaterialsHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        self.render('admin/search_materials.html', **self.data)
+
+
 class AdminCompaniesHandler(BaseHandler):
     def get(self, *args, **kwargs):
         companies = CompaniesModel().get_all()
@@ -62,12 +141,13 @@ class AdminAddCompaniesHandler(BaseHandler):
             site = self.get_argument('site', '')
             email = self.get_argument('email', '')
             ceo = self.get_argument('ceo', '')
+            owner = self.get_argument('owner', '')
             province = int(self.get_argument('province', ''))
             city = int(self.get_argument('city', ''))
             unit = ObjectId(self.get_argument('unit', ''))
             industrial_town = ObjectId(self.get_argument('industrial_town', ''))
             if name != "" and description != "" and address != "" and phone != "" and fax != "" and site != "" \
-                    and email != "" and ceo != "" and province != "" and city != "":
+                    and email != "" and ceo != "" and owner != "" and province != "" and city != "":
                 main_page = True if main_page == "true" else False
                 slider = True if slider == "true" else False
                 active = True if active == "true" else False
@@ -82,7 +162,7 @@ class AdminAddCompaniesHandler(BaseHandler):
                 CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
                                address=address, phone=phone, fax=fax, site=site, email=email,
-                               province=province, city=city, ceo=ceo).insert()
+                               province=province, city=city, ceo=ceo, owner=owner).insert()
             self.status = True
             self.write(self.result)
         except:
@@ -123,12 +203,13 @@ class AdminEditCompaniesHandler(BaseHandler):
             site = self.get_argument('site', '')
             email = self.get_argument('email', '')
             ceo = self.get_argument('ceo', '')
+            owner = self.get_argument('owner', '')
             province = int(self.get_argument('province', ''))
             city = int(self.get_argument('city', ''))
             unit = ObjectId(self.get_argument('unit', ''))
             industrial_town = ObjectId(self.get_argument('industrial_town', ''))
             if name != "" and description != "" and address != "" and phone != "" and fax != "" and site != "" \
-                    and email != "" and ceo != "" and province != "" and city != "":
+                    and email != "" and ceo != "" and owner != "" and province != "" and city != "":
                 main_page = True if main_page == "true" else False
                 slider = True if slider == "true" else False
                 active = True if active == "true" else False
@@ -143,7 +224,7 @@ class AdminEditCompaniesHandler(BaseHandler):
                 CompaniesModel(_id=company, name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
                                address=address, phone=phone, fax=fax, site=site, email=email,
-                               province=province, city=city, ceo=ceo).update()
+                               province=province, city=city, ceo=ceo, owner=owner).update()
             self.status = True
             self.write(self.result)
         except:

@@ -108,6 +108,14 @@
                                             </div>
                                             <div class="row margin-top-10">
                                                 <div class="col-xs-3">
+                                                    <span class="form_label">مالک</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input type="text" name="owner" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
                                                     <span class="form_label">استان</span>
                                                 </div>
                                                 <div class="col-xs-9">
@@ -226,6 +234,7 @@
             data.append('site', check_value($('input[name=site]').val(), 'سایت را وارد کنید.'));
             data.append('email', check_value($('input[name=email]').val(), 'ایمیل را وارد کنید.'));
             data.append('ceo', check_value($('input[name=ceo]').val(), 'مدیر عامل را وارد کنید.'));
+            data.append('owner', check_value($('input[name=owner]').val(), 'مالک را وارد کنید.'));
             data.append('province', check_value($('select[name=province]').val(), 'استان را وارد کنید.'));
             data.append('city', check_value($('select[name=city]').val(), 'شهر را وارد کنید.'));
             data.append('main_page', $('input[name=main_page]').prop("checked"));

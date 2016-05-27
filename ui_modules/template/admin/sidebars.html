@@ -2,6 +2,23 @@
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
             <li class="menu-main-item">
+                <a href="{{ reverse_url('admin:dashboard') }}"><i class="fa fa-bar-chart-o fa-fw"></i>داشبورد</a>
+            </li>
+            <li class="menu-main-item">
+                <a href=""><i class="fa fa-bar-chart-o fa-fw"></i> جستجو<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{ reverse_url('admin:search:companies') }}">شرکت ها</a>
+                    </li>
+                    <li>
+                        <a href="{{ reverse_url('admin:search:products') }}">محصولات</a>
+                    </li>
+                    <li>
+                        <a href="{{ reverse_url('admin:search:materials') }}">مواد اولیه</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu-main-item">
                 <a href="{{ reverse_url('admin:companies') }}"><i class="fa fa-bar-chart-o fa-fw"></i>مدیریت شرکت ها</a>
             </li>
             <li class="menu-main-item">

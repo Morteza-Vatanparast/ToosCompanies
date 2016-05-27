@@ -4,6 +4,8 @@ from handlers import base
 from handlers import admin
 
 __author__ = 'Morteza'
+
+
 url_patterns = [
     ("/", base.IndexHandler, None, "index"),
     ("/ProvinceCity", base.ProvinceCityHandler, None, "province_city"),
@@ -11,6 +13,23 @@ url_patterns = [
 
     (r'^(?i)/Admin/Companies[/]?$', admin.AdminCompaniesHandler),
     (r'^/Admin/Companies', admin.AdminCompaniesHandler, None, "admin:companies"),
+
+    (r'^(?i)/Admin/Dashboard[/]?$', admin.AdminDashboardHandler),
+    (r'^/Admin/Dashboard', admin.AdminDashboardHandler, None, "admin:dashboard"),
+
+    (r'^(?i)/Admin/Search/Companies/([^/]+)/([\w^/]+)/([\w^/]+)/([\w^/]+)/([\w^/]+)/([\w^/]+)/([\w^/]+)?[/]?$', admin.AdminSearchCompaniesHandler),
+    (r'/Admin/Search/Companies', admin.AdminSearchCompaniesHandler, None, 'admin:search:companies'),
+    (r'/Admin/Search/Companies/(name)/(ceo)/(owner)/(province)/(city)/(unit)/(industrial_town)', admin.AdminSearchCompaniesHandler, None, 'admin:search:companies_by_params'),
+
+    (r'^(?i)/Admin/ShowCompanies[/]?([\w^/]+)?[/]?$', admin.AdminShowCompaniesHandler),
+    (r'/Admin/ShowCompanies', admin.AdminShowCompaniesHandler, None, 'admin:show_companies'),
+    (r'/Admin/ShowCompanies/(id)', admin.AdminShowCompaniesHandler, None, 'admin:show_companies_by_id'),
+
+    (r'^(?i)/Admin/Search/Products[/]?$', admin.AdminSearchProductsHandler),
+    (r'^/Admin/Search/Products', admin.AdminSearchProductsHandler, None, "admin:search:products"),
+
+    (r'^(?i)/Admin/Search/Materials[/]?$', admin.AdminSearchMaterialsHandler),
+    (r'^/Admin/Search/Materials', admin.AdminSearchMaterialsHandler, None, "admin:search:materials"),
 
     (r'^(?i)/Admin/AddCompanies[/]?$', admin.AdminAddCompaniesHandler),
     (r'^/Admin/AddCompanies', admin.AdminAddCompaniesHandler, None, "admin:add_companies"),
@@ -45,4 +64,3 @@ url_patterns = [
     (r'/Admin/CompaniesProducts', admin.AdminCompaniesProductsHandler, None, 'admin:companies_products'),
     (r'/Admin/CompaniesProducts/(id)', admin.AdminCompaniesProductsHandler, None, 'admin:companies_products_by_id'),
 ]
-

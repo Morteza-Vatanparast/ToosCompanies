@@ -1,11 +1,15 @@
 from models.mongodb.base_model import MongodbModel
+from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
 from models.mongodb.products import ProductsModel
+from models.mongodb.province_city import ProvinceCityModel
+from models.mongodb.unit_companies import UnitCompaniesModel
 
 
 class CompaniesModel:
     def __init__(self, _id=None, name=None, main_page=None, slider=None, description=None, logo=None, images=None,
                  unit=None, active=None, industrial_town=None, address=None, phone=None, fax=None, site=None,
-                 email=None, province=None, city=None, ceo=None, mobile=None, mobile2=None, products=None, materials=None):
+                 email=None, province=None, city=None, ceo=None, owner=None, mobile=None, mobile2=None, products=None,
+                 materials=None):
         self.id = _id
         self.name = name
         self.main_page = main_page
@@ -32,6 +36,7 @@ class CompaniesModel:
         self.province = province
         self.city = city
         self.ceo = ceo
+        self.owner = owner
 
     def insert(self):
         try:
@@ -54,6 +59,7 @@ class CompaniesModel:
                 "province": self.province,
                 "city": self.city,
                 "ceo": self.ceo,
+                "owner": self.owner,
                 "active": self.active,
                 "products": self.products,
                 "materials": self.materials
@@ -63,11 +69,16 @@ class CompaniesModel:
         except:
             return False
 
-    @staticmethod
-    def get_all():
+    def get_all(self):
         try:
             __body = {}
-            return MongodbModel(body=__body, collection="companies").get_all()
+            __a = MongodbModel(body=__body, collection="companies").get_all()
+            __r = []
+            for __i in __a:
+                company = self.get_company(__i)
+                if company is not False:
+                    __r.append(company)
+            return __r
         except:
             return []
 
@@ -91,6 +102,7 @@ class CompaniesModel:
                     "province": self.province,
                     "city": self.city,
                     "ceo": self.ceo,
+                    "owner": self.owner,
                     "active": self.active,
                     "products": self.products
                 }
@@ -186,13 +198,12 @@ class CompaniesModel:
         except:
             return False
 
-    def get_one(self):
+    @staticmethod
+    def get_company(__c):
         try:
-            __body = {"_id": self.id}
-            __c = MongodbModel(body=__body, collection="companies").get_one()
-
             def __get(__n, __d):
                 return __c[__n] if __n in __c.keys() else __d
+
             try:
                 products = []
                 for i in __c['products']:
@@ -209,6 +220,23 @@ class CompaniesModel:
                         materials.append(__p)
             except:
                 materials = []
+            try:
+                province_name = ProvinceCityModel(_id=__c['province']).get_province()['name']
+            except:
+                province_name = "-"
+            try:
+                city_name = ProvinceCityModel(_id=__c['city']).get_city()['name']
+            except:
+                city_name = "-"
+            try:
+                unit_name = UnitCompaniesModel(_id=__c['unit']).get_one()['name']
+            except:
+                unit_name = "-"
+            try:
+                industrial_town_name = IndustrialTownCompaniesModel(_id=__c['industrial_town']).get_one()['name']
+            except:
+                industrial_town_name = "-"
+
             return dict(
                 _id=__get("_id", None),
                 name=__get("name", ""),
@@ -222,15 +250,29 @@ class CompaniesModel:
                 site=__get("site", ""),
                 email=__get("email", ""),
                 ceo=__get("ceo", ""),
+                owner=__get("owner", ""),
                 province=__get("province", ""),
+                province_name=province_name,
+                city_name=city_name,
                 city=__get("city", ""),
                 unit=__get("unit", ""),
+                unit_name=unit_name,
                 industrial_town=__get("industrial_town", ""),
+                industrial_town_name=industrial_town_name,
                 images=__get("images", []),
                 materials=materials,
                 products=products,
                 description=__get("description", "")
             )
+        except:
+            return False
+
+    def get_one(self):
+        try:
+            __body = {"_id": self.id}
+            __c = MongodbModel(body=__body, collection="companies").get_one()
+            return self.get_company(__c)
+
         except:
             return False
 
@@ -243,11 +285,68 @@ class CompaniesModel:
         except:
             return []
 
+    @staticmethod
+    def get_by_products(product):
+        try:
+            __body = {"products": product}
+            __key = {"_id": 1, "name": 1, "logo": 1}
+            __c = MongodbModel(body=__body, key=__key, collection="companies").get_all_key()
+            return [dict(
+                _id=i['_id'],
+                name=i['name'],
+                logo=i['logo']
+            ) for i in __c]
+        except:
+            return []
+
     def get_materials(self):
         try:
             __body = {"_id": self.id}
             __key = {"materials": 1}
             __c = MongodbModel(body=__body, key=__key, collection="companies").get_one_key()
             return __c['materials']
+        except:
+            return []
+
+    @staticmethod
+    def get_by_materials(material):
+        try:
+            __body = {"materials": material}
+            __key = {"_id": 1, "name": 1, "logo": 1}
+            __c = MongodbModel(body=__body, key=__key, collection="companies").get_all_key()
+            return [dict(
+                _id=i['_id'],
+                name=i['name'],
+                logo=i['logo']
+            ) for i in __c]
+        except:
+            return []
+
+    def admin_search(self, name="all", ceo="all", owner="all", province="all", city="all", unit="all", industrial_town="all"):
+        try:
+            __body = {"$and": []}
+            if name != 'all':
+                __body['$and'].append({'name': {"$regex": '^' + name}})
+            if ceo != 'all':
+                __body['$and'].append({'ceo': {"$regex": '^' + ceo}})
+            if owner != 'all':
+                __body['$and'].append({'owner': {"$regex": '^' + owner}})
+            if province != 'all':
+                __body['$and'].append({'province': province})
+            if city != 'all':
+                __body['$and'].append({'city': city})
+            if unit != 'all':
+                __body['$and'].append({'unit': unit})
+            if industrial_town != 'all':
+                __body['$and'].append({'industrial_town': industrial_town})
+            if not len(__body['$and']):
+                __body = {}
+            __a = MongodbModel(body=__body, collection="companies").get_all()
+            __r = []
+            for __i in __a:
+                company = self.get_company(__i)
+                if company is not False:
+                    __r.append(company)
+            return __r
         except:
             return []

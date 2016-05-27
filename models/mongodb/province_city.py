@@ -20,3 +20,17 @@ class ProvinceCityModel:
             return MongodbModel(body=__body, collection="city").get_all()
         except:
             return []
+
+    def get_province(self):
+        try:
+            __body = {"_id": self.id}
+            return MongodbModel(body=__body, collection="province").get_one()
+        except:
+            return False
+
+    def get_city(self):
+        try:
+            __body = {"_id": self.id}
+            return MongodbModel(body=__body, collection="city").get_one()
+        except:
+            return False
