@@ -1,0 +1,268 @@
+{% extends base.html %}
+{% block other_css %}
+<link rel="stylesheet" type="text/css" href="/static/plugins/bootstrap-fileupload/bootstrap-fileupload.css" />
+<link type="text/css" rel="stylesheet" href="{{ static_url('plugins/jquery-ui/jquery-ui.css') }}">
+<style>
+.ui-helper-hidden-accessible{
+    display: none
+}
+.ui-autocomplete{
+    max-height: 200px;
+    height: auto;
+    overflow-y: scroll;
+}
+.autocomp_item_img {
+    width: 50px;
+    height: 50px;
+    max-width: 50px;
+    vertical-align: middle;
+    margin: 2px 4px;
+}
+.select2-selection {
+    height: 45px !important;
+}
+.select2-selection__rendered {
+    padding-top: 5px; !important;
+}
+.select2-selection__arrow {
+    height: 43px !important;
+}
+</style>
+{% end block other_css %}
+{% block container %}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default margin-top-30 font-yekan">
+                    <div class="panel-heading"><i class="fa fa-folder-open-o"></i><span>ایجاد و مدیریت محصولات شرکت ها</span> </div>
+                    <div class="panel-body">
+                        <div class="show_box">
+                            <div class="box_header">
+                                <span>انتخاب شرکت</span>
+                            </div>
+                            <div class="box_body unit-div pr_drag" style="min-height: 100px;">
+                                <div class="row" style="padding: 20px">
+                                    <div class="col-md-6 col-md-offset-3" style="font-size: 25px">
+                                        <select class="select-companies" style="width: 100%; height: 70px">
+                                            <option value="">انتخاب کنید</option>
+                                            {% for company in companies %}
+                                                <option {% if this_company is not False and company['_id'] == this_company['_id'] %}selected{% end %} value="{{ company['_id'] }}" data-image="{{ static_url("images/company_logo/" + company['logo']) }}">{{ company['name'] }}</option>
+                                            {% end %}
+                                        </select>
+                                    </div>
+                                </div>
+                                {% if this_company is not False %}
+                                    <div class="panel-body">
+                                        <div class="show_box">
+                                            <div class="box_header">
+                                                <span>افزودن محصولات</span>
+                                            </div>
+                                            <div class="box_body unit-div pr_drag" style="padding: 20px">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-md-offset-3 input-row">
+                                                        <div style="position: relative"></div>
+                                                        <div class="loader" style="display: none;position: absolute; top: 7px; left: 20px"><img src="{{ static_url('images/loading.gif') }}" width="20" height="20"></div>
+                                                        <input type="text" placeholder="نام محصول را وارد کنید" class="form-control" data-method="product" name="search-product">
+                                                    </div>
+                                                </div>
+                                                <div class="row padding-10 children">
+                                                    {% for pro in this_company['products'] %}
+                                                        <div class="col-md-4 col-sm-4 product-row" style="margin-top: 10px">
+                                                            <div style="box-shadow: 0 0 2px #AAA;border-radius: 5px;padding: 15px; position: relative;background-color: #F8F8F8;">
+                                                                <div class="text-center delete-product R_butt_red" data-method="product" data-product="{{ pro['_id'] }}" style="position: absolute;padding: 1px 5px;top: -12px;right: -12px">
+                                                                    <i class="fa fa-times"></i>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-4 col-sm-4">
+                                                                        <img src="{{ static_url('images/product_image/' + pro['image']) }}" class="img-circle" style="height: 50px; width: 50px">
+                                                                    </div>
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                        <span>{{ pro['name'] }}</span><br>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% end %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="show_box">
+                                            <div class="box_header">
+                                                <span>افزودن مواد اولیه</span>
+                                            </div>
+                                            <div class="box_body unit-div pr_drag" style="padding: 20px">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-md-offset-3 input-row">
+                                                        <div style="position: relative"></div>
+                                                        <div class="loader" style="display: none;position: absolute; top: 7px; left: 20px"><img src="{{ static_url('images/loading.gif') }}" width="20" height="20"></div>
+                                                        <input type="text" placeholder="نام ماده اولیه را وارد کنید" class="form-control" data-method="material" name="search-product">
+                                                    </div>
+                                                </div>
+                                                <div class="row padding-10 children">
+                                                    {% for mat in this_company['materials'] %}
+                                                        <div class="col-md-4 col-sm-4 product-row" style="margin-top: 10px">
+                                                            <div style="box-shadow: 0 0 2px #AAA;border-radius: 5px;padding: 15px; position: relative; background-color: #F8F8F8;">
+                                                                <div class="text-center delete-product R_butt_red" data-method="material" data-product="{{ mat['_id'] }}" style="position: absolute;padding: 1px 5px;top: -12px;right: -12px">
+                                                                    <i class="fa fa-times"></i>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-4 col-sm-4">
+                                                                        <img src="{{ static_url('images/product_image/' + mat['image']) }}" class="img-circle" style="height: 50px; width: 50px">
+                                                                    </div>
+                                                                    <div class="col-md-8 col-sm-8">
+                                                                        <span>{{ mat['name'] }}</span><br>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% end %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% end %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% end block container %}
+
+{% block other_scripts %}
+<script type="text/javascript" src="{{ static_url('plugins/bootstrap-fileupload/bootstrap-fileupload.js') }}"></script>
+<script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
+<script>
+
+    var trash = '<i class="fa fa-trash-o"></i>';
+
+    var loader = '<img src="{{ static_url('images/loading.gif') }}" width="15" height="15">';
+
+    function formatState (state) {
+        if (!state.id) { return state.text; }
+        var opt_image = $(state.element).data('image');
+        var $state = $(
+            '<span style="margin-right:10px"><img height="50" width="50" src="' + opt_image + '" class="img-flag img-circle" /><span style="margin-right:40px; font-size:17px; font-family: Yekan">' + state.text + '</span></span>'
+        );
+        return $state;
+    }
+
+    $(".select-companies").select2({
+        placeholder: "انتخاب کنید",
+        dir: "rtl",
+        theme: "classic",
+        templateResult: formatState
+    });
+    $("select.select-companies").on("change", function(e) {
+        location.href = "{{ reverse_url('admin:companies_products_by_id', '__id__') }}".replace("__id__", $("option:selected", this).attr("value"));
+    });
+
+    $(document).on('keyup','input[name=search-product]',function(){
+        var __loader = $(this).closest('.input-row').find('.loader');
+        if($(this).val() != ''){
+            __loader.show();
+            var arr = {
+                text: $(this).val(),
+                _xsrf: '{{ handler.xsrf_token }}'
+            };
+            var th = $(this);
+            $.ajax({
+                data: arr,
+                type: 'post',
+                url: '',
+                async: true,
+                success: function(output){
+                    var ret = JSON.parse(output);
+                    if (ret.status == 'ok'){
+                        $(th).autocomplete({
+                            source: ret.full_item
+                        }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                            var __static_url = '{{ static_url('images/product_image/' + '__pic__') }}';
+                            return $( "<li style='cursor: pointer'>" )
+                                    .append('<a>' +
+                                            '<img src="' + __static_url.replace('__pic__', item.pic) + '" class="img-circle autocomp_item_img">' +
+                                            '<span style="margin-right: 20px; vertical-align: middle;font-size:15px; !important;">' + item.label + '</span>' +
+                                        '</a>')
+                                    .appendTo(ul);
+                        };
+                        __loader.hide();
+
+                    }
+                },
+                complete: function(output){
+                    __loader.hide();
+                },
+                fail: function(err){
+                    __loader.hide();
+                }
+            });
+        }
+    });
+
+    $('input[name=search-product]').autocomplete({
+        select: function( a, b ) {
+            var __loader = $(this).closest('.input-row').find('.loader');
+            __loader.show();
+            var method = $(this).attr('data-method');
+            var postData = [
+                {name: 'action', value: 'add'},
+                {name: '_xsrf', value: '{{ handler.xsrf_token }}'},
+                {name: 'product', value: b.item.id},
+                {name: 'method', value: method}
+            ];
+            jQuery.ajax(
+                {
+                    url: '',
+                    type: "post",
+                    data: postData,
+                    success: function (response) {
+                        var status = response['status'];
+                        var value = response['value'];
+                        var messages = response['messages'];
+                        if (status) {
+                            location.href = "";
+                        }
+                        __loader.hide();
+                    }
+                });
+        }
+    });
+var times = '<i class="fa fa-times"></i>';
+$(document).on('click', '.delete-product', function(e){
+    var elm = $(e.target).closest('.delete-product');
+    elm.html(loader);
+     Confirm.render(0, 0, 0, 0, 0, function(){
+        var method = elm.attr('data-method');
+        var product = elm.attr('data-product');
+        var postData = [
+            {name: 'action', value: 'delete'},
+            {name: '_xsrf', value: '{{ handler.xsrf_token }}'},
+            {name: 'method', value: method},
+            {name: 'product', value: product}
+        ];
+        jQuery.ajax(
+            {
+                url: '',
+                type: "post",
+                data: postData,
+                success: function (response) {
+                    var status = response['status'];
+                    var value = response['value'];
+                    var messages = response['messages'];
+                    if (status) {
+                        elm.closest('.product-row').remove();
+                    }else{
+                        elm.html(times);
+                    }
+                }
+        });
+    }, function(){
+        elm.html(times);
+    });
+});
+</script>
+{% end block other_scripts %}

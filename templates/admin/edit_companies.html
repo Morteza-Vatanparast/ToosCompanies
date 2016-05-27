@@ -256,14 +256,14 @@
             data.append('site', check_value($('input[name=site]').val(), 'سایت را وارد کنید.'));
             data.append('email', check_value($('input[name=email]').val(), 'ایمیل را وارد کنید.'));
             data.append('ceo', check_value($('input[name=ceo]').val(), 'مدیر عامل را وارد کنید.'));
-            data.append('province', check_value($('select[name=province]').select2("val"), 'استان را وارد کنید.'));
-            data.append('city', check_value($('select[name=city]').select2("val"), 'شهر را وارد کنید.'));
+            data.append('province', check_value($('select[name=province]').val(), 'استان را وارد کنید.'));
+            data.append('city', check_value($('select[name=city]').val(), 'شهر را وارد کنید.'));
             data.append('main_page', $('input[name=main_page]').prop("checked"));
             data.append('slider', $('input[name=slider]').prop("checked"));
             data.append('active', $('input[name=active]').prop("checked"));
             data.append('description', check_value($('textarea[name=description]').val(), 'توضیحات را وارد کنید.'));
-            data.append('unit', check_value($('select[name=unit]').select2("val"), 'واحد را وارد کنید.'));
-            data.append('industrial_town', check_value($('select[name=industrial_town]').select2("val"), 'شهرک صنعتی  را وارد کنید.'));
+            data.append('unit', check_value($('select[name=unit]').val(), 'واحد را وارد کنید.'));
+            data.append('industrial_town', check_value($('select[name=industrial_town]').val(), 'شهرک صنعتی  را وارد کنید.'));
             data.append('logo', $('input[type=file][name=logo]')[0].files[0]);
             $.each($('input[type=file][name=image]'), function(){
                 data.append('image', $(this)[0].files[0]);
@@ -361,7 +361,7 @@
     });
 
     $('select[name=province]').on("change", function(){
-        var province = $(this).select2("val");
+        var province = $(this).val();
         var postData = [
             {name: 'province', value: province},
             {name: '_xsrf', value: '{{ handler.xsrf_token }}'}
@@ -372,7 +372,7 @@
                 type: "post",
                 data: postData,
                 success: function (response) {
-                    $("select[name=city]").html(response['html']).select2("val", response['selected']);
+                    $("select[name=city]").html(response['html']).val(response['selected']).trigger('change');
                 }
             });
     });

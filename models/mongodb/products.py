@@ -30,13 +30,14 @@ class ProductsModel:
             def __get(__n, __d):
                 return __c[__n] if __n in __c.keys() else __d
             return dict(
+                _id=__get("_id", None),
                 name=__get("name", ""),
                 image=__get("image", ""),
                 type=__get("type", ""),
                 sub_type=__get("sub_type", "")
             )
         except:
-            return dict()
+            return False
 
     @staticmethod
     def get_all():
@@ -70,3 +71,23 @@ class ProductsModel:
             return True
         except:
             return False
+
+    @staticmethod
+    def get_all_by_like(_like):
+        try:
+            __body = {
+                'name': {"$regex": '^' + _like},
+            }
+            __key = {"_id": 1, "name": 1, "image": 1}
+            x = MongodbModel(collection='products', body=__body, key=__key, page=1, size=20).get_all_key_limit()
+            v = []
+            if x:
+                for r in x:
+                    v.append(dict(
+                        id=r['_id'],
+                        name=r['name'],
+                        image=r['image']
+                    ))
+            return v
+        except:
+            return []

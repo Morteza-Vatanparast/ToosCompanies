@@ -443,3 +443,65 @@ class AdminEditProductsHandler(BaseHandler):
             self.write(self.result)
         except:
             self.write(self.error_result)
+
+
+class AdminCompaniesProductsHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        try:
+            company = args[0]
+            if company is not None:
+                company = ObjectId(company)
+        except:
+            company = None
+
+        __company = CompaniesModel(_id=ObjectId(company))
+        self.data['companies'] = __company.get_all()
+        self.data['this_company'] = __company.get_one()
+
+        self.render('admin/companies_products.html', **self.data)
+
+    def post(self, *args, **kwargs):
+        try:
+            company = args[0]
+            if company is not None:
+                company = ObjectId(company)
+        except:
+            company = None
+        try:
+            text = self.get_argument('text', '')
+            action = self.get_argument('action', 'search')
+            if action == 'search':
+                l = []
+                if text != '':
+                    products = ProductsModel().get_all_by_like(text)
+                    for item in products:
+                        l.append({
+                            'id': str(item['id']),
+                            'name': item['name'],
+                            'value': item['name'],
+                            'label': item['name'],
+                            'pic': item['image'],
+                        })
+                self.write(json.dumps({'status': 'ok', 'items': [f['name'] for f in l], 'full_item': l}))
+            elif action == 'add':
+                product = ObjectId(self.get_argument('product', ''))
+                method = self.get_argument('method', '')
+                if method == "product":
+                    CompaniesModel(_id=company).add_product(product)
+                    self.status = True
+                elif method == "material":
+                    CompaniesModel(_id=company).add_material(product)
+                    self.status = True
+                self.write(self.result)
+            elif action == 'delete':
+                product = ObjectId(self.get_argument('product', ''))
+                method = self.get_argument('method', '')
+                if method == "product":
+                    CompaniesModel(_id=company).delete_product(product)
+                    self.status = True
+                elif method == "material":
+                    CompaniesModel(_id=company).delete_material(product)
+                    self.status = True
+                self.write(self.result)
+        except:
+            self.write(self.error_result)

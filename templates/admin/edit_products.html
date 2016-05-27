@@ -120,8 +120,8 @@
             var data = new FormData();
             data.append('_xsrf', '{{ handler.xsrf_token }}');
             data.append('name', check_value($('input[name=name]').val(), 'نام را وارد کنید.'));
-            data.append('type', check_value($('select[name=type]').select2("val"), 'مجموعه را وارد کنید.'));
-            data.append('sub_type', check_value($('select[name=sub_type]').select2("val"), 'زیر مجموعه را وارد کنید.'));
+            data.append('type', check_value($('select[name=type]').val(), 'مجموعه را وارد کنید.'));
+            data.append('sub_type', check_value($('select[name=sub_type]').val(), 'زیر مجموعه را وارد کنید.'));
             data.append('image', $('input[type=file][name=image]')[0].files[0]);
             if(__error){
                 Alert.render(__message, function(){
@@ -175,7 +175,7 @@
     });
 
     $('select[name=type]').on("change", function(){
-        var type = $(this).select2("val");
+        var type = $(this).val();
         var postData = [
             {name: 'type', value: type},
             {name: '_xsrf', value: '{{ handler.xsrf_token }}'}
@@ -186,7 +186,7 @@
                 type: "post",
                 data: postData,
                 success: function (response) {
-                    $("select[name=sub_type]").html(response['html']).select2("val", response['selected']);
+                    $("select[name=sub_type]").html(response['html']).val(response['selected']).trigger('change');
                 }
             });
     });

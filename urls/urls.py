@@ -40,5 +40,9 @@ url_patterns = [
     (r'^(?i)/Admin/EditProducts[/]?([\w^/]+)?[/]?$', admin.AdminEditProductsHandler),
     (r'/Admin/EditProducts', admin.AdminEditProductsHandler, None, 'admin:edit_products'),
     (r'/Admin/EditProducts/(id)', admin.AdminEditProductsHandler, None, 'admin:edit_products_by_id'),
+
+    (r'^(?i)/Admin/CompaniesProducts[/]?([\w^/]+)?[/]?$', admin.AdminCompaniesProductsHandler),
+    (r'/Admin/CompaniesProducts', admin.AdminCompaniesProductsHandler, None, 'admin:companies_products'),
+    (r'/Admin/CompaniesProducts/(id)', admin.AdminCompaniesProductsHandler, None, 'admin:companies_products_by_id'),
 ]
 

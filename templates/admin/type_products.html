@@ -133,14 +133,14 @@
         $('input[name=action]').val("add");
         $('input[name=type-name]').val('');
         $('.add-type-btn').html('افزودن');
-        $('select[name=type-parent]').select2("val", '0');
+        $('select[name=type-parent]').val('0').trigger('change');
         $('#new_type_modal').modal('toggle');
     });
     $('#new_type_modal').on('hidden.bs.modal', function () {
         $('input[name=action]').val("add");
         $('input[name=type-name]').val('');
         $('.add-type-btn').html('افزودن');
-        $('select[name=type-parent]').select2("val", '0');
+        $('select[name=type-parent]').val('0').trigger('change');
     });
 
     var __a = true;
@@ -252,7 +252,7 @@
             $('.add-type-btn').html('اعمال تغییرات');
             $('input[name=type-name]').val(name);
             $('input.edit[name=type]').val(type);
-            $('select[name=type-parent]').select2("val", parent);
+            $('select[name=type-parent]').val(parent).trigger('change');
             $('#new_type_modal').modal('toggle');
             __c = true;
         }

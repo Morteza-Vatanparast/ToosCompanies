@@ -99,14 +99,14 @@ for line in a.split("___endl__"):
     _description_2 = " {}".format(__a[8]) if __a[8] != "" else ""
     _description_3 = " {}".format(__a[9]) if __a[9] != "" else ""
     _description_4 = " {}".format(__a[10]) if __a[10] != "" else ""
-    __description = _description_1 + _description_2 + _description_3 + _description_4
+    _description_5 = " {}".format(__a[12]) if __a[12] != "" else ""
+    __description = _description_1 + _description_2 + _description_3 + _description_4 + _description_5
     _row = dict(
         name=__name,
         ceo=__a[5],
         mobile=__a[6],
         description=__description,
         fax=__a[11],
-        products=__a[12],
         phone=__a[13],
         mobile2=__a[14],
     )
