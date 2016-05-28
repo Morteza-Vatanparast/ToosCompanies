@@ -96,18 +96,16 @@ class AdminSearchProductsHandler(BaseHandler):
 class AdminShowProductsHandler(BaseHandler):
     def get(self, *args, **kwargs):
         try:
-            company = args[0]
-            if company is not None:
-                company = ObjectId(company)
+            product = args[0]
+            if product is not None:
+                product = ObjectId(product)
         except:
-            company = None
-        __company = CompaniesModel(_id=company).get_one()
-        for i in __company['materials']:
-            i['companies'] = CompaniesModel().get_by_products(i['_id'])
-        for i in __company['products']:
-            i['companies'] = CompaniesModel().get_by_materials(i['_id'])
-        self.data['company'] = __company
-        self.render('admin/show_companies.html', **self.data)
+            product = None
+        __product = ProductsModel(_id=product).get_one()
+        __product['companies_product'] = CompaniesModel().get_by_products(product)
+        __product['companies_material'] = CompaniesModel().get_by_materials(product)
+        self.data['product'] = __product
+        self.render('admin/show_products.html', **self.data)
 
 
 class AdminSearchMaterialsHandler(BaseHandler):

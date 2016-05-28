@@ -289,13 +289,25 @@ class CompaniesModel:
     def get_by_products(product):
         try:
             __body = {"products": product}
-            __key = {"_id": 1, "name": 1, "logo": 1}
+            __key = {"_id": 1, "name": 1, "logo": 1, "products": 1}
             __c = MongodbModel(body=__body, key=__key, collection="companies").get_all_key()
-            return [dict(
-                _id=i['_id'],
-                name=i['name'],
-                logo=i['logo']
-            ) for i in __c]
+            __l = []
+            for i in __c:
+                try:
+                    products = []
+                    for j in i['products']:
+                        __p = ProductsModel(_id=j).get_one()
+                        if __p is not False:
+                            products.append(__p)
+                except:
+                    products = []
+                __l.append(dict(
+                    _id=i['_id'],
+                    name=i['name'],
+                    logo=i['logo'],
+                    products=products
+                ))
+            return __l
         except:
             return []
 
@@ -312,13 +324,25 @@ class CompaniesModel:
     def get_by_materials(material):
         try:
             __body = {"materials": material}
-            __key = {"_id": 1, "name": 1, "logo": 1}
+            __key = {"_id": 1, "name": 1, "logo": 1, "materials": 1}
             __c = MongodbModel(body=__body, key=__key, collection="companies").get_all_key()
-            return [dict(
-                _id=i['_id'],
-                name=i['name'],
-                logo=i['logo']
-            ) for i in __c]
+            __l = []
+            for i in __c:
+                try:
+                    materials = []
+                    for j in i['materials']:
+                        __p = ProductsModel(_id=j).get_one()
+                        if __p is not False:
+                            materials.append(__p)
+                except:
+                    materials = []
+                __l.append(dict(
+                    _id=i['_id'],
+                    name=i['name'],
+                    logo=i['logo'],
+                    materials=materials
+                ))
+            return __l
         except:
             return []
 

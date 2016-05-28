@@ -1,4 +1,5 @@
 from models.mongodb.base_model import MongodbModel
+from models.mongodb.type_products import TypeProductsModel
 
 
 class ProductsModel:
@@ -29,11 +30,21 @@ class ProductsModel:
 
             def __get(__n, __d):
                 return __c[__n] if __n in __c.keys() else __d
+            try:
+                type_name = TypeProductsModel(_id=__c['type']).get_one()['name']
+            except:
+                type_name = '-'
+            try:
+                sub_type_name = TypeProductsModel(_id=__c['sub_type']).get_one()['name']
+            except:
+                sub_type_name = '-'
             return dict(
                 _id=__get("_id", None),
                 name=__get("name", ""),
                 image=__get("image", ""),
                 type=__get("type", ""),
+                type_name=type_name,
+                sub_type_name=sub_type_name,
                 sub_type=__get("sub_type", "")
             )
         except:

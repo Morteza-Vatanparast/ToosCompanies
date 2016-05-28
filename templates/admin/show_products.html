@@ -1,0 +1,246 @@
+{% extends base.html %}
+{% block other_css %}
+<style>
+    .custom-row {
+        box-shadow: 0 0 2px #AAA;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #F8F8F8;
+    }
+
+    .company-row {
+        box-shadow: 0 0 2px #AAA;
+        border-radius: 5px;
+        padding: 15px;
+        cursor: pointer;
+        background-color: #F8F8F8;
+    }
+
+    .company-row:hover {
+        background-color: #F0F0F0;
+    }
+
+    .product-row {
+        padding: 10px;
+        background-color: #F8F8F8;
+        box-shadow: 0 0 2px #AAA;
+        border-radius: 5px 5px 0 0;
+        cursor: pointer;
+    }
+
+    .product-row:hover {
+        background-color: #FFFFFF;
+    }
+
+    .product-link {
+        text-align: center;
+        cursor: pointer;
+        padding: 8px;
+        font-size: 20px;
+        font-family: Yekan;
+    }
+
+    .product-link:hover {
+        color: #428bca;
+    }
+
+    .show-companies-div:hover {
+        color: #428bca;
+    }
+
+    .product-row.active {
+        background-color: #FFFFFF;
+    }
+</style>
+{% end block other_css %}
+{% block container %}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-md-12" style="padding: 30px">
+            <div class="custom-row">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img class="img-responsive"
+                                     src="{{ static_url('images/product_image/' + product['image']) }}">
+                            </div>
+                            <div class="col-md-12 text-center"
+                                 style="font-family: Yekan; font-size: 20px; font-weight: bold;">
+                                <span>{{ product['name'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row" style="padding: 20px">
+                            <div class="row margin-top-10">
+                                <div class="col-md-6">
+                                    <span>مجموعه : </span>
+                                    <span>{{ product['type_name'] }}</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span>زیر مجموعه: </span>
+                                    <span>{{ product['sub_type_name'] }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding: 30px;">
+            <div class="custom-row">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 text-center" style="padding-left: 1px">
+                                <div class="product-row active" data-type="materials">
+                                    <span>شرکت های مصرف کننده</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center" style="padding-right: 1px">
+                                <div class="product-row" data-type="products">
+                                    <span>شرکت های تولید کننده</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row products-materials" data-type="materials">
+                            <div class="col-md-12">
+                                <div style="background-color: #FFF; box-shadow: 0 0 2px #AAA; padding: 15px;margin-top: 3px;">
+                                    <div class="row">
+                                        {% for com in product['companies_material'] %}
+                                            <div class="col-md-12" style="margin-top: 10px">
+                                                <div class="custom-row">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <img style="height: 50px; width: 50px"
+                                                                 src="{{ static_url('images/company_logo/' + com['logo']) }}">
+                                                        </div>
+                                                        <div class="col-md-7 product-link"
+                                                             onclick="location.href='{{ reverse_url('admin:show_companies_by_id', com['_id']) }}'">{{ com['name'] }}</div>
+                                                        <div class="col-md-3" style="padding: 12px;">
+                                                            <span class="show-companies-div" data-product="{{ com['_id'] }}"
+                                                                  data-type="materials" style="cursor: pointer">نمایش محصولات شرکت</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 companies-div" data-product="{{ com['_id'] }}"
+                                                 data-type="materials" style="margin-top: 10px; display: none">
+                                                <div class="custom-row" style="background-color: #FFFFFF;">
+                                                    <div class="row">
+                                                        {% for __pro in com['materials'] %}
+                                                            <div class="col-md-4 col-sm-4"
+                                                                 onclick="location.href='{{ reverse_url('admin:show_products_by_id', __pro['_id']) }}'"
+                                                                 style="margin-top: 10px">
+                                                                <div class="company-row">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4 col-sm-4">
+                                                                            <img src="{{ static_url('images/product_image/' + __pro['image']) }}"
+                                                                                 class="img-circle"
+                                                                                 style="height: 50px; width: 50px">
+                                                                        </div>
+                                                                        <div class="col-md-8 col-sm-8">
+                                                                            <span>{{ __pro['name'] }}</span><br>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% end %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% end %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row products-materials" data-type="products" style="display: none">
+                            <div class="col-md-12">
+                                <div style="background-color: #FFF; box-shadow: 0 0 2px #AAA; padding: 15px;margin-top: 3px;">
+                                    <div class="row">
+                                        {% for com in product['companies_product'] %}
+                                            <div class="col-md-12" style="margin-top: 10px">
+                                                <div class="custom-row">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <img style="height: 50px; width: 50px"
+                                                                 src="{{ static_url('images/company_logo/' + com['logo']) }}">
+                                                        </div>
+                                                        <div class="col-md-7 product-link"
+                                                             onclick="location.href='{{ reverse_url('admin:show_companies_by_id', com['_id']) }}'">{{ com['name'] }}</div>
+                                                        <div class="col-md-3" style="padding: 12px;">
+                                                            <span class="show-companies-div" data-product="{{ com['_id'] }}"
+                                                                  data-type="products" style="cursor: pointer">نمایش مواد اولیه شرکت</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 companies-div" data-product="{{ com['_id'] }}"
+                                                 data-type="products" style="margin-top: 10px; display: none">
+                                                <div class="custom-row" style="background-color: #FFFFFF;">
+                                                    <div class="row">
+                                                        {% for __pro in com['products'] %}
+                                                            <div class="col-md-4 col-sm-4"
+                                                                 onclick="location.href='{{ reverse_url('admin:show_products_by_id', __pro['_id']) }}'"
+                                                                 style="margin-top: 10px">
+                                                                <div class="company-row">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4 col-sm-4">
+                                                                            <img src="{{ static_url('images/product_image/' + __pro['image']) }}"
+                                                                                 class="img-circle"
+                                                                                 style="height: 50px; width: 50px">
+                                                                        </div>
+                                                                        <div class="col-md-8 col-sm-8">
+                                                                            <span>{{ __pro['name'] }}</span><br>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% end %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% end %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% end block container %}
+
+{% block other_scripts %}
+<script>
+    $(document).on('click', '.product-row', function (e) {
+        var elm = $(e.target).closest('.product-row');
+        var _type = elm.attr('data-type');
+        $('.products-materials').hide();
+        $('.products-materials[data-type=' + _type + ']').show();
+        $('.product-row.active').removeClass('active');
+        elm.addClass('active');
+    });
+    $(document).on('click', '.show-companies-div', function (e) {
+        var elm = $(e.target).closest('.show-companies-div');
+        var _type = elm.attr('data-type');
+        var _product = elm.attr('data-product');
+        var _show = elm.attr('data-show');
+        $('.companies-div').slideUp();
+        if (_show == "true") {
+            $('.companies-div[data-type=' + _type + '][data-product=' + _product + ']').slideUp();
+            elm.attr('data-show', 'false');
+        } else {
+            $('.companies-div[data-type=' + _type + '][data-product=' + _product + ']').slideDown();
+            elm.attr('data-show', 'true');
+        }
+
+    });
+</script>
+{% end block other_scripts %}
