@@ -65,4 +65,14 @@ url_patterns = [
     (r'^(?i)/Admin/CompaniesProducts[/]?([\w^/]+)?[/]?$', admin.AdminCompaniesProductsHandler),
     (r'/Admin/CompaniesProducts', admin.AdminCompaniesProductsHandler, None, 'admin:companies_products'),
     (r'/Admin/CompaniesProducts/(id)', admin.AdminCompaniesProductsHandler, None, 'admin:companies_products_by_id'),
+
+    (r'^(?i)/Admin/Services[/]?$', admin.AdminServicesHandler),
+    (r'^/Admin/Services', admin.AdminServicesHandler, None, "admin:services"),
+
+    (r'^(?i)/Admin/AddServices[/]?$', admin.AdminAddServicesHandler),
+    (r'^/Admin/AddServices', admin.AdminAddServicesHandler, None, "admin:add_services"),
+
+    (r'^(?i)/Admin/EditServices[/]?([\w^/]+)?[/]?$', admin.AdminEditServicesHandler),
+    (r'/Admin/EditServices', admin.AdminEditServicesHandler, None, 'admin:edit_services'),
+    (r'/Admin/EditServices/(id)', admin.AdminEditServicesHandler, None, 'admin:edit_services_by_id'),
 ]

@@ -12,6 +12,7 @@ from models.mongodb.companies import CompaniesModel
 from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
 from models.mongodb.products import ProductsModel
 from models.mongodb.province_city import ProvinceCityModel
+from models.mongodb.services import ServicesModel
 from models.mongodb.tables import TablesModel
 from models.mongodb.type_products import TypeProductsModel
 from models.mongodb.unit_companies import UnitCompaniesModel
@@ -613,5 +614,64 @@ class AdminCompaniesProductsHandler(BaseHandler):
                     CompaniesModel(_id=company).delete_material(product)
                     self.status = True
                 self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
+class AdminServicesHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        self.data['services'] = ServicesModel().get_all()
+        self.render('admin/services.html', **self.data)
+
+
+class AdminAddServicesHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        self.render('admin/add_services.html', **self.data)
+
+    def post(self, *args, **kwargs):
+        try:
+            name = self.get_argument('name', '')
+            description = self.get_argument('description', '')
+            if name != "" and description != "":
+                try:
+                    image = UploadPic(handler=self, name='image', folder='service_image').upload()[0]
+                except:
+                    image = 'default.jpg'
+                ServicesModel(name=name, description=description, image=image).insert()
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
+class AdminEditServicesHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        try:
+            service = args[0]
+            if service is not None:
+                service = ObjectId(service)
+        except:
+            service = None
+        self.data['service'] = ServicesModel(_id=service).get_one()
+        self.render('admin/edit_services.html', **self.data)
+
+    def post(self, *args, **kwargs):
+        try:
+            service = args[0]
+            if service is not None:
+                service = ObjectId(service)
+        except:
+            service = None
+        try:
+            name = self.get_argument('name', '')
+            description = self.get_argument('description', '')
+            if name != "" and description != "":
+                try:
+                    image = UploadPic(handler=self, name='image', folder='service_image').upload()[0]
+                except:
+                    image = []
+                ServicesModel(_id=service, name=name, description=description, image=image).update()
+            self.status = True
+            self.write(self.result)
         except:
             self.write(self.error_result)
