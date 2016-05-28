@@ -97,9 +97,11 @@ class SubTypeProductsHandler(BaseHandler):
         selected = ""
         try:
             _type = ObjectId(self.get_argument('type', 0))
+            _all = self.get_argument('all', 'false')
+            _all = True if _all == 'true' else False
             _sub_types = TypeProductsModel(parent=ObjectId(_type)).get_all_sub()
+            html = '<option value="all">همه زیر مجموعه ها</option>' if _all else '<option value="">انتخاب کنید.</option>'
             try:
-                html = "<option value="">انتخاب کنید.</option>"
                 __a = True
                 for i in _sub_types:
                     if __a:
@@ -107,7 +109,7 @@ class SubTypeProductsHandler(BaseHandler):
                     html += "<option value=" + str(i['_id']) + ">" + i['name'].encode("utf-8") + "</option>"
                     __a = False
             except:
-                html = "<option selected value="">انتخاب کنید.</option>"
+                pass
             self.write(dict(html=html, selected=selected))
         except:
             self.write(dict(html="<option selected value="">انتخاب کنید.</option>", selected=selected))

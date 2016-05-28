@@ -102,3 +102,27 @@ class ProductsModel:
             return v
         except:
             return []
+
+    @staticmethod
+    def admin_search(name="all", _type="all", _sub_type="all"):
+        try:
+            __body = {"$and": []}
+            if name != 'all':
+                __body['$and'].append({'name': {"$regex": '^' + name}})
+            if _type != 'all':
+                __body['$and'].append({'type': _type})
+            if _sub_type != 'all':
+                __body['$and'].append({'sub_type': _sub_type})
+            if not len(__body['$and']):
+                __body = {}
+            __a = MongodbModel(body=__body, collection="products").get_all()
+            __r = []
+            for __i in __a:
+                __r.append(dict(
+                    _id=__i['_id'],
+                    name=__i['name'],
+                    image=__i['image'],
+                ))
+            return __r
+        except:
+            return []

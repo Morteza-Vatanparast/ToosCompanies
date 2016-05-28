@@ -90,6 +90,25 @@ class AdminShowCompaniesHandler(BaseHandler):
 
 class AdminSearchProductsHandler(BaseHandler):
     def get(self, *args, **kwargs):
+        try:
+            name = args[0]
+        except:
+            name = "all"
+        try:
+            _type = ObjectId(args[1])
+        except:
+            _type = "all"
+        try:
+            _sub_type = ObjectId(args[2])
+        except:
+            _sub_type = "all"
+
+        self.data['products'] = ProductsModel().admin_search(name=name, _type=_type, _sub_type=_sub_type)
+        self.data['this_name'] = name if name != "all" else ""
+        self.data['this_type'] = _type if _type != "all" else ""
+        self.data['this_sub_type'] = _sub_type if _sub_type != "all" else ""
+        self.data['type_products'] = TypeProductsModel().get_all()
+        self.data['sub_type_products'] = TypeProductsModel(parent=_type).get_all_sub()
         self.render('admin/search_products.html', **self.data)
 
 
@@ -106,11 +125,6 @@ class AdminShowProductsHandler(BaseHandler):
         __product['companies_material'] = CompaniesModel().get_by_materials(product)
         self.data['product'] = __product
         self.render('admin/show_products.html', **self.data)
-
-
-class AdminSearchMaterialsHandler(BaseHandler):
-    def get(self, *args, **kwargs):
-        self.render('admin/search_materials.html', **self.data)
 
 
 class AdminCompaniesHandler(BaseHandler):

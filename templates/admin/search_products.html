@@ -1,0 +1,158 @@
+{% extends base.html %}
+{% block other_css %}
+<link rel="stylesheet" type="text/css" href="/static/plugins/bootstrap-fileupload/bootstrap-fileupload.css"/>
+<link type="text/css" rel="stylesheet" href="{{ static_url('plugins/jquery-ui/jquery-ui.css') }}">
+<style>
+    .company-row {
+        box-shadow: 0 0 2px #AAA;
+        border-radius: 5px;
+        padding: 15px;
+        cursor: pointer;
+        background-color: #F8F8F8;
+    }
+    .company-row:hover {
+        background-color: #F0F0F0;
+    }
+</style>
+{% end block other_css %}
+{% block container %}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default margin-top-30 font-yekan">
+                <div class="panel-heading"><i class="fa fa-folder-open-o"></i><span>جستجو شرکت ها</span></div>
+                <div class="panel-body">
+                    <div class="show_box">
+                        <div class="box_header">
+                            <span>جستجو شرکت</span>
+                        </div>
+                        <div class="box_body unit-div pr_drag">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input class="form-control" value="{{ this_name }}" name="name"
+                                           placeholder="نام محصول">
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="select" name="type">
+                                        <option value="all">همه مجموعه ها</option>
+                                        {% for __type in type_products %}
+                                            <option {% if this_type == __type['_id'] %}selected{% end %} value="{{ __type['_id'] }}">{{ __type['name'] }}</option>
+                                        {% end %}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="select" name="sub_type">
+                                        <option value="all">همه زیر مجموعه ها</option>
+                                        {% for _sub_type in sub_type_products %}
+                                            <option {% if this_sub_type == _sub_type['_id'] %}selected{% end %} value="{{ _sub_type['_id'] }}">{{ __type['name'] }}</option>
+                                        {% end %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-2 col-md-offset-5">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <button style="border-radius: 5px 0 0 5px; border: 1px solid #ccc;"
+                                                class="btn search">جستجو
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if len(products) %}
+                    <div class="show_box" style="margin-top: 10px">
+                        <div class="box_header">
+                            <span>نتایج جستجو</span>
+                        </div>
+                        <div class="box_body unit-div pr_drag">
+                            <div class="row">
+                                {% for __c in products %}
+                                    <div class="col-md-4 col-sm-4 product-row" onclick="location.href='{{ reverse_url('admin:show_products_by_id', __c['_id']) }}'" style="margin-top: 10px">
+                                        <div class="company-row">
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-4">
+                                                    <img src="{{ static_url('images/product_image/' + __c['image']) }}"
+                                                         class="img-circle" style="height: 50px; width: 50px">
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                    <span>{{ __c['name'] }}</span><br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% end %}
+                            </div>
+                        </div>
+                    </div>
+                    {% end %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% end block container %}
+
+{% block other_scripts %}
+<script type="text/javascript" src="{{ static_url('plugins/bootstrap-fileupload/bootstrap-fileupload.js') }}"></script>
+<script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
+<script>
+
+    var trash = '<i class="fa fa-trash-o"></i>';
+
+    var loader = '<img src="{{ static_url('images/loading.gif') }}" width="15" height="15">';
+
+    $('select[name=province]').on("change", function () {
+        var province = $(this).val();
+        var postData = [
+            {name: 'all', value: "true"},
+            {name: 'province', value: province},
+            {name: '_xsrf', value: '{{ handler.xsrf_token }}'}
+        ];
+        jQuery.ajax(
+                {
+                    url: '{{ reverse_url('province_city') }}',
+                    type: "post",
+                    data: postData,
+                    success: function (response) {
+                        $("select[name=city]").html(response['html']).val("all").trigger('change');
+                    }
+                });
+    });
+
+    $('.search').on("click", function () {
+        var __s = $('input[name=name]').val();
+        var name = __s == "" ? "all" : __s;
+        __s = $('select[name=type]').val();
+        var _type = __s == "" ? "all" : __s;
+        __s = $('select[name=sub_type]').val();
+        var _sub_type = __s == "" ? "all" : __s;
+
+        location.href = "{{ reverse_url('admin:search:products_by_params',
+         '__name__', '__type__', '__sub_type__') }}"
+                .replace("__name__", name)
+                .replace("__type__", _type)
+                .replace("__sub_type__", _sub_type);
+    });
+
+    $('select[name=type]').on("change", function(){
+        var type = $(this).val();
+        var postData = [
+            {name: 'all', value: 'true'},
+            {name: 'type', value: type},
+            {name: '_xsrf', value: '{{ handler.xsrf_token }}'}
+        ];
+        jQuery.ajax(
+            {
+                url: '{{ reverse_url('sub_type_products') }}',
+                type: "post",
+                data: postData,
+                success: function (response) {
+                    $("select[name=sub_type]").html(response['html']).val("all").trigger('change');
+                }
+            });
+    });
+</script>
+{% end block other_scripts %}

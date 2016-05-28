@@ -25,15 +25,13 @@ url_patterns = [
     (r'/Admin/ShowCompanies', admin.AdminShowCompaniesHandler, None, 'admin:show_companies'),
     (r'/Admin/ShowCompanies/(id)', admin.AdminShowCompaniesHandler, None, 'admin:show_companies_by_id'),
 
-    (r'^(?i)/Admin/Search/Products[/]?$', admin.AdminSearchProductsHandler),
-    (r'^/Admin/Search/Products', admin.AdminSearchProductsHandler, None, "admin:search:products"),
+    (r'^(?i)/Admin/Search/Products/([^/]+)/([\w^/]+)/([\w^/]+)?[/]?$', admin.AdminSearchProductsHandler),
+    (r'/Admin/Search/Products', admin.AdminSearchProductsHandler, None, 'admin:search:products'),
+    (r'/Admin/Search/Products/(name)/(type)/(sub_type)', admin.AdminSearchProductsHandler, None, 'admin:search:products_by_params'),
 
     (r'^(?i)/Admin/ShowProducts[/]?([\w^/]+)?[/]?$', admin.AdminShowProductsHandler),
     (r'/Admin/ShowProducts', admin.AdminShowProductsHandler, None, 'admin:show_products'),
     (r'/Admin/ShowProducts/(id)', admin.AdminShowProductsHandler, None, 'admin:show_products_by_id'),
-
-    (r'^(?i)/Admin/Search/Materials[/]?$', admin.AdminSearchMaterialsHandler),
-    (r'^/Admin/Search/Materials', admin.AdminSearchMaterialsHandler, None, "admin:search:materials"),
 
     (r'^(?i)/Admin/AddCompanies[/]?$', admin.AdminAddCompaniesHandler),
     (r'^/Admin/AddCompanies', admin.AdminAddCompaniesHandler, None, "admin:add_companies"),
