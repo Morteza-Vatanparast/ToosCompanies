@@ -75,4 +75,7 @@ url_patterns = [
     (r'^(?i)/Admin/EditServices[/]?([\w^/]+)?[/]?$', admin.AdminEditServicesHandler),
     (r'/Admin/EditServices', admin.AdminEditServicesHandler, None, 'admin:edit_services'),
     (r'/Admin/EditServices/(id)', admin.AdminEditServicesHandler, None, 'admin:edit_services_by_id'),
+
+    (r'^(?i)/Admin/Orders[/]?$', admin.AdminOrdersHandler),
+    (r'^/Admin/Orders', admin.AdminOrdersHandler, None, "admin:orders"),
 ]

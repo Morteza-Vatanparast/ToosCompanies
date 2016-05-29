@@ -44,6 +44,8 @@ class MongodbModel(MongodbBaseModel):
             self.collection = self.db.products
         if collection == 'services':
             self.collection = self.db.services
+        if collection == 'orders':
+            self.collection = self.db.orders
 
     def insert(self):
         try:

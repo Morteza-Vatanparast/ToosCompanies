@@ -10,6 +10,7 @@ from classes.upload_pic import UploadPic
 from handlers.base import BaseHandler
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
+from models.mongodb.orders import OrdersModel
 from models.mongodb.products import ProductsModel
 from models.mongodb.province_city import ProvinceCityModel
 from models.mongodb.services import ServicesModel
@@ -671,6 +672,21 @@ class AdminEditServicesHandler(BaseHandler):
                 except:
                     image = []
                 ServicesModel(_id=service, name=name, description=description, image=image).update()
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
+class AdminOrdersHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        self.data['orders'] = OrdersModel().get_all()
+        self.render('admin/orders.html', **self.data)
+
+    def delete(self, *args, **kwargs):
+        try:
+            order = self.get_argument('order', '')
+            OrdersModel(_id=ObjectId(order)).delete()
             self.status = True
             self.write(self.result)
         except:
