@@ -380,7 +380,7 @@ for line in a.split("___endl__"):
     c.name = __a[0]
     c.main_page = False
     c.slider = False
-    c.description = __a[2]
+    c.description = __a[1]
     c.logo = "default.jpg"
     c.images = []
     c.unit = None
@@ -395,6 +395,6 @@ for line in a.split("___endl__"):
     c.email = ""
     c.province = 10
     c.city = 122
-    c.ceo = __a[3]
+    c.ceo = __a[2]
     c.owner = ""
     c.insert()
