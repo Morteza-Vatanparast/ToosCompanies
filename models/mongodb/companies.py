@@ -7,9 +7,9 @@ from models.mongodb.unit_companies import UnitCompaniesModel
 
 class CompaniesModel:
     def __init__(self, _id=None, name=None, main_page=None, slider=None, description=None, logo=None, images=None,
-                 unit=None, active=None, industrial_town=None, address=None, phone=None, fax=None, site=None,
-                 email=None, province=None, city=None, ceo=None, owner=None, mobile=None, mobile2=None, products=None,
-                 materials=None):
+                 unit=None, active=None, industrial_town=None, address=None, phone=None, phone2=None, fax=None,
+                 site=None, email=None, province=None, city=None, ceo=None, owner=None, mobile=None,
+                 products=None, materials=None):
         self.id = _id
         self.name = name
         self.main_page = main_page
@@ -22,8 +22,8 @@ class CompaniesModel:
         self.industrial_town = industrial_town
         self.address = address
         self.phone = phone
+        self.phone2 = phone2
         self.mobile = mobile
-        self.mobile2 = mobile2
         if products is None:
             products = []
         if materials is None:
@@ -51,8 +51,8 @@ class CompaniesModel:
                 "industrial_town": self.industrial_town,
                 "address": self.address,
                 "phone": self.phone,
+                "phone2": self.phone2,
                 "mobile": self.mobile,
-                "mobile2": self.mobile2,
                 "fax": self.fax,
                 "site": self.site,
                 "email": self.email,
@@ -94,8 +94,8 @@ class CompaniesModel:
                     "industrial_town": self.industrial_town,
                     "address": self.address,
                     "phone": self.phone,
+                    "phone2": self.phone2,
                     "mobile": self.mobile,
-                    "mobile2": self.mobile2,
                     "fax": self.fax,
                     "site": self.site,
                     "email": self.email,
@@ -246,6 +246,7 @@ class CompaniesModel:
                 logo=__get("logo", ""),
                 address=__get("address", ""),
                 phone=__get("phone", ""),
+                phone2=__get("phone2", ""),
                 fax=__get("fax", ""),
                 site=__get("site", ""),
                 email=__get("email", ""),
