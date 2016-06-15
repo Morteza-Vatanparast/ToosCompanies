@@ -66,7 +66,7 @@ class IndexHandler(BaseHandler):
     def get(self, *args, **kwargs):
         self.data['__now'] = datetime.datetime.now()
         self.data['__now_name'] = khayyam.JalaliDatetime().now().strftime("%A - %d %B %Y")
-        self.render('index.html', **self.data)
+        self.render('index_2.html', **self.data)
 
 
 class ProvinceCityHandler(BaseHandler):

@@ -9,14 +9,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Shop Homepage - Start Bootstrap Template</title>
+    <title>Companies</title>
 
     <!-- Bootstrap Core CSS -->
     <link type="text/css" rel="stylesheet" href="{{ static_url('css/bootstrap-rtl.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ static_url('css/bootstrap-theme.css') }}') }}">
-    <link type="text/css" rel="stylesheet" href="{{ static_url('css/small-styles.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ static_url('css/fonts.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ static_url('plugins/fontawesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('plugins/owl-carousel/owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ static_url('plugins/owl-carousel/owl-carousel/owl.theme.css') }}">
 
     <style>
 
@@ -27,94 +28,757 @@
             padding: 3px;
         }
 
+        .custom-medium-box {
+            height: 219px;
+        }
+
+        .custom-small-box {
+            height: 107px;
+            margin-top: 11px !important;
+        }
+
+        .custom-slide{
+            display: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .custom-slider{
+            width: 100%;
+            height: 337px;
+        }
+
+        .custom-carousel-control{
+            position: absolute;
+            opacity: 0.5;
+            width: 10%;
+            top: 3px;
+            font-size: 25px;
+            z-index: 10000;
+            cursor: pointer;
+            height: 330px;
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+            filter: alpha(opacity=50);
+            opacity: 0.5;
+        }
+        .custom-carousel-control.left {
+            left: 0;
+            margin-left: 14px;
+            background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+            background-image:      -o-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+            background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, .0001)));
+            background-image:         linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+            background-repeat: repeat-x;
+        }
+        .custom-carousel-control.right {
+            right: 0;
+            left: auto;
+            background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+            background-image:      -o-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+            background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .0001)), to(rgba(0, 0, 0, .5)));
+            background-image:         linear-gradient(to right, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+            background-repeat: repeat-x;
+        }
+        .custom-carousel-control:hover,
+        .custom-carousel-control:focus {
+            color: #fff;
+            text-decoration: none;
+            filter: alpha(opacity=90);
+            outline: 0;
+            opacity: .9;
+        }
+
+        .custom-carousel-control.right{
+            right: 0;
+            margin-right: 14px;
+            position: absolute;
+            width: 10%;
+        }
+
+        .custom-slider .custom-carousel-control{
+            display: none;
+        }
+        .custom-carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            z-index: 15;
+            width: 60%;
+            padding-left: 0;
+            margin-left: -30%;
+            text-align: center;
+            list-style: none;
+        }
+
+        .custom-carousel-indicators li {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 1px;
+            text-indent: -999px;
+            cursor: pointer;
+            background-color: #000 \9;
+            background-color: rgba(0, 0, 0, 0);
+            border: 1px solid #ffffff;
+            border-radius: 10px;
+        }
+
+        .custom-carousel-indicators .active {
+          width: 12px;
+          height: 12px;
+          margin: 0;
+          background-color: #ffffff;
+        }
+
+        .custom-carousel-caption {
+            display: none;
+        }
+
+        .custom-carousel-indicators {
+            display: none;
+        }
+
+        .col {
+            padding-left: 10px !important;;
+            padding-right: 10px !important;
+        }
+        ul.list-inline li:hover a{
+            color: #000000 !important;
+        }
+        ul.list-inline li a{
+            text-decoration: none !important;
+        }
+        ul.list-inline li{
+            margin: 5px !important;
+        }
+
+        #custom-search-input{
+            padding: 3px;
+            background-color: #fff;
+        }
+
+        #custom-search-input input{
+            border: 0;
+            box-shadow: none;
+        }
+
+        #custom-search-input button{
+            margin: 2px 0 0 0;
+            background: none;
+            box-shadow: none;
+            border: 0;
+            color: #666666;
+            padding: 0 8px 0 10px;
+            border-right: solid 1px #ccc;
+            border-radius: 0;
+        }
+
+        #custom-search-input button:hover{
+            border: 0;
+            box-shadow: none;
+            border-left: solid 1px #ccc;
+        }
+
+        #custom-search-input .glyphicon-search{
+            font-size: 23px;
+        }
     </style>
 
 </head>
 
-<body style="background-color: #F4F4F4; font-family: Yekan">
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+<body style="background-color: #F4F4F4; font-family: Yekan; padding: 0px 30px 30px 30px; direction: rtl">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-inline" style="font-size: 17px; padding-top: 7px">
+                    <li><a style="color: #666" href="#">Home</a></li>
+                    <li><a style="color: #666" href="#">Menu 1</a></li>
+                    <li><a style="color: #666" href="#">Menu 2</a></li>
+                    <li><a style="color: #666" href="#">Menu 3</a></li>
+                  </ul>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
+            <div class="col-md-4">
+                <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-lg" placeholder="Search" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
             </div>
-            <!-- /.navbar-collapse -->
+            </div>
         </div>
-        <!-- /.container -->
-    </nav>
-
-    <div class="col-md-12" style="padding-left: 10px; padding-right: 10px;">
-        <div style="padding-left: 50px; padding-right: 50px">
-            <div class="row">
-                <div class="col-md-12" style="padding-left: 10px; padding-right: 10px;">
-                    <div class="row carousel-holder">
-                        <div class="col-md-7" style="padding-left: 10px; padding-right: 10px;">
-                            <div class="custom-box">
-                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                                    <ol class="carousel-indicators">
-                                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                                    </ol>
-                                    <div class="carousel-inner">
-                                        <div class="item active">
-                                            <img class="slide-image" src="http://placehold.it/700x330" alt="">
-                                        </div>
-                                        <div class="item">
-                                            <img class="slide-image" src="http://placehold.it/700x330" alt="">
-                                        </div>
-                                        <div class="item">
-                                            <img class="slide-image" src="http://placehold.it/700x330" alt="">
-                                        </div>
-                                    </div>
-                                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                    </a>
-                                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </a>
+        <hr style="border-top: 2px solid #666; margin-top: 0; margin-bottom: 16px">
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col col-md-6 col-sm-8">
+                <div class="custom-slider custom-box">
+                    <div class="right custom-carousel-control">
+                        <span class="fa fa-angle-right" style="margin-top: 152px"></span>
+                    </div>
+                    <div class="col-md-12 custom-slide active" style="display: block" data-slide="1" data-next-slide="2" data-before-slide="4">
+                        <img style="height: 330px; width: 100%" src="http://placehold.it/700x330" alt="">
+                        <div style="padding: 20px 0" class="carousel-caption custom-carousel-caption">
+                            <h4 style="margin: 0">Awesome words that</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-12 custom-slide" data-slide="2" data-next-slide="3" data-before-slide="1">
+                        <div class="row">
+                            <div class="col-xs-6" style="padding-left: 2px">
+                                <img style="height: 330px; width: 100%" src="http://placehold.it/310x330" alt="">
+                                <div style="padding: 20px 0" class="carousel-caption custom-carousel-caption">
+                                    <h4 style="margin: 0">Awesome words that</h4>
+                                </div>
+                            </div>
+                            <div class="col-xs-6" style="padding-right: 2px">
+                                <img style="height: 330px; width: 100%" src="http://placehold.it/310x330" alt="">
+                                <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
+                                    <h4 style="margin: 0">Awesome words that</h4>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5" style="padding-left: 10px; padding-right: 10px;">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6" style="padding-left: 10px; padding-right: 10px;">
-                                    <div class="custom-box" style="height: 220px">
-                                        <img src="http://placehold.it/250x220" style="width: 100%; height: 100%">
-                                        <div class="carousel-caption">
-                                            <h3>Awesome</h3>
-                                            <p>Mental Floss</p>
+                    </div>
+                    <div class="col-md-12 custom-slide" data-slide="3" data-next-slide="4" data-before-slide="2">
+                        <div class="row">
+                            <div class="col-xs-4" style="padding-left: 2px">
+                                <img style="height: 330px; width: 100%" src="http://placehold.it/200x330" alt="">
+                                <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
+                                    <h4 style="margin: 0">Awesome words that</h4>
+                                </div>
+                            </div>
+                            <div class="col-xs-4" style="padding-left: 2px; padding-right: 2px">
+                                <img style="height: 330px; width: 100%" src="http://placehold.it/200x330" alt="">
+                                <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
+                                    <h4 style="margin: 0">Awesome words that</h4>
+                                </div>
+                            </div>
+                            <div class="col-xs-4" style="padding-right: 2px">
+                                <img style="height: 330px; width: 100%" src="http://placehold.it/200x330" alt="">
+                                <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
+                                    <h4 style="margin: 0">Awesome words that</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 custom-slide" data-slide="4" data-next-slide="1" data-before-slide="3">
+                        <div class="row">
+                            <div class="col-xs-6" style="padding-left: 2px">
+                                <img style="height: 330px; width: 100%" src="http://placehold.it/310x330" alt="">
+                                <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
+                                    <h4 style="margin: 0">Awesome words that</h4>
+                                </div>
+                            </div>
+                            <div class="col-xs-6" style="padding-right: 2px">
+                                <div class="row">
+                                    <div class="col-xs-12" style="padding-bottom: 2px">
+                                        <img style="height: 163px; width: 100%" src="http://placehold.it/310x165" alt="">
+                                        <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
+                                            <h4 style="margin: 0">Awesome words that</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12" style="padding-top: 2px">
+                                        <img style="height: 163px; width: 100%" src="http://placehold.it/310x165" alt="">
+                                        <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
+                                            <h4 style="margin: 0">Awesome words that</h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-6" style="padding-left: 10px; padding-right: 10px;">
-                                    <div class="custom-box" style="height: 220px">
-                                        <div class="box-medium">
-                                            <div id="canvasClock">
-                                                <div style="text-align: center; font-size: 19px; margin-top: 0; direction: rtl;;">{{ __now_name }}</div>
-                                                <canvas class="canvas center-block" id="analogClock" width="240" height="240" style="max-width: 100%; margin-top: -25px;"></canvas>
-                                                <div style="text-align: center; direction: ltr; font-size: 30px; margin-top: -25px;" id="digitalClock">00:00:00 AM</div>
-                                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="left custom-carousel-control">
+                        <span class="fa fa-angle-left" style="margin-top: 152px"></span>
+                    </div>
+                    <ol class="custom-carousel-indicators">
+                        <li class="active" data-slide="1"></li>
+                        <li data-slide="2"></li>
+                        <li data-slide="3"></li>
+                        <li data-slide="4"></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-4 visible-sm visible-md visible-lg" style="padding-left: 15px; padding-right: 15px">
+                <div class="row">
+                    <div class="col col-md-6">
+                        <div class="custom-box custom-medium-box">
+                            <img style="height: 212px; width: 100%" src="http://placehold.it/300x200" alt="">
+                            <div class="carousel-caption" style="padding: 0">
+                                <h4 style="margin: 0">Awesome words that</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-6 visible-md visible-lg">
+                        <div class="custom-box custom-medium-box">
+                            <img style="height: 212px; width: 100%" src="http://placehold.it/300x200" alt="">
+                            <div class="carousel-caption" style="padding: 0">
+                                <h4 style="margin: 0">Awesome words that</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-md-6">
+                        <div class="custom-box custom-small-box">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                </div>
+                                <div class="col-xs-7">
+                                    <div style="padding: 3px">
+                                        <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-6 visible-md visible-lg">
+                        <div class="custom-box custom-small-box">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                </div>
+                                <div class="col-xs-7">
+                                    <div style="padding: 3px">
+                                        <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-3 col-sm-4 col-xs-6">
+                <div class="custom-box custom-small-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding: 3px">
+                                <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-4 col-xs-6">
+                <div class="custom-box custom-small-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding: 3px">
+                                <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-4 col-xs-6">
+                <div class="custom-box custom-small-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding: 3px">
+                                <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-4 col-xs-6">
+                <div class="custom-box custom-small-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding: 3px">
+                                <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-4 col-xs-6">
+                <div class="custom-box custom-small-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding: 3px">
+                                <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-4 col-xs-6">
+                <div class="custom-box custom-small-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding: 3px">
+                                <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-4 visible-md visible-lg">
+                <div class="custom-box custom-small-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding: 3px">
+                                <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-4 visible-md visible-lg">
+                <div class="custom-box custom-small-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding: 3px">
+                                <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
+        <div class="row">
+            <div class="col-md-12">
+                <span style="font-size: 20px; font-weight: bold">News</span> <i style="font-size: 20px; font-weight: bold; margin-right: 10px" class="fa fa-angle-left"></i>
+            </div>
+            <div class="col-md-12">
+                <div class="row" style="margin-top: 11px">
+                    <div class="col col-md-3 col-sm-4 col-xs-6">
+                        <div class="custom-box">
+                            <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                            <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3 col-sm-4 col-xs-6">
+                        <div class="custom-box">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important;margin-bottom: 5px; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3 col-sm-4 visible-sm visible-md visible-lg">
+                        <div class="custom-box">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important;margin-bottom: 5px; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-xs-3 visible-md visible-lg">
+                        <div class="custom-box">
+                            <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                            <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
+        <div class="row">
+            <div class="col-md-12">
+                <span style="font-size: 20px; font-weight: bold">News</span> <i style="font-size: 20px; font-weight: bold; margin-right: 10px" class="fa fa-angle-left"></i>
+            </div>
+            <div class="col-md-12">
+                <div class="row" style="margin-top: 11px">
+                    <div class="col col-md-3 col-sm-4 col-xs-6">
+                        <div class="custom-box">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important;margin-bottom: 5px; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3 col-sm-4 col-xs-6">
+                        <div class="custom-box">
+                            <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                            <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3 col-sm-4 visible-sm visible-md visible-lg">
+                        <div class="custom-box">
+                            <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                            <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                        </div>
+                    </div>
+                    <div class="col col-xs-3 visible-md visible-lg">
+                        <div class="custom-box">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important;margin-bottom: 5px; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
+        <div class="row">
+            <div class="col-md-12">
+                <span style="font-size: 20px; font-weight: bold">News</span> <i style="font-size: 20px; font-weight: bold; margin-right: 10px" class="fa fa-angle-left"></i>
+            </div>
+            <div class="col-md-12">
+                <div class="row" style="margin-top: 11px">
+                    <div class="col col-md-3 col-sm-4 col-xs-6">
+                        <div class="custom-box">
+                            <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                            <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3 col-sm-4 col-xs-6">
+                        <div class="custom-box">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important;margin-bottom: 5px; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3 col-sm-4 visible-sm visible-md visible-lg">
+                        <div class="custom-box">
+                            <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                            <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                        </div>
+                    </div>
+                    <div class="col col-xs-3 visible-md visible-lg">
+                        <div class="custom-box">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important;margin-bottom: 5px; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
                                         </div>
                                     </div>
                                 </div>
@@ -122,30 +786,197 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
-    <!-- /.container -->
-
-    <div class="col-md-12">
-
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+        <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
+        <div class="row">
+            <div class="col-md-12">
+                <span style="font-size: 20px; font-weight: bold">News</span> <i style="font-size: 20px; font-weight: bold; margin-right: 10px" class="fa fa-angle-left"></i>
+            </div>
+            <div class="col-md-12">
+                <div class="row" style="margin-top: 11px">
+                    <div class="col col-md-3 col-sm-4 col-xs-6">
+                        <div class="custom-box">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important;margin-bottom: 5px; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3 col-sm-4 col-xs-6">
+                        <div class="custom-box">
+                            <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                            <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3 col-sm-4 visible-sm visible-md visible-lg">
+                        <div class="custom-box">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <div class="custom-small-box" style="margin-top: 0 !important;margin-bottom: 5px; height: 95px">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div style="padding: 3px">
+                                            <span>Woman's pregnancy reveal with IVF needles goes viral</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-xs-3 visible-md visible-lg">
+                        <div class="custom-box">
+                            <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                            <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </footer>
-
+        </div>
+        <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
+        <div class="row">
+            <div class="col-md-12">
+                <span style="font-size: 20px; font-weight: bold">News</span> <i style="font-size: 20px; font-weight: bold; margin-right: 10px" class="fa fa-angle-left"></i>
+            </div>
+            <div class="col-md-12">
+                <div class="row" style="margin-top: 11px; direction: ltr">
+                    <div id="owl-example" class="owl-carousel">
+                        <div class="col">
+                            <div class="custom-box">
+                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="custom-box">
+                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="custom-box">
+                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="custom-box">
+                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="custom-box">
+                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="custom-box">
+                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="custom-box">
+                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="custom-box">
+                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="custom-box">
+                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="custom-box">
+                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                        <div class="custom-box">
+                            <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
+                            <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 <script src="{{ static_url('js/jquery.min.js') }}"></script>
 <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
-
+<script type="text/javascript" src="{{ static_url('plugins/owl-carousel/owl-carousel/owl.carousel.js') }}"></script>
 <script>
 
 
@@ -314,6 +1145,70 @@
         document.getElementById('digitalClock').innerHTML = (h + ':' + m + ':' + s + ' ' + '<strong>' + dd + '</strong>');
     }, 1000);
 
+</script>
+<script>
+    var __temp = true;
+    var slider_setInterval = null;
+    function change_icon_slider(__new_slide){
+        $(".custom-carousel-indicators li.active").removeClass("active");
+        $(".custom-carousel-indicators li[data-slide=" + __new_slide + "]").addClass("active");
+    }
+    function change_slide(__new_slide){
+        var __x = $(".custom-slide.active");
+        __x.hide().removeClass("active");
+        $(".custom-slide[data-slide=" + __new_slide + "]").addClass("active").show();
+    }
+    function start(){
+        slider_setInterval = setInterval(function () {
+            var new_slide = $(".custom-slide.active").attr("data-next-slide");
+            change_slide(new_slide);
+            change_icon_slider(new_slide);
+        }, 3000);
+    }
+    function stop(){
+        clearInterval(slider_setInterval);
+        slider_setInterval = null;
+    }
+    start();
+
+    $(document).on('mouseenter', '.custom-slider', function(){
+        stop();
+        $('.custom-carousel-control').fadeIn();
+        $('.custom-carousel-caption').fadeIn();
+        $('.custom-carousel-indicators').fadeIn();
+    });
+    $(document).on('mouseleave', '.custom-slider', function(){
+        start();
+        $('.custom-carousel-control').fadeOut();
+        $('.custom-carousel-caption').fadeOut();
+        $('.custom-carousel-indicators').fadeOut();
+    });
+    $(document).on('click', '.custom-carousel-control.left', function(){
+        var new_slide = $(".custom-slide.active").attr("data-next-slide");
+        change_slide(new_slide);
+        change_icon_slider(new_slide);
+    });
+
+    $(document).on('click', '.custom-carousel-control.right', function(){
+        var new_slide = $(".custom-slide.active").attr("data-before-slide");
+        change_slide(new_slide);
+        change_icon_slider(new_slide);
+    });
+    $(document).on('click', '.custom-carousel-indicators li', function(){
+        var elm = $(this).closest(".custom-carousel-indicators li");
+        $(".custom-carousel-indicators li.active").removeClass("active");
+        elm.addClass("active");
+        var new_slide = elm.attr("data-slide");
+        change_slide(new_slide);
+    });
+    $(document).ready(function() {
+
+      $("#owl-example").owlCarousel({
+          autoPlay: true,
+          stopOnHover: true
+      });
+
+    });
 </script>
 </body>
 
