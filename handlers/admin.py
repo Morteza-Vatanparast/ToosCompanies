@@ -138,7 +138,7 @@ class AdminCompaniesHandler(BaseHandler):
         companies = CompaniesModel().get_all(page=page, size=30)
         count_all = CompaniesModel().count()
         self.data['companies'] = []
-        self.data['pagination'] = dict(count_all=count_all, count_per_page=30, active_page=1)
+        self.data['pagination'] = dict(count_all=count_all, count_per_page=30, active_page=page)
         for i in companies:
             try:
                 i['unit_name'] = UnitCompaniesModel(_id=i['unit']).get_one()['name']
