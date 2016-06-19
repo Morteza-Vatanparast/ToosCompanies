@@ -103,20 +103,26 @@ class AdminShowCompaniesHandler(BaseHandler):
 
 class AdminSearchProductsHandler(BaseHandler):
     def get(self, *args, **kwargs):
+        main = True
         try:
             name = args[0]
+            main = False
         except:
             name = "all"
         try:
             _type = ObjectId(args[1])
+            main = False
         except:
             _type = "all"
         try:
             _sub_type = ObjectId(args[2])
+            main = False
         except:
             _sub_type = "all"
 
-        self.data['products'] = ProductsModel().admin_search(name=name, _type=_type, _sub_type=_sub_type)
+        self.data['products'] = []
+        if not main:
+            self.data['products'] = ProductsModel().admin_search(name=name, _type=_type, _sub_type=_sub_type)
         self.data['this_name'] = name if name != "all" else ""
         self.data['this_type'] = _type if _type != "all" else ""
         self.data['this_sub_type'] = _sub_type if _sub_type != "all" else ""
