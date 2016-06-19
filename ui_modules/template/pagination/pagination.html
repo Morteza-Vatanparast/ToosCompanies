@@ -1,0 +1,42 @@
+{% set count_page = (count_all + count_per_page - 1) / count_per_page %}
+{% set __start = 0 %}
+{% set __end = 0 %}
+{% if count_all > count_per_page %}
+    {% if count_page <= 9 %}
+        {% set __start = 1 %}
+        {% set __end = count_page + 1 %}
+    {% elif active_page <= 4 %}
+        {% set __start = 1 %}
+        {% set __end = 10 %}
+    {% elif 4 < active_page < count_page - 4 %}
+        {% set __start = active_page - 4 %}
+        {% set __end = active_page + 5 %}
+    {% elif active_page == count_page - 4 %}
+        {% set __start = active_page - 4 %}
+        {% set __end = count_page + 1 %}
+    {% elif active_page > count_page - 4 %}
+        {% set __start = count_page - 8 %}
+        {% set __end = count_page + 1 %}
+    {% end %}
+
+    {% set previous = 1 %}
+    {% if active_page > 1 %}
+        {% set previous = active_page - 1 %}
+    {% end %}
+    <div class="right-button-pagination"><a style="vertical-align: -2px" data-page="{{ previous }}" class="change-page fa fa-chevron-right"></a></div>
+    <div class="num_pagination_button" style="margin-right: -3px; border-right: 0">
+        {% for i in range(__start ,__end) %}
+            {% if i == active_page %}
+                <a data-page="{{ i }}" class="change-page active">{{ i }}</a>
+            {% else %}
+                <a data-page="{{ i }}" class="change-page">{{ i }}</a>
+            {% end %}
+        {% end %}
+    </div>
+    {% set next = count_page %}
+    {% if active_page != count_page %}
+        {% set next = active_page + 1 %}
+    {% end %}
+    <div class="left-button-pagination" style="margin-right: -3px; border-right: 0"><a style="vertical-align: -2px" data-page="{{ next }}" class="change-page fa fa-chevron-left"></a></div>
+
+{% end %}

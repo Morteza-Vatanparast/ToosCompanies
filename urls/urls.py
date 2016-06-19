@@ -11,8 +11,9 @@ url_patterns = [
     ("/ProvinceCity", base.ProvinceCityHandler, None, "province_city"),
     ("/SubTypeProducts", base.SubTypeProductsHandler, None, "sub_type_products"),
 
-    (r'^(?i)/Admin/Companies[/]?$', admin.AdminCompaniesHandler),
-    (r'^/Admin/Companies', admin.AdminCompaniesHandler, None, "admin:companies"),
+    (r'^(?i)/Admin/Companies[/]?([\d^/]+)?[/]?$', admin.AdminCompaniesHandler),
+    (r'/Admin/Companies', admin.AdminCompaniesHandler, None, 'admin:companies'),
+    (r'/Admin/Companies/(page)', admin.AdminCompaniesHandler, None, 'admin:companies_by_page'),
 
     (r'^(?i)/Admin/Dashboard[/]?$', admin.AdminDashboardHandler),
     (r'^/Admin/Dashboard', admin.AdminDashboardHandler, None, "admin:dashboard"),

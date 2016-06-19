@@ -131,8 +131,14 @@ class AdminShowProductsHandler(BaseHandler):
 
 class AdminCompaniesHandler(BaseHandler):
     def get(self, *args, **kwargs):
-        companies = CompaniesModel().get_all()
+        try:
+            page = int(args[0])
+        except:
+            page = 1
+        companies = CompaniesModel().get_all(page=page, size=30)
+        count_all = CompaniesModel().count()
         self.data['companies'] = []
+        self.data['pagination'] = dict(count_all=count_all, count_per_page=30, active_page=1)
         for i in companies:
             try:
                 i['unit_name'] = UnitCompaniesModel(_id=i['unit']).get_one()['name']
