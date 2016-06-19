@@ -6,7 +6,7 @@ sys.path.append("/root/ehsan/ToosCompanies")
 
 from models.mongodb.companies import CompaniesModel
 
-a = """,نارمک,,,,مدیر عامل خاکی,,,,,,,تولیدات خشکبار,,35410671-3___endl__
+a = u""",نارمک,,,,مدیر عامل خاکی,,,,,,,تولیدات خشکبار,,35410671-3___endl__
 ,جام,جم بازرگان,پیشرو,,قراگوزلو,09127343924,,,,,,بسته بندی زعفران,,___endl__
 ,مشمش,,,,مدیر عامل کامیاب,,,,,,,35410791,,___endl__
 ,توس,,نگاه,,غلامحسین صاحبکار,09151159596,,مصطفی صاحبکار 09155119375,,,,35413226,35414243,___endl__
@@ -962,38 +962,38 @@ paya,شاتل33,,,,8693096,,,خانم شجاعی37507 داخلی 107  حامد �
 ,کيان,هلث,دارو,,آقای مهندس کاخکي,09155136069,ارائه مشاوره ، توليد دارو و مکملهای,صنايع غذايی و محلولهای مغذی,,,,ارائه مشاوره ، توليد دارو و مکملهای,,"""
 for line in a.split("___endl__"):
     __a = line.split(',')
-    _name_1 = " {}".format(__a[0]) if __a[0] != "" else ""
-    _name_2 = " {}".format(__a[1]) if __a[1] != "" else ""
-    _name_3 = " {}".format(__a[2]) if __a[2] != "" else ""
-    _name_4 = " {}".format(__a[3]) if __a[3] != "" else ""
-    _name_5 = " {}".format(__a[4]) if __a[4] != "" else ""
+    _name_1 = u" {}".format(__a[0]) if __a[0] != "" else ""
+    _name_2 = u" {}".format(__a[1]) if __a[1] != "" else ""
+    _name_3 = u" {}".format(__a[2]) if __a[2] != "" else ""
+    _name_4 = u" {}".format(__a[3]) if __a[3] != "" else ""
+    _name_5 = u" {}".format(__a[4]) if __a[4] != "" else ""
     __name = _name_1 + _name_2 + _name_3 + _name_4 + _name_5
-    _description_1 = " {}".format(__a[7]) if __a[7] != "" else ""
-    _description_2 = " {}".format(__a[8]) if __a[8] != "" else ""
-    _description_3 = " {}".format(__a[9]) if __a[9] != "" else ""
-    _description_4 = " {}".format(__a[10]) if __a[10] != "" else ""
-    _description_5 = " {}".format(__a[12]) if __a[12] != "" else ""
+    _description_1 = u" {}".format(__a[7]) if __a[7] != "" else ""
+    _description_2 = u" {}".format(__a[8]) if __a[8] != "" else ""
+    _description_3 = u" {}".format(__a[9]) if __a[9] != "" else ""
+    _description_4 = u" {}".format(__a[10]) if __a[10] != "" else ""
+    _description_5 = u" {}".format(__a[12]) if __a[12] != "" else ""
     __description = _description_1 + _description_2 + _description_3 + _description_4 + _description_5
 
     c = CompaniesModel()
-    c.name = __name
+    c.name = u"{}".format(__name)
     c.main_page = False
     c.slider = False
-    c.description = __description
+    c.description = u"{}".format(__description)
     c.logo = "default.jpg"
     c.images = []
     c.unit = None
     c.active = False
     c.industrial_town = ObjectId("57490b8a6dd5345a84b602a3")
     c.address = ""
-    c.phone = __a[13]
-    c.phone2 = __a[14]
-    c.mobile = __a[6]
-    c.fax = __a[11]
+    c.phone = u"{}".format(__a[13])
+    c.phone2 = u"{}".format(__a[14])
+    c.mobile = u"{}".format(__a[6])
+    c.fax = u"{}".format(__a[11])
     c.site = ""
     c.email = ""
     c.province = 10
     c.city = 122
-    c.ceo = __a[5]
+    c.ceo = u"{}".format(__a[5])
     c.owner = ""
     c.insert()

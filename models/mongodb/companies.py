@@ -127,6 +127,14 @@ class CompaniesModel:
             return False
 
     @staticmethod
+    def delete_all():
+        try:
+            MongodbModel(body={}, collection="companies").delete()
+            return True
+        except:
+            return False
+
+    @staticmethod
     def count():
         try:
             __body = {}
@@ -359,11 +367,11 @@ class CompaniesModel:
         try:
             __body = {"$and": []}
             if name != 'all':
-                __body['$and'].append({'name': {"$regex": '^' + name}})
+                __body['$and'].append({'name': {"$regex": name}})
             if ceo != 'all':
-                __body['$and'].append({'ceo': {"$regex": '^' + ceo}})
+                __body['$and'].append({'ceo': {"$regex": ceo}})
             if owner != 'all':
-                __body['$and'].append({'owner': {"$regex": '^' + owner}})
+                __body['$and'].append({'owner': {"$regex": owner}})
             if province != 'all':
                 __body['$and'].append({'province': province})
             if city != 'all':

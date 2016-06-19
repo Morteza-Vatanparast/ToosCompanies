@@ -64,7 +64,6 @@ class AdminSearchCompaniesHandler(BaseHandler):
             main = False
         except:
             industrial_town = "all"
-
         self.data['companies'] = []
         if not main:
             self.data['companies'] = CompaniesModel().admin_search(name=name, ceo=ceo, owner=owner, province=province,
