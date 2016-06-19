@@ -7,7 +7,6 @@
         box-shadow: 0 0 2px #AAA;
         border-radius: 5px;
         padding: 15px;
-        cursor: pointer;
         background-color: #F8F8F8;
     }
     .company-row:hover {
@@ -99,7 +98,7 @@
                         <div class="box_body unit-div pr_drag">
                             <div class="row">
                                 {% for __c in companies %}
-                                    <div class="col-md-4 col-sm-4 product-row" onclick="location.href='{{ reverse_url('admin:show_companies_by_id', __c['_id']) }}'" style="margin-top: 10px">
+                                    <div class="col-md-4 col-sm-4 product-row" style="margin-top: 10px">
                                         <div class="company-row">
                                             <div class="row">
                                                 <div class="col-md-4 col-sm-4">
@@ -108,6 +107,16 @@
                                                 </div>
                                                 <div class="col-md-8 col-sm-8">
                                                     <span>{{ __c['name'] }}</span><br>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-4">
+                                                </div>
+                                                <div class="col-md-4 col-sm-4">
+                                                    <div class="R_butt_green" onclick="location.href='{{ reverse_url('admin:show_companies_by_id', __c['_id']) }}'">نمایش</div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-4">
+                                                    <div class="R_butt_blue" onclick="location.href='{{ reverse_url('admin:edit_companies_by_id', __c['_id']) }}'">ویرایش</div>
                                                 </div>
                                             </div>
                                         </div>

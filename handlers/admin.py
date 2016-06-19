@@ -28,38 +28,49 @@ class AdminDashboardHandler(BaseHandler):
 
 class AdminSearchCompaniesHandler(BaseHandler):
     def get(self, *args, **kwargs):
+        main = True
         try:
             name = args[0]
+            main = False
         except:
             name = "all"
         try:
             ceo = args[1]
+            main = False
         except:
             ceo = "all"
         try:
             owner = args[2]
+            main = False
         except:
             owner = "all"
         try:
             province = int(args[3])
+            main = False
         except:
             province = "all"
         try:
             city = int(args[4])
+            main = False
         except:
             city = "all"
         try:
             unit = ObjectId(args[5])
+            main = False
         except:
             unit = "all"
         try:
             industrial_town = ObjectId(args[6])
+            main = False
         except:
             industrial_town = "all"
 
-        self.data['companies'] = CompaniesModel().admin_search(name=name, ceo=ceo, owner=owner, province=province,
-                                                               city=city, unit=unit, industrial_town=industrial_town)
+        self.data['companies'] = []
+        if not main:
+            self.data['companies'] = CompaniesModel().admin_search(name=name, ceo=ceo, owner=owner, province=province,
+                                                                   city=city, unit=unit, industrial_town=industrial_town)
         self.data['this_name'] = name if name != "all" else ""
+
         self.data['this_ceo'] = ceo if ceo != "all" else ""
         self.data['this_owner'] = owner if owner != "all" else ""
         self.data['this_province'] = province if province != "all" else ""
