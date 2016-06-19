@@ -221,10 +221,10 @@
     var __a = true;
     $('#add_company').submit(function(e){
         if(__a){
-            __a = false;
-            e.preventDefault();
             var btn =$('.add-unit-btn') ;
             btn.html(loader);
+            __a = false;
+            e.preventDefault();
             var data = new FormData();
             data.append('_xsrf', '{{ handler.xsrf_token }}');
             data.append('name', check_value($('input[name=name]').val(), 'نام را وارد کنید.'));
