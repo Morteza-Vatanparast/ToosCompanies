@@ -72,7 +72,7 @@ class CompaniesModel:
     def get_all(self, page=1, size=30):
         try:
             __body = {}
-            __a = MongodbModel(body=__body, collection="companies", sort="name", size=size, page=page).get_all_pagination()
+            __a = MongodbModel(body=__body, collection="companies", sort="name", size=size, page=page, ascending=1).get_all_pagination()
             __r = []
             for __i in __a:
                 company = self.get_company(__i)
