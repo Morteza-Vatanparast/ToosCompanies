@@ -68,6 +68,12 @@
     var loader = '<img src="{{ static_url('images/loading.gif') }}" width="20" height="20">';
 
 
+    $(document).on('click', '.change-page', function(e) {
+        var elm = $(e.target).closest('.change-page');
+        var _page = elm.attr('data-page');
+        location.href = '{{ reverse_url('admin:companies_by_page', '__page__') }}'.replace(/__page__/g, _page);
+    });
+
     var __b = true;
     $(document).on('click', '.delete-company', function(e){
         if(__b){
