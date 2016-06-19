@@ -21,10 +21,10 @@
                 {% end %}
                 ...
                 <div data-page="{{ active_page + 1 }}" class="change-page"><div class="number"> بعدی </div></div>
-                <div data-page="{{ count_page - 1 }}" class="change-page"><div class="number"> انتها </div></div>
+                <div data-page="{{ count_page }}" class="change-page"><div class="number"> انتها </div></div>
 
             {% elif 4 < active_page < count_page - 5 and count_page > 9 %}
-                <div data-page="0" class="change-page"><div class="number"> ابتدا </div></div>
+                <div data-page="1" class="change-page"><div class="number"> ابتدا </div></div>
                 <div data-page="{{ active_page - 1 }}" class="change-page"><div class="number"> قبلی </div></div>
                 ...
                 {% for i in range(active_page - 4, active_page + 5) %}
@@ -39,7 +39,7 @@
                 <div data-page="{{ count_page }}" class="change-page"><div class="number"> انتها </div></div>
 
             {% elif active_page == count_page - 5 and count_page > 9 %}
-                <div data-page="0" class="change-page"><div class="number"> ابتدا </div></div>
+                <div data-page="1" class="change-page"><div class="number"> ابتدا </div></div>
                 <div data-page="{{ active_page - 1 }}" class="change-page"><div class="number"> قبلی </div></div>
                 ...
                 {% for i in range(active_page - 3, count_page + 1) %}
@@ -51,7 +51,7 @@
                 {% end %}
 
             {% elif active_page > count_page - 5 and count_page > 9 %}
-                <div data-page="0" class="change-page"><div class="number"> ابتدا </div></div>
+                <div data-page="1" class="change-page"><div class="number"> ابتدا </div></div>
                 <div data-page="{{ active_page - 1 }}" class="change-page"><div class="number"> قبلی </div></div>
                 ...
                 {% for i in range(count_page - 8, count_page + 1) %}
