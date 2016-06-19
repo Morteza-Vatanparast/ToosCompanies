@@ -261,10 +261,10 @@
             data.append('address', check_value($('textarea[name=address]').val(), 'آدرس را وارد کنید.'));
             data.append('phone', check_value($('input[name=phone]').val(), 'تلفن را وارد کنید.'));
             data.append('fax', check_value($('input[name=fax]').val(), 'فکس را وارد کنید.'));
-            data.append('site', check_value($('input[name=site]').val(), 'سایت را وارد کنید.'));
-            data.append('email', check_value($('input[name=email]').val(), 'ایمیل را وارد کنید.'));
-            data.append('ceo', check_value($('input[name=ceo]').val(), 'مدیر عامل را وارد کنید.'));
-            data.append('owner', check_value($('input[name=owner]').val(), 'مالک را وارد کنید.'));
+            data.append('site', $('input[name=site]').val());
+            data.append('email', $('input[name=email]').val());
+            data.append('ceo', $('input[name=ceo]').val());
+            data.append('owner', $('input[name=owner]').val());
             data.append('province', check_value($('select[name=province]').val(), 'استان را وارد کنید.'));
             data.append('city', check_value($('select[name=city]').val(), 'شهر را وارد کنید.'));
             data.append('main_page', $('input[name=main_page]').prop("checked"));

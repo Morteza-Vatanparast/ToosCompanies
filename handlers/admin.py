@@ -177,8 +177,8 @@ class AdminAddCompaniesHandler(BaseHandler):
             city = int(self.get_argument('city', ''))
             unit = ObjectId(self.get_argument('unit', ''))
             industrial_town = ObjectId(self.get_argument('industrial_town', ''))
-            if name != "" and description != "" and address != "" and phone != "" and fax != "" and site != "" \
-                    and email != "" and ceo != "" and owner != "" and province != "" and city != "":
+            if name != "" and description != "" and address != "" and phone != "" and fax != "" \
+                    and province != "" and city != "":
                 main_page = True if main_page == "true" else False
                 slider = True if slider == "true" else False
                 active = True if active == "true" else False
@@ -239,8 +239,8 @@ class AdminEditCompaniesHandler(BaseHandler):
             city = int(self.get_argument('city', ''))
             unit = ObjectId(self.get_argument('unit', ''))
             industrial_town = ObjectId(self.get_argument('industrial_town', ''))
-            if name != "" and description != "" and address != "" and phone != "" and fax != "" and site != "" \
-                    and email != "" and ceo != "" and owner != "" and province != "" and city != "":
+            if name != "" and description != "" and address != "" and phone != "" and fax != "" \
+                    and province != "" and city != "":
                 main_page = True if main_page == "true" else False
                 slider = True if slider == "true" else False
                 active = True if active == "true" else False
