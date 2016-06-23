@@ -126,6 +126,33 @@ class CompaniesModel:
         except:
             return False
 
+    def update_compare(self):
+        try:
+            __body = {
+                "$set": {
+                    "name": self.name,
+                    "description": self.description,
+                    "unit": self.unit,
+                    "industrial_town": self.industrial_town,
+                    "address": self.address,
+                    "phone": self.phone,
+                    "phone2": self.phone2,
+                    "mobile": self.mobile,
+                    "fax": self.fax,
+                    "site": self.site,
+                    "email": self.email,
+                    "province": self.province,
+                    "city": self.city,
+                    "ceo": self.ceo,
+                    "owner": self.owner,
+                }
+            }
+            __condition = {"_id": self.id}
+            MongodbModel(body=__body, condition=__condition, collection="companies").update()
+            return True
+        except:
+            return False
+
     def delete(self):
         try:
             __body = {"_id": self.id}
@@ -273,6 +300,7 @@ class CompaniesModel:
                 address=__get("address", ""),
                 phone=__get("phone", ""),
                 phone2=__get("phone2", ""),
+                mobile=__get("mobile", ""),
                 fax=__get("fax", ""),
                 site=__get("site", ""),
                 email=__get("email", ""),

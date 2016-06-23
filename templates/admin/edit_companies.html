@@ -112,10 +112,26 @@
                                             </div>
                                             <div class="row margin-top-10">
                                                 <div class="col-xs-3">
+                                                    <span class="form_label">موبایل</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input type="text" name="mobile" value="{{ company['mobile'] }}" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
                                                     <span class="form_label">تلفن</span>
                                                 </div>
                                                 <div class="col-xs-9">
                                                     <input type="text" name="phone" value="{{ company['phone'] }}" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">تلفن 2</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input type="text" name="phone2" value="{{ company['phone2'] }}" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="row margin-top-10">
@@ -304,6 +320,8 @@
             data.append('name', check_value($('input[name=name]').val(), 'نام را وارد کنید.'));
             data.append('address', check_value($('textarea[name=address]').val(), 'آدرس را وارد کنید.'));
             data.append('phone', check_value($('input[name=phone]').val(), 'تلفن را وارد کنید.'));
+            data.append('mobile', $('input[name=mobile]').val());
+            data.append('phone2', $('input[name=phone2]').val());
             data.append('fax', check_value($('input[name=fax]').val(), 'فکس را وارد کنید.'));
             data.append('site', $('input[name=site]').val());
             data.append('email', $('input[name=email]').val());

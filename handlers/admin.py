@@ -152,6 +152,35 @@ class AdminCompareCompaniesHandler(BaseHandler):
         except:
             self.write(self.error_result)
 
+    def post(self, *args, **kwargs):
+        try:
+            company = ObjectId(self.get_argument('company', ''))
+            name = self.get_argument('name', '')
+            description = self.get_argument('description', '')
+            address = self.get_argument('address', '')
+            phone = self.get_argument('phone', '')
+            phone2 = self.get_argument('phone2', '')
+            mobile = self.get_argument('mobile', '')
+            fax = self.get_argument('fax', '')
+            site = self.get_argument('site', '')
+            email = self.get_argument('email', '')
+            ceo = self.get_argument('ceo', '')
+            owner = self.get_argument('owner', '')
+            province = int(self.get_argument('province', ''))
+            city = int(self.get_argument('city', ''))
+            unit = ObjectId(self.get_argument('unit', ''))
+            industrial_town = ObjectId(self.get_argument('industrial_town', ''))
+            if name != "" and description != "" and address != "" and phone != "" and fax != "" \
+                    and province != "" and city != "":
+                CompaniesModel(_id=company, name=name, description=description, unit=unit,
+                               industrial_town=industrial_town, address=address, phone=phone, phone2=phone2, fax=fax,
+                               site=site, email=email, province=province, city=city, ceo=ceo,
+                               mobile=mobile, owner=owner).update_compare()
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
 
 class AdminSearchProductsHandler(BaseHandler):
     def get(self, *args, **kwargs):
@@ -243,6 +272,8 @@ class AdminAddCompaniesHandler(BaseHandler):
             description = self.get_argument('description', '')
             address = self.get_argument('address', '')
             phone = self.get_argument('phone', '')
+            phone2 = self.get_argument('phone2', '')
+            mobile = self.get_argument('mobile', '')
             fax = self.get_argument('fax', '')
             site = self.get_argument('site', '')
             email = self.get_argument('email', '')
@@ -277,8 +308,9 @@ class AdminAddCompaniesHandler(BaseHandler):
                     images = []
                 CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
-                               address=address, phone=phone, fax=fax, site=site, email=email, province=province,
-                               city=city, ceo=ceo, owner=owner, slider_image=slider_image, image=image).insert()
+                               address=address, phone=phone, phone2=phone2, fax=fax, site=site, email=email,
+                               province=province, city=city, ceo=ceo, owner=owner, slider_image=slider_image,
+                               image=image, mobile=mobile).insert()
             self.status = True
             self.write(self.result)
         except:
@@ -315,6 +347,8 @@ class AdminEditCompaniesHandler(BaseHandler):
             description = self.get_argument('description', '')
             address = self.get_argument('address', '')
             phone = self.get_argument('phone', '')
+            phone2 = self.get_argument('phone2', '')
+            mobile = self.get_argument('mobile', '')
             fax = self.get_argument('fax', '')
             site = self.get_argument('site', '')
             email = self.get_argument('email', '')
@@ -349,8 +383,9 @@ class AdminEditCompaniesHandler(BaseHandler):
                     images = []
                 CompaniesModel(_id=company, name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
-                               address=address, phone=phone, fax=fax, site=site, email=email, province=province,
-                               city=city, ceo=ceo, owner=owner, slider_image=slider_image, image=image).update()
+                               address=address, phone=phone, phone2=phone2, fax=fax, site=site, email=email,
+                               province=province, mobile=mobile, city=city, ceo=ceo, owner=owner,
+                               slider_image=slider_image, image=image).update()
             self.status = True
             self.write(self.result)
         except:
