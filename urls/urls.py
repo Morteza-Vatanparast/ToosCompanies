@@ -26,6 +26,10 @@ url_patterns = [
     (r'/Admin/ShowCompanies', admin.AdminShowCompaniesHandler, None, 'admin:show_companies'),
     (r'/Admin/ShowCompanies/(id)', admin.AdminShowCompaniesHandler, None, 'admin:show_companies_by_id'),
 
+    (r'^(?i)/Admin/CompareCompanies/([\w^/]+)/([\w^/]+)?[/]?$', admin.AdminCompareCompaniesHandler),
+    (r'/Admin/CompareCompanies', admin.AdminCompareCompaniesHandler, None, 'admin:compare_companies'),
+    (r'/Admin/CompareCompanies/(id)/(id)', admin.AdminCompareCompaniesHandler, None, 'admin:compare_companies_by_id'),
+
     (r'^(?i)/Admin/Search/Products/([^/]+)/([\w^/]+)/([\w^/]+)?[/]?$', admin.AdminSearchProductsHandler),
     (r'/Admin/Search/Products', admin.AdminSearchProductsHandler, None, 'admin:search:products'),
     (r'/Admin/Search/Products/(name)/(type)/(sub_type)', admin.AdminSearchProductsHandler, None, 'admin:search:products_by_params'),

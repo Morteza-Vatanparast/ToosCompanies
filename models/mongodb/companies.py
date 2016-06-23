@@ -9,7 +9,7 @@ class CompaniesModel:
     def __init__(self, _id=None, name=None, main_page=None, slider=None, description=None, logo=None, images=None,
                  unit=None, active=None, industrial_town=None, address=None, phone=None, phone2=None, fax=None,
                  site=None, email=None, province=None, city=None, ceo=None, owner=None, mobile=None,
-                 products=None, materials=None):
+                 products=None, materials=None, slider_image=None, image=None):
         self.id = _id
         self.name = name
         self.main_page = main_page
@@ -17,6 +17,8 @@ class CompaniesModel:
         self.description = description
         self.logo = logo
         self.images = images
+        self.slider_image = slider_image
+        self.image = image
         self.unit = unit
         self.active = active
         self.industrial_town = industrial_town
@@ -46,6 +48,8 @@ class CompaniesModel:
                 "slider": self.slider,
                 "description": self.description,
                 "logo": self.logo,
+                "slider_image": self.slider_image,
+                "image": self.image,
                 "images": self.images,
                 "unit": self.unit,
                 "industrial_town": self.industrial_town,
@@ -108,7 +112,11 @@ class CompaniesModel:
                 }
             }
             if len(self.logo):
-                __body['$set']['logo'] = self.logo
+                __body['$set']['logo'] = self.logo[0]
+            if len(self.slider_image):
+                __body['$set']['slider_image'] = self.slider_image[0]
+            if len(self.image):
+                __body['$set']['image'] = self.image[0]
             if len(self.images):
                 images = self.get_one()['images']
                 __body['$set']['images'] = images + self.images
@@ -259,7 +267,9 @@ class CompaniesModel:
                 main_page=__get("main_page", False),
                 slider=__get("slider", False),
                 active=__get("active", False),
-                logo=__get("logo", ""),
+                logo=__get("logo", None),
+                slider_image=__get("slider_image", None),
+                image=__get("image", None),
                 address=__get("address", ""),
                 phone=__get("phone", ""),
                 phone2=__get("phone2", ""),
@@ -388,6 +398,23 @@ class CompaniesModel:
                 company = self.get_company(__i)
                 if company is not False:
                     __r.append(company)
+            return __r
+        except:
+            return []
+
+    @staticmethod
+    def get_all_by_like(__text=""):
+        try:
+            __body = {'name': {"$regex": __text}}
+            __key = {'name': 1, 'logo': 1}
+            __a = MongodbModel(body=__body, key=__key, collection="companies", sort="name", ascending=1, size=10).get_all_key_pagination()
+            __r = []
+            for __i in __a:
+                __r.append(dict(
+                    _id=__i['_id'],
+                    name=__i['name'],
+                    logo=__i['logo']
+                ))
             return __r
         except:
             return []

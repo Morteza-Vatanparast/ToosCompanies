@@ -100,6 +100,59 @@ class AdminShowCompaniesHandler(BaseHandler):
         self.render('admin/show_companies.html', **self.data)
 
 
+class AdminCompareCompaniesHandler(BaseHandler):
+    def get(self, *args, **kwargs):
+        try:
+            base_company = args[0]
+            if base_company is not None:
+                base_company = ObjectId(base_company)
+        except:
+            base_company = None
+        try:
+            sub_company = args[1]
+            if sub_company is not None:
+                sub_company = ObjectId(sub_company)
+        except:
+            sub_company = None
+
+        if base_company is not None and sub_company is not None:
+            __base_company = CompaniesModel(_id=base_company).get_one()
+            __sub_company = CompaniesModel(_id=sub_company).get_one()
+            base_cities = ProvinceCityModel(province=__base_company['province']).get_all_city()
+            sub_cities = ProvinceCityModel(province=__sub_company['province']).get_all_city()
+        else:
+            __base_company = None
+            __sub_company = None
+            base_cities = None
+            sub_cities = None
+        self.data['base_company'] = __base_company
+        self.data['sub_company'] = __sub_company
+        self.data['provinces'] = ProvinceCityModel().get_all_province()
+        self.data['units'] = UnitCompaniesModel().get_all()
+        self.data['industrial_towns'] = IndustrialTownCompaniesModel().get_all()
+        self.data['base_cities'] = base_cities
+        self.data['sub_cities'] = sub_cities
+        self.render('admin/compare_companies.html', **self.data)
+
+    def put(self, *args, **kwargs):
+        try:
+            text = self.get_argument('text', '')
+            if text != '':
+                companies = CompaniesModel().get_all_by_like(text)
+                l = []
+                for item in companies:
+                    l.append({
+                        'id': str(item['_id']),
+                        'name': item['name'],
+                        'value': item['name'],
+                        'label': item['name'],
+                        'pic': item['logo'],
+                    })
+                self.write(json.dumps({'status': 'ok', 'items': [f['name'] for f in l], 'full_item': l}))
+        except:
+            self.write(self.error_result)
+
+
 class AdminSearchProductsHandler(BaseHandler):
     def get(self, *args, **kwargs):
         main = True
@@ -209,13 +262,23 @@ class AdminAddCompaniesHandler(BaseHandler):
                 except:
                     logo = 'default.jpg'
                 try:
-                    images = UploadPic(handler=self, name='image', folder='company_image').upload()
+                    image = UploadPic(handler=self, name='image', folder='company_image').upload()[0]
+                except:
+                    image = 'default.jpg'
+                try:
+                    slider_image = None
+                    if slider:
+                        slider_image = UploadPic(handler=self, name='slider_image', folder='company_slider').upload()[0]
+                except:
+                    slider_image = None
+                try:
+                    images = UploadPic(handler=self, name='images', folder='company_images').upload()
                 except:
                     images = []
                 CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
-                               address=address, phone=phone, fax=fax, site=site, email=email,
-                               province=province, city=city, ceo=ceo, owner=owner).insert()
+                               address=address, phone=phone, fax=fax, site=site, email=email, province=province,
+                               city=city, ceo=ceo, owner=owner, slider_image=slider_image, image=image).insert()
             self.status = True
             self.write(self.result)
         except:
@@ -267,17 +330,27 @@ class AdminEditCompaniesHandler(BaseHandler):
                 slider = True if slider == "true" else False
                 active = True if active == "true" else False
                 try:
-                    logo = UploadPic(handler=self, name='logo', folder='company_logo').upload()[0]
+                    logo = UploadPic(handler=self, name='logo', folder='company_logo').upload()
                 except:
                     logo = []
                 try:
-                    images = UploadPic(handler=self, name='image', folder='company_image').upload()
+                    image = UploadPic(handler=self, name='image', folder='company_image').upload()
+                except:
+                    image = 'default.jpg'
+                try:
+                    slider_image = []
+                    if slider:
+                        slider_image = UploadPic(handler=self, name='slider_image', folder='company_slider').upload()
+                except:
+                    slider_image = []
+                try:
+                    images = UploadPic(handler=self, name='image', folder='company_images').upload()
                 except:
                     images = []
                 CompaniesModel(_id=company, name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
-                               address=address, phone=phone, fax=fax, site=site, email=email,
-                               province=province, city=city, ceo=ceo, owner=owner).update()
+                               address=address, phone=phone, fax=fax, site=site, email=email, province=province,
+                               city=city, ceo=ceo, owner=owner, slider_image=slider_image, image=image).update()
             self.status = True
             self.write(self.result)
         except:

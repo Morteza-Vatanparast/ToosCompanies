@@ -20,7 +20,7 @@ class IndustrialTownCompaniesModel:
     def get_all():
         try:
             __body = {}
-            return MongodbModel(body=__body, collection="industrial_town_companies").get_all()
+            return [i for i in MongodbModel(body=__body, collection="industrial_town_companies").get_all()]
         except:
             return []
 

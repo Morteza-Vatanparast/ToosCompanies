@@ -32,7 +32,7 @@
                                                 <div class="col-xs-9">
                                                     <div class="row">
                                                         <div class="col-md-4 text-center"><span style="margin-left: 10px">صفحه اصلی</span><input {% if company['main_page'] %}checked{% end %} type="checkbox" name="main_page" value="True"></div>
-                                                        <div class="col-md-4 text-center"><span style="margin-left: 10px">اسلایدر</span><input {% if company['slider'] %}checked{% end %} type="checkbox" name="slider" value="True"></div>
+                                                        <div class="col-md-4 text-center"><span style="margin-left: 10px">اسلایدر</span><input class="has-slider" {% if company['slider'] %}checked{% end %} type="checkbox" name="slider" value="True"></div>
                                                         <div class="col-md-4 text-center"><span style="margin-left: 10px">فعال </span><input {% if company['active'] %}checked{% end %} type="checkbox" name="active" value="True"></div>
                                                     </div>
                                                 </div>
@@ -41,7 +41,7 @@
                                                 <div class="col-xs-3">
                                                     <span class="form_label">لوگو</span>
                                                 </div>
-                                                <div class="col-xs-9">
+                                                <div class="col-xs-3">
                                                     <div class="fileupload fileupload-new" data-provides="fileupload">
                                                         <div id="photo_show" class="fileupload-new thumbnail" style="width: 184px; height: 134px;">
                                                             <img src="{{ static_url('images/company_logo/' + company['logo']) }}" alt="" />
@@ -52,6 +52,50 @@
                                                             <span data-toggle="modal" href="#cropper-foodlist" class="fileupload-new"><i class="fa fa-paper-clip"></i> انتخاب تصویر </span>
                                                             <span class="fileupload-exists"><i class="fa fa-undo"></i> تغییر</span>
                                                             <input name="logo" type="file" class="default add-source" />
+                                                            </span>
+                                                            <a href="#" class="btn backgroundRed colorWhite fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> حذف</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-2" style="margin-right: 40px">
+                                                    <span class="form_label">عکس</span>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                        <div id="photo_show" class="fileupload-new thumbnail" style="width: 184px; height: 134px;">
+                                                            <img src="{{ static_url('images/company_image/' + company['image']) }}" alt="" />
+                                                        </div>
+                                                        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                                        <div>
+                                                            <span class="btn backgroundBlue colorWhite btn-file">
+                                                            <span data-toggle="modal" href="#cropper-foodlist" class="fileupload-new"><i class="fa fa-paper-clip"></i> انتخاب تصویر </span>
+                                                            <span class="fileupload-exists"><i class="fa fa-undo"></i> تغییر</span>
+                                                            <input name="image" type="file" class="default add-source" />
+                                                            </span>
+                                                            <a href="#" class="btn backgroundRed colorWhite fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> حذف</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10 slider-div" {% if not company['slider'] %}style="display: none"{% end %}>
+                                                <div class="col-xs-3">
+                                                    <span class="form_label">اسلایدر</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                        <div id="photo_show" class="fileupload-new thumbnail" style="width: 184px; height: 134px;">
+                                                            {% if company['slider'] %}
+                                                                <img src="{{ static_url('images/company_slider/' + str(company['slider_image'])) }}" alt="" />
+                                                            {% else %}
+                                                                <img  src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                                                            {% end %}
+                                                        </div>
+                                                        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                                        <div>
+                                                            <span class="btn backgroundBlue colorWhite btn-file">
+                                                            <span data-toggle="modal" href="#cropper-foodlist" class="fileupload-new"><i class="fa fa-paper-clip"></i> انتخاب تصویر </span>
+                                                            <span class="fileupload-exists"><i class="fa fa-undo"></i> تغییر</span>
+                                                            <input name="slider_image" type="file" class="default add-source" />
                                                             </span>
                                                             <a href="#" class="btn backgroundRed colorWhite fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> حذف</a>
                                                         </div>
@@ -183,7 +227,7 @@
                                                         <div class="fileupload fileupload-new"
                                                              data-provides="fileupload">
                                                             <div id="photo_show" class="fileupload-new thumbnail" style="width: 184px; height: 134px;">
-                                                                <img src="{{ static_url('images/company_image/' + image) }}" alt=""/>
+                                                                <img src="{{ static_url('images/company_images/' + image) }}" alt=""/>
                                                             </div>
                                                             <div class="fileupload-preview fileupload-exists thumbnail"
                                                                  style="max-width: 184px; max-height: 134px; line-height: 20px;"></div>
@@ -192,7 +236,7 @@
                                                                 <span data-toggle="modal" href="#cropper-foodlist" class="fileupload-new">
                                                                     <i class="fa fa-paper-clip"></i> انتخاب تصویر </span>
                                                                 <span class="fileupload-exists"><i class="fa fa-undo"></i> تغییر</span>
-                                                                <input name="image" type="file" class="default add-source"/>
+                                                                <input name="images" type="file" class="default add-source"/>
                                                             </span>
                                                             <a href="#"
                                                                class="btn backgroundRed colorWhite fileupload-exists"
@@ -215,7 +259,7 @@
                                     </div>
                                     <div class="row margin-top-10">
                                         <div class="col-xs-2 pull-left">
-                                            <button type="submit" class="btn R_butt_green add-unit-btn">افزودن</button>
+                                            <button type="submit" class="btn R_butt_green add-unit-btn">اعمال تغییرات</button>
                                         </div>
                                     </div>
                                 </form>
@@ -274,8 +318,12 @@
             data.append('unit', check_value($('select[name=unit]').val(), 'واحد را وارد کنید.'));
             data.append('industrial_town', check_value($('select[name=industrial_town]').val(), 'شهرک صنعتی  را وارد کنید.'));
             data.append('logo', $('input[type=file][name=logo]')[0].files[0]);
-            $.each($('input[type=file][name=image]'), function(){
-                data.append('image', $(this)[0].files[0]);
+            data.append('image', $('input[type=file][name=image]')[0].files[0]);
+            if($('input[name=slider]').prop("checked")){
+                data.append('slider_image', $('input[type=file][name=slider_image]')[0].files[0]);
+            }
+            $.each($('input[type=file][name=images]'), function(){
+                data.append('images', $(this)[0].files[0]);
             });
             if(__error){
                 Alert.render(__message, function(){
@@ -340,7 +388,7 @@
                     <span class="btn backgroundBlue colorWhite btn-file">\
                     <span data-toggle="modal" href="#cropper-foodlist" class="fileupload-new"><i class="fa fa-paper-clip"></i> انتخاب تصویر </span>\
                     <span class="fileupload-exists"><i class="fa fa-undo"></i> تغییر</span>\
-                    <input name="image" type="file" class="default add-source" />\
+                    <input name="images" type="file" class="default add-source" />\
                     </span>\
                     <a href="#" class="btn backgroundRed colorWhite fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> حذف</a>\
                 </div>\
@@ -384,6 +432,14 @@
                     $("select[name=city]").html(response['html']).val(response['selected']).trigger('change');
                 }
             });
+    });
+
+    $('input.has-slider').on("change", function(){
+        if($(this).prop("checked")){
+            $(".slider-div").slideDown();
+        }else{
+            $('.slider-div').slideUp();
+        }
     });
 
 </script>

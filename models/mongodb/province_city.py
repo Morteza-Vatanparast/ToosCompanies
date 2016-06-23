@@ -10,14 +10,14 @@ class ProvinceCityModel:
     def get_all_province():
         try:
             __body = {}
-            return MongodbModel(body=__body, collection="province").get_all()
+            return [i for i in MongodbModel(body=__body, collection="province").get_all()]
         except:
             return []
 
     def get_all_city(self):
         try:
             __body = {"province": self.province}
-            return MongodbModel(body=__body, collection="city").get_all()
+            return [i for i in MongodbModel(body=__body, collection="city").get_all()]
         except:
             return []
 
