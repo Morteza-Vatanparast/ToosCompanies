@@ -1,3 +1,4 @@
+import hashlib
 import random
 
 from bson import ObjectId
@@ -27,3 +28,28 @@ class CreateId:
         for i in range(0, 11):
             __pass += str(a[random.randint(0, len(a) - 1)])
         return __pass
+
+
+class Hash:
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def create(password):
+        ps = hashlib.md5()
+        ps.update(password)
+        _hash = ps.hexdigest()
+        ps = hashlib.sha1()
+        ps.update(password)
+        _hash += ps.hexdigest()[:18:-1]
+        _hash = _hash[::-1]
+        ps = hashlib.new('ripemd160')
+        ps.update(_hash)
+        return ps.hexdigest()[3:40]
+
+    @staticmethod
+    def hash(__key):
+        try:
+            return hashlib.md5(__key.encode('utf-8')).hexdigest()
+        except:
+            return hashlib.md5(__key).hexdigest()

@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import os
 
+import datetime
+
 __author__ = 'Morteza'
 
 
@@ -10,7 +12,7 @@ class Config:
         self.applications_root = os.path.join(os.path.dirname(__file__), "")
         self.domain = '.localhost'
 
-        self.SESSION_TIME = 31
+        self.SESSION_TIME = datetime.timedelta(seconds=3600)
 
         self.web = {
             'port': 8099,

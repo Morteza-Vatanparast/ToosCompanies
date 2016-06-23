@@ -2,16 +2,32 @@
 # -*- coding: utf-8 -*-
 import datetime
 
+import functools
 import khayyam
 import tornado.web
 from bson import ObjectId
+from pycket.notification import NotificationMixin
+from pycket.session import SessionMixin
 
 from models.mongodb.province_city import ProvinceCityModel
 from models.mongodb.type_products import TypeProductsModel
 
 __author__ = 'Morteza'
 
-class BaseHandler(tornado.web.RequestHandler):
+
+def admin_authentication():
+    def f(func):
+        @functools.wraps(func)
+        def func_wrapper(self, *args, **kwargs):
+            if not self.admin_is_authenticated():
+                self.redirect(self.reverse_url("admin:login"))
+                return
+            return func(self, *args, **kwargs)
+        return func_wrapper
+    return f
+
+
+class BaseHandler(tornado.web.RequestHandler, SessionMixin, NotificationMixin):
     def __init__(self, application, request, **kwargs):
         super(BaseHandler, self).__init__(application, request, **kwargs)
         self.result = {'value': {}, 'status': False, 'messages': []}
@@ -20,6 +36,19 @@ class BaseHandler(tornado.web.RequestHandler):
             title=""
         )
         self.errors = []
+
+    @property
+    def current_admin(self):
+        return self.session.get('current_admin_toos')
+
+    @current_admin.setter
+    def current_admin(self, current_admin):
+        self.session.set('current_admin_toos', current_admin)
+
+    def admin_is_authenticated(self):
+        if self.current_admin is not None:
+            return True
+        return False
 
     @property
     def value(self):

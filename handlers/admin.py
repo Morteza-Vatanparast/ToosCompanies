@@ -3,17 +3,20 @@
 import json
 
 from bson import ObjectId
+from tornado import gen
 
 from classes.get_url import GetUrl
+from classes.public import Hash
 from classes.soap import Soap
 from classes.upload_pic import UploadPic
-from handlers.base import BaseHandler
+from handlers.base import BaseHandler, admin_authentication
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
 from models.mongodb.orders import OrdersModel
 from models.mongodb.products import ProductsModel
 from models.mongodb.province_city import ProvinceCityModel
 from models.mongodb.services import ServicesModel
+from models.mongodb.setting import SettingModel
 from models.mongodb.tables import TablesModel
 from models.mongodb.type_products import TypeProductsModel
 from models.mongodb.unit_companies import UnitCompaniesModel
@@ -22,11 +25,63 @@ __author__ = 'Morteza'
 
 
 class AdminDashboardHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         self.render('admin/dashboard.html', **self.data)
 
 
+class AdminLoginHandler(BaseHandler):
+    @gen.coroutine
+    def get(self, *args, **kwargs):
+        if self.admin_is_authenticated():
+            self.redirect(self.reverse_url('admin:dashboard'))
+            return
+        self.render('admin/login.html', errors=[])
+
+    @gen.coroutine
+    def post(self):
+        try:
+            d = dict()
+            self.check_sent_value("username", d, "username", u"شماره موبایل را وارد کنید.")
+            self.check_sent_value("password", d, "password", u"کلمه عبور را وارد کنید.")
+            if not len(self.errors):
+                u = SettingModel().count_login(username=d['username'])
+                if u:
+                    u = SettingModel().get_one_login(username=d['username'])
+                    if u['password'] == Hash.create(d['password']):
+                        self.current_admin = True
+                        self.status = True
+                    else:
+                        self.messages = [u"کلمه عبور اشتباه است."]
+                else:
+                    self.messages = [u"این حساب کاربری وجود ندارد."]
+            else:
+                self.messages = self.errors
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
+class AdminLogoutHandler(BaseHandler):
+    def get_post(self, *args, **kwargs):
+        for i in self.session.keys():
+            self.session.delete(i)
+        self.redirect(self.reverse_url('admin:login'))
+
+    @gen.coroutine
+    def get(self, *args, **kwargs):
+        self.get_post(self, args, kwargs)
+
+    @gen.coroutine
+    def post(self, *args, **kwargs):
+        self.get_post(self, args, kwargs)
+
+
+
 class AdminSearchCompaniesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         main = True
         try:
@@ -84,6 +139,8 @@ class AdminSearchCompaniesHandler(BaseHandler):
 
 
 class AdminShowCompaniesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         try:
             company = args[0]
@@ -101,6 +158,8 @@ class AdminShowCompaniesHandler(BaseHandler):
 
 
 class AdminCompareCompaniesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         try:
             base_company = args[0]
@@ -134,6 +193,8 @@ class AdminCompareCompaniesHandler(BaseHandler):
         self.data['sub_cities'] = sub_cities
         self.render('admin/compare_companies.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def put(self, *args, **kwargs):
         try:
             text = self.get_argument('text', '')
@@ -152,6 +213,8 @@ class AdminCompareCompaniesHandler(BaseHandler):
         except:
             self.write(self.error_result)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self, *args, **kwargs):
         try:
             company = ObjectId(self.get_argument('company', ''))
@@ -183,6 +246,8 @@ class AdminCompareCompaniesHandler(BaseHandler):
 
 
 class AdminSearchProductsHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         main = True
         try:
@@ -213,6 +278,8 @@ class AdminSearchProductsHandler(BaseHandler):
 
 
 class AdminShowProductsHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         try:
             product = args[0]
@@ -228,6 +295,8 @@ class AdminShowProductsHandler(BaseHandler):
 
 
 class AdminCompaniesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         try:
             page = int(args[0])
@@ -246,6 +315,8 @@ class AdminCompaniesHandler(BaseHandler):
             self.data['companies'].append(i)
         self.render('admin/companies.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def delete(self, *args, **kwargs):
         try:
             company = self.get_argument('company', '')
@@ -257,12 +328,16 @@ class AdminCompaniesHandler(BaseHandler):
 
 
 class AdminAddCompaniesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         self.data['units'] = UnitCompaniesModel().get_all()
         self.data['industrial_towns'] = IndustrialTownCompaniesModel().get_all()
         self.data['provinces'] = ProvinceCityModel().get_all_province()
         self.render('admin/add_companies.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self, *args, **kwargs):
         try:
             name = self.get_argument('name', '')
@@ -318,6 +393,8 @@ class AdminAddCompaniesHandler(BaseHandler):
 
 
 class AdminEditCompaniesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         try:
             company = args[0]
@@ -332,6 +409,8 @@ class AdminEditCompaniesHandler(BaseHandler):
         self.data['cities'] = ProvinceCityModel(province=self.data['company']['province']).get_all_city()
         self.render('admin/edit_companies.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self, *args, **kwargs):
         try:
             company = args[0]
@@ -391,6 +470,8 @@ class AdminEditCompaniesHandler(BaseHandler):
         except:
             self.write(self.error_result)
 
+    @gen.coroutine
+    @admin_authentication()
     def delete(self, *args, **kwargs):
         try:
             company = args[0]
@@ -408,10 +489,14 @@ class AdminEditCompaniesHandler(BaseHandler):
 
 
 class AdminUnitCompaniesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         self.data['units'] = UnitCompaniesModel().get_all()
         self.render('admin/unit_companies.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self, *args, **kwargs):
         try:
             action = self.get_argument('action', '')
@@ -429,6 +514,8 @@ class AdminUnitCompaniesHandler(BaseHandler):
         except:
             self.write(self.error_result)
 
+    @gen.coroutine
+    @admin_authentication()
     def delete(self, *args, **kwargs):
         try:
             unit = self.get_argument('unit', '')
@@ -440,10 +527,14 @@ class AdminUnitCompaniesHandler(BaseHandler):
 
 
 class AdminIndustrialTownCompaniesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         self.data['industrial_towns'] = IndustrialTownCompaniesModel().get_all()
         self.render('admin/industrial_town_companies.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self, *args, **kwargs):
         try:
             action = self.get_argument('action', '')
@@ -461,6 +552,8 @@ class AdminIndustrialTownCompaniesHandler(BaseHandler):
         except:
             self.write(self.error_result)
 
+    @gen.coroutine
+    @admin_authentication()
     def delete(self, *args, **kwargs):
         try:
             town = self.get_argument('town', '')
@@ -473,10 +566,14 @@ class AdminIndustrialTownCompaniesHandler(BaseHandler):
 
 
 class AdminTablesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         self.data['tables'] = TablesModel().get_all()
         self.render('admin/tables.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self):
         try:
             method = self.get_argument('method')
@@ -545,10 +642,14 @@ class AdminTablesHandler(BaseHandler):
 
 
 class AdminTypeProductsHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         self.data['type_products'] = TypeProductsModel().get_all()
         self.render('admin/type_products.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self):
         try:
             action = self.get_argument('action', '')
@@ -594,6 +695,8 @@ class AdminTypeProductsHandler(BaseHandler):
 
 
 class AdminProductsHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         products = ProductsModel().get_all()
         self.data['products'] = []
@@ -609,6 +712,8 @@ class AdminProductsHandler(BaseHandler):
             self.data['products'].append(i)
         self.render('admin/products.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def delete(self, *args, **kwargs):
         try:
             product = self.get_argument('product', '')
@@ -620,10 +725,14 @@ class AdminProductsHandler(BaseHandler):
 
 
 class AdminAddProductsHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         self.data['type_products'] = TypeProductsModel().get_all()
         self.render('admin/add_products.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self, *args, **kwargs):
         try:
             name = self.get_argument('name', '')
@@ -647,6 +756,8 @@ class AdminAddProductsHandler(BaseHandler):
 
 
 class AdminEditProductsHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         try:
             product = args[0]
@@ -659,6 +770,8 @@ class AdminEditProductsHandler(BaseHandler):
         self.data['sub_type_products'] = TypeProductsModel(parent=self.data['product']['type']).get_all_sub()
         self.render('admin/edit_products.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self, *args, **kwargs):
         try:
             product = args[0]
@@ -688,6 +801,8 @@ class AdminEditProductsHandler(BaseHandler):
 
 
 class AdminCompaniesProductsHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         try:
             company = args[0]
@@ -702,6 +817,8 @@ class AdminCompaniesProductsHandler(BaseHandler):
 
         self.render('admin/companies_products.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self, *args, **kwargs):
         try:
             company = args[0]
@@ -750,15 +867,21 @@ class AdminCompaniesProductsHandler(BaseHandler):
 
 
 class AdminServicesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         self.data['services'] = ServicesModel().get_all()
         self.render('admin/services.html', **self.data)
 
 
 class AdminAddServicesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         self.render('admin/add_services.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self, *args, **kwargs):
         try:
             name = self.get_argument('name', '')
@@ -776,6 +899,8 @@ class AdminAddServicesHandler(BaseHandler):
 
 
 class AdminEditServicesHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         try:
             service = args[0]
@@ -786,6 +911,8 @@ class AdminEditServicesHandler(BaseHandler):
         self.data['service'] = ServicesModel(_id=service).get_one()
         self.render('admin/edit_services.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def post(self, *args, **kwargs):
         try:
             service = args[0]
@@ -809,10 +936,14 @@ class AdminEditServicesHandler(BaseHandler):
 
 
 class AdminOrdersHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
     def get(self, *args, **kwargs):
         self.data['orders'] = OrdersModel().get_all()
         self.render('admin/orders.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
     def delete(self, *args, **kwargs):
         try:
             order = self.get_argument('order', '')

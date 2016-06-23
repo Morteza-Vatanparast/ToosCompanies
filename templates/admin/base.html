@@ -61,7 +61,7 @@
                     <li><a href=""><i class="fa fa-gear fa-fw"></i> تنظیمات</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href=""><i class="fa fa-sign-out fa-fw"></i> خروج</a>
+                    <li><a href="{{ reverse_url('admin:logout') }}"><i class="fa fa-sign-out fa-fw"></i> خروج</a>
                     </li>
                 </ul>
             </li>
@@ -84,17 +84,11 @@
 
 </div>
 <script src="{{ static_url('plugins/jquery/jquery.min.js') }}"></script>
-
 <script src="{{ static_url('js/sb-admin-2.js') }}"></script>
-
 <script src="{{ static_url('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-
 <script src="{{ static_url('admin/plugins/metisMenu/metisMenu.min.js') }}"></script>
-
 <script src="{{ static_url('plugins/select2/dist/js/select2.min.js') }}"></script>
-
 <script type="text/javascript" src="{{ static_url('plugins/custom-alert/custom_alert.js') }}"></script>
-
 <script type="text/javascript" src="{{ static_url('plugins/custom-confirm/custom_confirm.js') }}"></script>
 
 <script>

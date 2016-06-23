@@ -15,6 +15,12 @@ url_patterns = [
     (r'/Admin/Companies', admin.AdminCompaniesHandler, None, 'admin:companies'),
     (r'/Admin/Companies/(page)', admin.AdminCompaniesHandler, None, 'admin:companies_by_page'),
 
+    (r'^(?i)/Admin/Login[/]?$', admin.AdminLoginHandler),
+    (r'^/Admin/Login', admin.AdminLoginHandler, None, "admin:login"),
+
+    (r'^(?i)/Admin/Logout[/]?$', admin.AdminLogoutHandler),
+    (r'^/Admin/Logout', admin.AdminLogoutHandler, None, "admin:logout"),
+
     (r'^(?i)/Admin/Dashboard[/]?$', admin.AdminDashboardHandler),
     (r'^/Admin/Dashboard', admin.AdminDashboardHandler, None, "admin:dashboard"),
 
