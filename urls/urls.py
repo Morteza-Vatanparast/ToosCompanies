@@ -89,4 +89,11 @@ url_patterns = [
 
     (r'^(?i)/Admin/Orders[/]?$', admin.AdminOrdersHandler),
     (r'^/Admin/Orders', admin.AdminOrdersHandler, None, "admin:orders"),
+
+    (r'^(?i)/Admin/SlideShow[/]?$', admin.AdminSlideShowHandler),
+    (r'^/Admin/SlideShow', admin.AdminSlideShowHandler, None, "admin:slide_show"),
+
+    (r'^(?i)/Admin/SlideShow/AddFormat[/]?([\w^/]+)?[/]?$', admin.AdminSlideShowAddFormatHandler),
+    (r'/Admin/SlideShow/AddFormat', admin.AdminSlideShowAddFormatHandler, None, 'admin:slide_show:add_format'),
+    (r'/Admin/SlideShow/AddFormat/(format)', admin.AdminSlideShowAddFormatHandler, None, 'admin:slide_show:add_format_by_format'),
 ]

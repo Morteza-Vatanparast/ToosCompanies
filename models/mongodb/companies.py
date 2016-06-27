@@ -434,14 +434,33 @@ class CompaniesModel:
     def get_all_by_like(__text=""):
         try:
             __body = {'name': {"$regex": __text}}
-            __key = {'name': 1, 'logo': 1}
+            __key = {'name': 1, 'logo': 1, "slider_image": 1}
             __a = MongodbModel(body=__body, key=__key, collection="companies", sort="name", ascending=1, size=10).get_all_key_pagination()
             __r = []
             for __i in __a:
                 __r.append(dict(
                     _id=__i['_id'],
                     name=__i['name'],
-                    logo=__i['logo']
+                    logo=__i['logo'],
+                    slider_image=__i['slider_image'] if 'slider_image' in __i.keys() else None,
+                ))
+            return __r
+        except:
+            return []
+
+    @staticmethod
+    def get_all_by_like_has_slider(__text=""):
+        try:
+            __body = {'name': {"$regex": __text}, "slider": True}
+            __key = {'name': 1, 'logo': 1, "slider_image": 1}
+            __a = MongodbModel(body=__body, key=__key, collection="companies", sort="name", ascending=1, size=10).get_all_key_pagination()
+            __r = []
+            for __i in __a:
+                __r.append(dict(
+                    _id=__i['_id'],
+                    name=__i['name'],
+                    logo=__i['logo'],
+                    slider_image=__i['slider_image'] if 'slider_image' in __i.keys() else None,
                 ))
             return __r
         except:

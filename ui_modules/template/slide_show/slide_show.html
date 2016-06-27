@@ -1,0 +1,28 @@
+<div class="custom-slider custom-box">
+    <div class="right custom-carousel-control">
+        <span class="fa fa-angle-right" style="margin-top: 152px"></span>
+    </div>
+    {% set _slide = 1 %}
+    {% for _f in _formats %}
+        {% if _f['format'] == "Format1" %}
+            {% module SlideShowFormat1(_format=_f, _slide=_slide, all_slide=len(_formats)) %}
+        {% elif _f['format'] == "Format2" %}
+            {% module SlideShowFormat2(_format=_f, _slide=_slide, all_slide=len(_formats)) %}
+        {% elif _f['format'] == "Format3" %}
+            {% module SlideShowFormat3(_format=_f, _slide=_slide, all_slide=len(_formats)) %}
+        {% elif _f['format'] == "Format4" %}
+            {% module SlideShowFormat4(_format=_f, _slide=_slide, all_slide=len(_formats)) %}
+        {% end %}
+        {% set _slide = _slide + 1 %}
+    {% end %}
+    <div class="left custom-carousel-control">
+        <span class="fa fa-angle-left" style="margin-top: 152px"></span>
+    </div>
+    <ol class="custom-carousel-indicators">
+        {% set _slide = 1 %}
+        {% for _f in _formats %}
+            <li {% if _slide == 1 %}class="active"{% end %} data-slide="{{ _slide }}"></li>
+            {% set _slide = _slide + 1 %}
+        {% end %}
+    </ol>
+</div>

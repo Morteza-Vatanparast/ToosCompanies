@@ -1,0 +1,162 @@
+{% extends base.html %}
+{% block other_css %}
+<link type="text/css" rel="stylesheet" href="{{ static_url('plugins/jquery-ui/jquery-ui.css') }}">
+{% end block other_css %}
+
+{% block container %}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default margin-top-30 font-yekan">
+                    <div class="panel-heading"><i class="fa fa-folder-open-o"></i><span>ایجاد و مدیریت  قالب های Slide Show</span></div>
+                    <div class="panel-body">
+                        <div class="show_box">
+                            <div class="box_header">
+                                <span>مدیریت قالب ها</span>
+                            </div>
+                            <div class="box_body unit-div pr_drag">
+                                <div class="row">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        {% if format == "Format1" %}
+                                            {% module SlideShowFormat1(admin=True) %}
+                                        {% elif format == "Format2" %}
+                                            {% module SlideShowFormat2(admin=True) %}
+                                        {% elif format == "Format3" %}
+                                            {% module SlideShowFormat3(admin=True) %}
+                                        {% elif format == "Format4" %}
+                                            {% module SlideShowFormat4(admin=True) %}
+                                        {% end %}
+                                    </div>
+                                    <div class="col-md-2 col-md-offset-5 text-center" style="padding-top: 20px">
+                                        <div class="R_butt_green add-format">افزودن قالب</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% end block container %}
+location.href='{{ reverse_url('admin:slide_show:add_format_by_format') }}'
+{% block other_scripts %}
+<script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
+<script>
+
+    var __static_url = '{{ static_url('images/company_logo/' + '__pic__') }}';
+
+    $(document).on('keyup','input[name=search-company]',function(){
+        if($(this).val() != ''){
+            var __loader = $(this).closest('.search').find('.loader');
+            __loader.show();
+            var arr = {
+                text: $(this).val(),
+                _xsrf: '{{ handler.xsrf_token }}'
+            };
+            var th = $(this);
+            $.ajax({
+                data: arr,
+                type: 'put',
+                url: '',
+                async: true,
+                success: function(output){
+                    var ret = JSON.parse(output);
+                    if (ret.status == 'ok'){
+                        $(th).autocomplete({
+                            source: ret.full_item
+                        }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                            return $( "<li>" )
+                                    .append('<a>' +
+                                            '<img src="' + __static_url.replace('__pic__', item.pic) + '" height="50" width="50" class="img-circle img-thumbnail autocomp_item_img">' +
+                                            '<span style="vertical-align: middle;font-size:10pt; !important;">' + item.label + '</span>' +
+                                        '</a>')
+                                    .appendTo(ul);
+                        };
+                        __loader.hide();
+
+                    }
+                },
+                complete: function(){
+                    __loader.hide();
+                },
+                fail: function(){
+                    __loader.hide();
+                }
+            });
+        }
+    });
+
+    var __static_slide_url = '{{ static_url('images/company_slider/' + '__pic__') }}';
+    $('input[name=search-company]').autocomplete({
+        select: function( a, b ) {
+            var __area = $(this).attr('data-area');
+            $('img[data-area=' + __area + ']').attr(
+                    {
+                        src: __static_slide_url.replace("__pic__", b.item.slider_image),
+                        'data-is-change': 'True',
+                        'data-company': b.item.id
+                    }
+            );
+        }
+    });
+    var loader = '<img src="{{ static_url('images/loading.gif') }}" width="20" height="20">';
+
+    $(document).on("click", ".add-format", function(){
+        var btn = $(this).closest('.add-format');
+        btn.html(loader);
+        var __e = false;
+        var areas = [];
+        $.each($('[data-is-change]'), function () {
+            if($(this).attr("data-is-change") == "False"){
+                __e = true;
+            }
+            areas.push({
+                area: $(this).attr('data-area'),
+                company: $(this).attr('data-company')
+            });
+        });
+        if(__e){
+            Alert.render('همه ناحیه ها را مشخص کنید.', function(){
+                btn.html("افزودن قالب");
+            });
+        }
+        var postData = [
+            {name: 'areas', value: JSON.stringify(areas)},
+            {name: '_xsrf', value: '{{ handler.xsrf_token }}'}
+        ];
+        jQuery.ajax(
+            {
+                url: '',
+                type: "post",
+                data: postData,
+                success: function (response) {
+                    var status = response['status'];
+                    var value = response['value'];
+                    var messages = response['messages'];
+                    if (status) {
+                        location.href = "{{ reverse_url("admin:slide_show") }}";
+                    }else{
+                        var error = '';
+                        for(var i = 0; i < messages.length ; i++){
+                            error += messages[i] + '<br>';
+                        }
+                        if(error == '')
+                            error = 'error';
+                        Alert.render(error, function(){
+                            btn.html("افزودن قالب");
+                            __b = true;
+                        });
+                    }
+                },
+                error: function () {
+                    Alert.render('error', function(){
+                        __b = true;
+                        btn.html("افزودن قالب");
+                    });
+                }
+            });
+    });
+
+</script>
+{% end block other_scripts %}

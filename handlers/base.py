@@ -39,7 +39,7 @@ class BaseHandler(tornado.web.RequestHandler, SessionMixin, NotificationMixin):
 
     @property
     def current_admin(self):
-        return self.session.get('current_admin_toos')
+        return self.session.get('current_admin_toos', None)
 
     @current_admin.setter
     def current_admin(self, current_admin):

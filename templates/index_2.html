@@ -106,7 +106,7 @@
         .custom-carousel-indicators {
             position: absolute;
             bottom: 10px;
-            left: 50%;
+            left: 53%;
             z-index: 15;
             width: 60%;
             padding-left: 0;
@@ -221,90 +221,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col col-md-6 col-sm-8">
-                    <div class="custom-slider custom-box">
-                        <div class="right custom-carousel-control">
-                            <span class="fa fa-angle-right" style="margin-top: 152px"></span>
-                        </div>
-                        <div class="col-md-12 custom-slide active" style="display: block" data-slide="1" data-next-slide="2" data-before-slide="4">
-                            <img style="height: 330px; width: 100%" src="http://placehold.it/700x330" alt="">
-                            <div style="padding: 20px 0" class="carousel-caption custom-carousel-caption">
-                                <h4 style="margin: 0">Awesome words that</h4>
-                            </div>
-                        </div>
-                        <div class="col-md-12 custom-slide" data-slide="2" data-next-slide="3" data-before-slide="1">
-                            <div class="row">
-                                <div class="col-xs-6" style="padding-left: 2px">
-                                    <img style="height: 330px; width: 100%" src="http://placehold.it/310x330" alt="">
-                                    <div style="padding: 20px 0" class="carousel-caption custom-carousel-caption">
-                                        <h4 style="margin: 0">Awesome words that</h4>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6" style="padding-right: 2px">
-                                    <img style="height: 330px; width: 100%" src="http://placehold.it/310x330" alt="">
-                                    <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
-                                        <h4 style="margin: 0">Awesome words that</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 custom-slide" data-slide="3" data-next-slide="4" data-before-slide="2">
-                            <div class="row">
-                                <div class="col-xs-4" style="padding-left: 2px">
-                                    <img style="height: 330px; width: 100%" src="http://placehold.it/200x330" alt="">
-                                    <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
-                                        <h4 style="margin: 0">Awesome words that</h4>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4" style="padding-left: 2px; padding-right: 2px">
-                                    <img style="height: 330px; width: 100%" src="http://placehold.it/200x330" alt="">
-                                    <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
-                                        <h4 style="margin: 0">Awesome words that</h4>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4" style="padding-right: 2px">
-                                    <img style="height: 330px; width: 100%" src="http://placehold.it/200x330" alt="">
-                                    <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
-                                        <h4 style="margin: 0">Awesome words that</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 custom-slide" data-slide="4" data-next-slide="1" data-before-slide="3">
-                            <div class="row">
-                                <div class="col-xs-6" style="padding-left: 2px">
-                                    <img style="height: 330px; width: 100%" src="http://placehold.it/310x330" alt="">
-                                    <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
-                                        <h4 style="margin: 0">Awesome words that</h4>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6" style="padding-right: 2px">
-                                    <div class="row">
-                                        <div class="col-xs-12" style="padding-bottom: 2px">
-                                            <img style="height: 163px; width: 100%" src="http://placehold.it/310x165" alt="">
-                                            <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
-                                                <h4 style="margin: 0">Awesome words that</h4>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12" style="padding-top: 2px">
-                                            <img style="height: 163px; width: 100%" src="http://placehold.it/310x165" alt="">
-                                            <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
-                                                <h4 style="margin: 0">Awesome words that</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="left custom-carousel-control">
-                            <span class="fa fa-angle-left" style="margin-top: 152px"></span>
-                        </div>
-                        <ol class="custom-carousel-indicators">
-                            <li class="active" data-slide="1"></li>
-                            <li data-slide="2"></li>
-                            <li data-slide="3"></li>
-                            <li data-slide="4"></li>
-                        </ol>
-                    </div>
+                    {% module SlideShow() %}
                 </div>
                 <div class="col-md-6 col-sm-4 visible-sm visible-md visible-lg" style="padding-left: 15px; padding-right: 15px">
                     <div class="row">
@@ -1223,7 +1140,13 @@
     }
     function start(){
         slider_setInterval = setInterval(function () {
-            var new_slide = $(".custom-slide.active").attr("data-next-slide");
+            var $slide = $(".custom-slide.active");
+            var _slide = parseInt($slide.attr("data-slide"));
+            var all_slide = parseInt($slide.attr("data-all-slide"));
+            var new_slide = _slide + 1;
+            if(new_slide > all_slide){
+                new_slide = 1;
+            }
             change_slide(new_slide);
             change_icon_slider(new_slide);
         }, 3000);
@@ -1247,13 +1170,25 @@
         $('.custom-carousel-indicators').fadeOut();
     });
     $(document).on('click', '.custom-carousel-control.left', function(){
-        var new_slide = $(".custom-slide.active").attr("data-next-slide");
+        var $slide = $(".custom-slide.active");
+        var _slide = parseInt($slide.attr("data-slide"));
+        var all_slide = parseInt($slide.attr("data-all-slide"));
+        var new_slide = _slide + 1;
+        if(new_slide > all_slide){
+            new_slide = 1;
+        }
         change_slide(new_slide);
         change_icon_slider(new_slide);
     });
 
     $(document).on('click', '.custom-carousel-control.right', function(){
-        var new_slide = $(".custom-slide.active").attr("data-before-slide");
+        var $slide = $(".custom-slide.active");
+        var _slide = parseInt($slide.attr("data-slide"));
+        var all_slide = parseInt($slide.attr("data-all-slide"));
+        var new_slide = _slide - 1;
+        if(new_slide <= 0){
+            new_slide = all_slide;
+        }
         change_slide(new_slide);
         change_icon_slider(new_slide);
     });

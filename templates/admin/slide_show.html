@@ -1,0 +1,159 @@
+{% extends base.html %}
+
+{% block container %}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default margin-top-30 font-yekan">
+                    <div class="panel-heading"><i class="fa fa-folder-open-o"></i><span>ایجاد و مدیریت Slide Show</span></div>
+                    <div class="panel-body">
+                        <div class="show_box">
+                            <div class="box_header">
+                                <span>فهرست قالب ها</span>
+                                <div class="new_content_btn" data-toggle="modal" href="#add_format">
+                                    <i class="fa fa-plus"></i>ایجاد قالب جدید
+                                </div>
+                            </div>
+                            <div class="box_body unit-div pr_drag">
+                                <table class="table table-bordered source_news_table agency-table">
+                                    <tr>
+                                        <td>قالب</td>
+                                        <td>شرکت ها</td>
+                                        <td>امکانات</td>
+                                    </tr>
+                                    {% set __a = False %}
+                                    {% for _f in formats  %}
+                                        {% set __a = True %}
+                                        <tr class="company-row">
+                                            <td>{{ _f['name'] }}</td>
+                                            <td>{{ _f['companies_name'] }}</td>
+                                            <td>
+                                                <span data-format="{{ _f['_id'] }}" class="delete-format">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% end %}
+                                    {% if not __a %}
+                                        <tr class="empty">
+                                            <td colspan="5">موردی وجود ندارد.</td>
+                                        </tr>
+                                    {% end %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="modal fade in" style="z-index: 2222222222222222" id="add_format" tabindex="-1" role="basic" aria-hidden="false">
+    <div class="modal-dialog" style="width: 40%">
+        <div class="modal-content" style="border-radius: 7px">
+            <div class="modal-header custom-modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">تعیین قالب Slide Show</h4>
+            </div>
+            <div class="modal-body text-center">
+                <div class="row">
+                    <div class="col-xs-4 show-format-div">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="R_butt_blue show-format" onclick="location.href='{{ reverse_url('admin:slide_show:add_format_by_format', 'Format1') }}'" data-format="1">قالب 1</div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="R_butt_blue show-format" onclick="location.href='{{ reverse_url('admin:slide_show:add_format_by_format', 'Format2') }}'" data-format="2">قالب 2</div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="R_butt_blue show-format" onclick="location.href='{{ reverse_url('admin:slide_show:add_format_by_format', 'Format3') }}'" data-format="3">قالب 3</div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="R_butt_blue show-format" onclick="location.href='{{ reverse_url('admin:slide_show:add_format_by_format', 'Format4') }}'" data-format="4">قالب 4</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img style="display: none; width: 100%;" class="image-format" data-format="1" src="{{ static_url('images/slide_show/format_1.jpg') }}">
+                                <img style="display: none; width: 100%;" class="image-format" data-format="2" src="{{ static_url('images/slide_show/format_2.jpg') }}">
+                                <img style="display: none; width: 100%;" class="image-format" data-format="3" src="{{ static_url('images/slide_show/format_3.jpg') }}">
+                                <img style="display: none; width: 100%;" class="image-format" data-format="4" src="{{ static_url('images/slide_show/format_4.jpg') }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% end block container %}
+location.href='{{ reverse_url('admin:slide_show:add_format_by_format') }}'
+{% block other_scripts %}
+<script>
+    $(document).on('mouseenter', '.show-format', function(e){
+        var format = $(e.target).closest('.show-format').attr('data-format');
+        $('.image-format').hide();
+        $('.image-format[data-format=' + format + ']').show();
+    });
+    $(document).on('mouseleave', '.show-format-div', function(){
+        $('.image-format').hide();
+    });
+
+    var loader = '<img src="{{ static_url('images/loading.gif') }}" width="20" height="20">';
+    var trash = '<i class="fa fa-trash-o"></i>';
+    var __b = true;
+    $(document).on('click', '.delete-format', function(e){
+        if(__b){
+            __b = false;
+            Confirm.render(0, 0, 0, 0, 0, function(){
+                var elm = $(e.target).closest('.delete-format');
+                var format = elm.attr('data-format');
+                elm.html(loader.replace(/20/g, '15'));
+                var postData = [
+                    {name: 'format', value: format},
+                    {name: '_xsrf', value: '{{ handler.xsrf_token }}'}
+                ];
+                jQuery.ajax(
+                    {
+                        url: '',
+                        type: "delete",
+                        data: postData,
+                        success: function (response) {
+                            var status = response['status'];
+                            var value = response['value'];
+                            var messages = response['messages'];
+                            if (status) {
+                                Alert.render('success', function () {
+                                    elm.closest('.company-row').remove();
+                                    __b = true;
+                                });
+                            }else{
+                                var error = '';
+                                for(var i = 0; i < messages.length ; i++){
+                                    error += messages[i] + '<br>';
+                                }
+                                if(error == '')
+                                    error = 'error';
+                                Alert.render(error, function(){
+                                    elm.html(trash);
+                                    __b = true;
+                                });
+                            }
+                        },
+                        error: function () {
+                            Alert.render('error', function(){
+                                elm.html(trash);
+                                __b = true;
+                            });
+                        }
+                    });
+            }, function(){
+                __b = true;
+            });
+        }
+    });
+</script>
+{% end block other_scripts %}

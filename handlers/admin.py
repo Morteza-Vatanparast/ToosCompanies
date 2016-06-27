@@ -952,3 +952,82 @@ class AdminOrdersHandler(BaseHandler):
             self.write(self.result)
         except:
             self.write(self.error_result)
+
+
+class AdminSlideShowHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
+    def get(self, *args, **kwargs):
+        formats = SettingModel().get_format_slide_show()
+        for i in formats:
+            i['companies_name'] = ' , '.join(CompaniesModel(_id=j['company']).get_one()['name'] for j in i['areas'])
+            i['name'] = 'فرمت 1' if i['format'] == "Format1" else 'فرمت 2' if i['format'] == "Format2" else 'فرمت 3' if i['format'] == "Format3" else 'فرمت 4'  if i['format'] == "Format4" else ""
+        self.data['formats'] = formats
+        self.render('admin/slide_show.html', **self.data)
+
+    @gen.coroutine
+    @admin_authentication()
+    def delete(self, *args, **kwargs):
+        try:
+            _format = ObjectId(self.get_argument('format', ''))
+            SettingModel().delete_format_slide_show(_format)
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
+class AdminSlideShowAddFormatHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
+    def get(self, *args, **kwargs):
+        try:
+            _format = args[0]
+        except:
+            _format = None
+        if _format not in ["Format1", "Format2", "Format3", "Format4"]:
+            self.redirect(self.reverse_url("admin:slide_show"))
+            return
+        self.data['format'] = _format
+        self.render('admin/slide_show_add_format.html', **self.data)
+
+    @gen.coroutine
+    @admin_authentication()
+    def put(self, *args, **kwargs):
+        try:
+            text = self.get_argument('text', '')
+            if text != '':
+                companies = CompaniesModel().get_all_by_like_has_slider(text)
+                l = []
+                for item in companies:
+                    l.append({
+                        'id': str(item['_id']),
+                        'name': item['name'],
+                        'value': item['name'],
+                        'label': item['name'],
+                        'pic': item['logo'],
+                        'slider_image': item['slider_image']
+                    })
+                self.write(json.dumps({'status': 'ok', 'items': [f['name'] for f in l], 'full_item': l}))
+        except:
+            self.write(self.error_result)
+
+    @gen.coroutine
+    @admin_authentication()
+    def post(self, *args, **kwargs):
+        try:
+            _format = args[0]
+        except:
+            _format = None
+        try:
+            try:
+                areas = json.loads(self.get_argument('areas', '[]'))
+            except:
+                areas = []
+            for i in areas:
+                i['company'] = ObjectId(i['company'])
+            SettingModel().add_format_slide_show(_format=_format, areas=areas)
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
