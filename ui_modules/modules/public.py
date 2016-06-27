@@ -11,3 +11,13 @@ class Pagination(UIModule):
             return self.render_string('../ui_modules/template/pagination/pagination.html', count_all=count_all, count_per_page=count_per_page, active_page=active_page)
         except:
             return ''
+
+
+class Footer(UIModule):
+    def render(self):
+        return self.render_string('../ui_modules/template/footer/footer.html')
+
+
+class NavBar(UIModule):
+    def render(self):
+        return self.render_string('../ui_modules/template/navbar/navbar.html')
