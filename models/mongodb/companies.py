@@ -465,3 +465,20 @@ class CompaniesModel:
             return __r
         except:
             return []
+
+    @staticmethod
+    def get_by_unit(unit=None, size=8):
+        try:
+            __body = {'unit': unit, "active": True}
+            __key = {'name': 1, 'image': 1}
+            __a = MongodbModel(body=__body, key=__key, collection="companies", sort="name", ascending=1, size=size).get_all_key_pagination()
+            __r = []
+            for __i in __a:
+                __r.append(dict(
+                    _id=__i['_id'],
+                    name=__i['name'],
+                    image=__i['image']
+                ))
+            return __r
+        except:
+            return []

@@ -1,7 +1,16 @@
+from bson import ObjectId
+
 from models.mongodb.base_model import MongodbModel
 
 
 class UnitCompaniesModel:
+    FOOD = ObjectId("5742867f6dd534700def2733")
+    METAL = ObjectId("574284876dd534700def272f")
+    CHEMICAL = ObjectId("574286766dd534700def2732")
+    ELECTRICAL = ObjectId("5742868e6dd534700def2734")
+    TEXTILE = ObjectId("574286986dd534700def2735")
+    MINERAL = ObjectId("574286a46dd534700def2736")
+
     def __init__(self, _id=None, name=None):
         self.id = _id
         self.name = name

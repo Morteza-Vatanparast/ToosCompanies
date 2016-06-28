@@ -1,0 +1,16 @@
+{% try %}
+    {% module CompaniesBox1(company=companies[0]) %}
+{% except %}
+{% end %}
+{% try %}
+    {% module CompaniesBox3(company_1=companies[1], company_2=companies[2], company_3=companies[3]) %}
+{% except %}
+{% end %}
+{% try %}
+    {% module CompaniesBox1(company=companies[4]) %}
+{% except %}
+{% end %}
+{% try %}
+    {% module CompaniesBox3(company_1=companies[5], company_2=companies[6], company_3=companies[7]) %}
+{% except %}
+{% end %}

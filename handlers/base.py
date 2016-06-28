@@ -9,8 +9,10 @@ from bson import ObjectId
 from pycket.notification import NotificationMixin
 from pycket.session import SessionMixin
 
+from models.mongodb.companies import CompaniesModel
 from models.mongodb.province_city import ProvinceCityModel
 from models.mongodb.type_products import TypeProductsModel
+from models.mongodb.unit_companies import UnitCompaniesModel
 
 __author__ = 'Morteza'
 
@@ -95,6 +97,12 @@ class IndexHandler(BaseHandler):
     def get(self, *args, **kwargs):
         self.data['__now'] = datetime.datetime.now()
         self.data['__now_name'] = khayyam.JalaliDatetime().now().strftime("%A - %d %B %Y")
+        self.data['FOOD'] = CompaniesModel().get_by_unit(unit=UnitCompaniesModel.FOOD)
+        self.data['METAL'] = CompaniesModel().get_by_unit(unit=UnitCompaniesModel.METAL)
+        self.data['CHEMICAL'] = CompaniesModel().get_by_unit(unit=UnitCompaniesModel.CHEMICAL)
+        self.data['ELECTRICAL'] = CompaniesModel().get_by_unit(unit=UnitCompaniesModel.ELECTRICAL)
+        self.data['TEXTILE'] = CompaniesModel().get_by_unit(unit=UnitCompaniesModel.TEXTILE, size=4)
+        self.data['MINERAL'] = CompaniesModel().get_by_unit(unit=UnitCompaniesModel.MINERAL, size=4)
         self.render('index.html', **self.data)
 
 

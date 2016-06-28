@@ -21,3 +21,21 @@ class Footer(UIModule):
 class NavBar(UIModule):
     def render(self):
         return self.render_string('../ui_modules/template/navbar/navbar.html')
+
+
+class CompaniesBox(UIModule):
+    def render(self, companies=None):
+        if companies is None:
+            companies = []
+        return self.render_string('../ui_modules/template/companies_box/companies_box.html', companies=companies)
+
+
+class CompaniesBox1(UIModule):
+    def render(self, company=None):
+        return self.render_string('../ui_modules/template/companies_box/companies_box_1.html', company=company)
+
+
+class CompaniesBox3(UIModule):
+    def render(self, company_1=None, company_2=None, company_3=None):
+        return self.render_string('../ui_modules/template/companies_box/companies_box_3.html',
+                                  company_1=company_1, company_2=company_2, company_3=company_3)
