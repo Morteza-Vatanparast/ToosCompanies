@@ -470,14 +470,17 @@ class CompaniesModel:
     def get_by_unit(unit=None, size=8):
         try:
             __body = {'unit': unit, "active": True}
-            __key = {'name': 1, 'image': 1}
+            __key = {'name': 1, 'image': 1, 'city': 1, 'industrial_town': 1, 'description': 1}
             __a = MongodbModel(body=__body, key=__key, collection="companies", sort="name", ascending=1, size=size).get_all_key_pagination()
             __r = []
             for __i in __a:
                 __r.append(dict(
                     _id=__i['_id'],
                     name=__i['name'],
-                    image=__i['image']
+                    image=__i['image'],
+                    city=ProvinceCityModel(_id=__i['city']).get_city()['name'],
+                    industrial_town=IndustrialTownCompaniesModel(_id=__i['industrial_town']).get_one()['name'],
+                    description=__i['description']
                 ))
             return __r
         except:
