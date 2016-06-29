@@ -477,7 +477,7 @@ class CompaniesModel:
                 __r.append(dict(
                     _id=__i['_id'],
                     name=__i['name'],
-                    image=__i['image'],
+                    image=__i['image'] if "image" not in __i.keys() else "",
                     city=ProvinceCityModel(_id=__i['city']).get_city()['name'],
                     industrial_town=IndustrialTownCompaniesModel(_id=__i['industrial_town']).get_one()['name'],
                     description=__i['description']

@@ -24,10 +24,10 @@ class NavBar(UIModule):
 
 
 class CompaniesBox(UIModule):
-    def render(self, companies=None):
+    def render(self, companies=None, position=""):
         if companies is None:
             companies = []
-        return self.render_string('../ui_modules/template/companies_box/companies_box.html', companies=companies)
+        return self.render_string('../ui_modules/template/companies_box/companies_box.html', companies=companies, position=position)
 
 
 class CompaniesBox1(UIModule):
