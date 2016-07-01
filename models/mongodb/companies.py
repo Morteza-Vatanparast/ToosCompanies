@@ -467,9 +467,11 @@ class CompaniesModel:
             return []
 
     @staticmethod
-    def get_all_active_main_page(__text=""):
+    def get_all_active_main_page(_text="", _unit=None):
         try:
-            __body = {'name': {"$regex": __text}, "active": True}
+            __body = {'name': {"$regex": _text}, "active": True}
+            if _unit is not None:
+                __body['unit'] = _unit
             __key = {'name': 1, 'image': 1, 'city': 1, 'industrial_town': 1, 'description': 1}
             __a = MongodbModel(body=__body, key=__key, collection="companies", sort="name", ascending=1, size=10).get_all_key_pagination()
             __r = []

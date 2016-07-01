@@ -10,43 +10,45 @@
     <div id="page-wrapper" style="background-color: #F4F4F4; font-family: Yekan">
         <div class="row">
             <div class="col-md-12" style="margin-top: 10px; padding: 0px 30px 30px 30px;">
-                <div class="row companies-boxes">
-                    <div class="col col-md-6 col-sm-8 col-xs-12">
-                        {% module SlideShow() %}
-                    </div>
-                    <div class="col-md-6 col-sm-4 visible-sm visible-md visible-lg" style="padding-left: 15px; padding-right: 15px">
-                        <div class="row">
-                            <div class="col col-md-6">
-                                {% try %}
-                                    {% module AdminCompaniesMediumBox(company=main_page['boxes'][0], box="BOX1") %}
-                                {% except %}
-                                {% end %}
+                <div class="companies-boxes unit-info" data-unit="all">
+                    <div class="row">
+                        <div class="col col-md-6 col-sm-8 col-xs-12">
+                            {% module SlideShow() %}
+                        </div>
+                        <div class="col-md-6 col-sm-4 visible-sm visible-md visible-lg" style="padding-left: 15px; padding-right: 15px">
+                            <div class="row">
+                                <div class="col col-md-6">
+                                    {% try %}
+                                        {% module AdminCompaniesMediumBox(company=main_page['boxes'][0], box="BOX1") %}
+                                    {% except %}
+                                    {% end %}
+                                </div>
+                                <div class="col col-md-6 visible-md visible-lg">
+                                    {% try %}
+                                        {% module AdminCompaniesMediumBox(company=main_page['boxes'][1], box="BOX2") %}
+                                    {% except %}
+                                    {% end %}
+                                </div>
                             </div>
-                            <div class="col col-md-6 visible-md visible-lg">
-                                {% try %}
-                                    {% module AdminCompaniesMediumBox(company=main_page['boxes'][1], box="BOX2") %}
-                                {% except %}
-                                {% end %}
+                            <div class="row">
+                                <div class="col col-md-6">
+                                    {% try %}
+                                        {% module AdminCompaniesSmallBox(company=main_page['boxes'][2], box="BOX3") %}
+                                    {% except %}
+                                    {% end %}
+                                </div>
+                                <div class="col col-md-6 visible-md visible-lg">
+                                    {% try %}
+                                        {% module AdminCompaniesSmallBox(company=main_page['boxes'][3], box="BOX4") %}
+                                    {% except %}
+                                    {% end %}
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                {% try %}
-                                    {% module AdminCompaniesSmallBox(company=main_page['boxes'][2], box="BOX3") %}
-                                {% except %}
-                                {% end %}
-                            </div>
-                            <div class="col col-md-6 visible-md visible-lg">
-                                {% try %}
-                                    {% module AdminCompaniesSmallBox(company=main_page['boxes'][3], box="BOX4") %}
-                                {% except %}
-                                {% end %}
-                            </div>
-                        </div>
                     </div>
-                </div>
-                <div class="row" style="direction: ltr">
-                    {% module AdminCompaniesSmallBoxRow(main_page['boxes'][4:]) %}
+                    <div class="row" style="direction: ltr">
+                        {% module AdminCompaniesSmallBoxRow(main_page['boxes'][4:]) %}
+                    </div>
                 </div>
                 <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
                 <div class="row">
@@ -229,6 +231,7 @@
             var __loader = $(this).closest('.search').find('.loader');
             __loader.show();
             var arr = {
+                unit: $(this).closest('.unit-info').attr('data-unit'),
                 text: $(this).val(),
                 _xsrf: '{{ handler.xsrf_token }}'
             };

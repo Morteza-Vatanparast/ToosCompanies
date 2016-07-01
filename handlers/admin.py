@@ -1096,8 +1096,12 @@ class AdminMainPageHandler(BaseHandler):
     def put(self, *args, **kwargs):
         try:
             text = self.get_argument('text', '')
+            try:
+                unit = ObjectId(self.get_argument('unit', ''))
+            except:
+                unit = None
             if text != '':
-                companies = CompaniesModel().get_all_active_main_page(text)
+                companies = CompaniesModel().get_all_active_main_page(_text=text, _unit=unit)
                 l = []
                 for item in companies:
                     l.append({
