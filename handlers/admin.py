@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 import json
 
+import datetime
+
+import khayyam
 from bson import ObjectId
 from tornado import gen
 
@@ -1029,5 +1032,84 @@ class AdminSlideShowAddFormatHandler(BaseHandler):
             SettingModel().add_format_slide_show(_format=_format, areas=areas)
             self.status = True
             self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
+class AdminMainPageHandler(BaseHandler):
+    @gen.coroutine
+    @admin_authentication()
+    def get(self, *args, **kwargs):
+        self.data['__now'] = datetime.datetime.now()
+        self.data['__now_name'] = khayyam.JalaliDatetime().now().strftime("%A - %d %B %Y")
+        self.data['main_page'] = SettingModel().get_main_page()
+        self.data['units'] = UnitCompaniesModel().get_all()
+        self.render('admin/main_page.html', **self.data)
+
+    @gen.coroutine
+    @admin_authentication()
+    def post(self, *args, **kwargs):
+        try:
+            action = self.get_argument('action', '')
+            if action == "Save":
+                try:
+                    boxes = json.loads(self.get_argument('boxes', '[]'))
+                except:
+                    boxes = []
+                try:
+                    unit_sections = json.loads(self.get_argument('unit_sections', '[]'))
+                except:
+                    unit_sections = []
+                for i in boxes:
+                    try:
+                        i['company'] = ObjectId(i['company'])
+                    except:
+                        i['company'] = None
+                for i in unit_sections:
+                    try:
+                        i['unit'] = ObjectId(i['unit'])
+                    except:
+                        i['unit'] = None
+                    try:
+                        i['companies'] = map(ObjectId, i['companies'])
+                    except:
+                        i['companies'] = []
+                SettingModel().update_main_page(boxes=boxes, unit_sections=unit_sections)
+                self.status = True
+            elif action == "AddUnitSection":
+                try:
+                    _unit = ObjectId(self.get_argument('unit', ''))
+                    _format = self.get_argument('format', '')
+                    unit_name = UnitCompaniesModel(_id=_unit).get_one()['name']
+                    self.value = self.render_string('../ui_modules/template/companies_box/admin_unit_section_boxes.html',
+                                                    unit_name=unit_name, unit_id=_unit, _format=_format, empty=True,
+                                                    companies=[])
+                    self.status = True
+                except:
+                    pass
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+    @gen.coroutine
+    @admin_authentication()
+    def put(self, *args, **kwargs):
+        try:
+            text = self.get_argument('text', '')
+            if text != '':
+                companies = CompaniesModel().get_all_active_main_page(text)
+                l = []
+                for item in companies:
+                    l.append({
+                        'id': str(item['_id']),
+                        'name': item['name'],
+                        'value': item['name'],
+                        'label': item['name'],
+                        'pic': item['image'],
+                        'city': item['city'],
+                        'industrial_town': item['industrial_town'],
+                        'description': item['description']
+                    })
+                self.write(json.dumps({'status': 'ok', 'items': [f['name'] for f in l], 'full_item': l}))
         except:
             self.write(self.error_result)

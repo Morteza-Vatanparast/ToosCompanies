@@ -1,0 +1,405 @@
+{% extends base.html %}
+{% block other_css %}
+<link rel="stylesheet" href="{{ static_url('css/footer.css') }}">
+<link rel="stylesheet" href="{{ static_url('css/index.css') }}">
+<link rel="stylesheet" href="{{ static_url('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ static_url('css/slide_show.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ static_url('plugins/jquery-ui/jquery-ui.css') }}">
+{% end block other_css %}
+{% block container %}
+    <div id="page-wrapper" style="background-color: #F4F4F4; font-family: Yekan">
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 10px; padding: 0px 30px 30px 30px;">
+                <div class="row companies-boxes">
+                    <div class="col col-md-6 col-sm-8 col-xs-12">
+                        {% module SlideShow() %}
+                    </div>
+                    <div class="col-md-6 col-sm-4 visible-sm visible-md visible-lg" style="padding-left: 15px; padding-right: 15px">
+                        <div class="row">
+                            <div class="col col-md-6">
+                                {% try %}
+                                    {% module AdminCompaniesMediumBox(company=main_page['boxes'][0], box="BOX1") %}
+                                {% except %}
+                                {% end %}
+                            </div>
+                            <div class="col col-md-6 visible-md visible-lg">
+                                {% try %}
+                                    {% module AdminCompaniesMediumBox(company=main_page['boxes'][1], box="BOX2") %}
+                                {% except %}
+                                {% end %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-6">
+                                {% try %}
+                                    {% module AdminCompaniesSmallBox(company=main_page['boxes'][2], box="BOX3") %}
+                                {% except %}
+                                {% end %}
+                            </div>
+                            <div class="col col-md-6 visible-md visible-lg">
+                                {% try %}
+                                    {% module AdminCompaniesSmallBox(company=main_page['boxes'][3], box="BOX4") %}
+                                {% except %}
+                                {% end %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="direction: ltr">
+                    {% module AdminCompaniesSmallBoxRow(main_page['boxes'][4:]) %}
+                </div>
+                <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="row">
+                            <div class="col-md-4 text-center">
+                                <select class="select" name="unit">
+                                    <option value="">واحد را انتخاب کنید.</option>
+                                    {% for u in units %}
+                                        <option value="{{ u['_id'] }}">{{ u['name'] }}</option>
+                                    {% end %}
+                                </select>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <select class="select" name="format">
+                                    <option value="">قالب را انتخاب کنید.</option>
+                                    <option value="P1">قالب 1</option>
+                                    <option value="P2">قالب 2</option>
+                                    <option value="P3">قالب 3</option>
+                                    <option value="P4">قالب 4</option>
+                                    <option value="P5">قالب 5</option>
+                                    <option value="P6">قالب 6</option>
+                                    <option value="P7">قالب 7</option>
+                                    <option value="P8">قالب 8</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <div class="R_butt_blue add-unit-section">افزودن دسته</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="unit-sections">
+                    {% for i in main_page['unit_sections'] %}
+                        {% module AdminUnitSectionBoxes(unit_id=i['unit_id'], unit_name=i['unit_name'], _format=i['format'], companies=i['companies'], empty=False) %}
+                    {% end %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-5 text-center">
+                <div class="R_butt_green save-edit">ثبت تغییرات</div>
+            </div>
+        </div>
+    </div>
+    <div id="medium_box" style="display: none">
+        <div class="text-center delete-company R_butt_red" style="position: absolute;padding: 1px 5px;top: 0px;right: 11px">
+            <i class="fa fa-times"></i>
+        </div>
+        <img style="height: 212px; width: 100%" class="company-image" src="">
+        <div class="carousel-caption" style="padding: 0">
+            <h4 class="company-name" style="margin: 0"></h4>
+        </div>
+    </div>
+    <div id="temp_medium_box" style="display: none"></div>
+
+    <div id="small_box" style="display: none">
+        <div class="row">
+            <div class="col-xs-5">
+                <div class="text-center delete-company R_butt_red" style="position: absolute;padding: 1px 5px;top: -3px;right: 12px">
+                    <i class="fa fa-times"></i>
+                </div>
+                <img class="company-image" style="width: 100%; height: 100px" src="">
+            </div>
+            <div class="col-xs-7">
+                <div style="padding: 3px">
+                    <div style="font-size: 17px; font-weight: bold" class="company-name"></div>
+                    <div style="font-size: 12px; margin-top: 10px;">
+                        <span class="company-city"></span> - <span class="company-industrial-town"></span>
+                        <br><span class="company-description"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="temp_small_box" style="display: none"></div>
+
+    <div id="section_small_box" style="display: none">
+        <div class="row">
+            <div class="col-xs-5">
+                <div class="text-center R_butt_red delete-company" style="position: absolute;padding: 1px 5px;top: -3px;right: 12px">
+                    <i class="fa fa-times"></i>
+                </div>
+                <img class="company-image" style="width: 100%; height: 100px" src="">
+            </div>
+            <div class="col-xs-7">
+                <div style="padding: 3px">
+                    <div style="font-size: 17px; font-weight: bold" class="company-name"></div>
+                    <div style="font-size: 12px; margin-top: 10px;">
+                        <span class="company-city"></span> - <span class="company-industrial-town"></span>
+                        <br><span class="company-description"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="temp_section_small_box" style="display: none"></div>
+    <div id="section_medium_box" style="display: none">
+        <div class="text-center delete-company R_butt_red" style="position: absolute;padding: 1px 5px;top: 0px;right: 11px">
+            <i class="fa fa-times"></i>
+        </div>
+        <img class="company-image" style="width: 100%; height: 222px" src="">
+        <div style="padding: 10px; height: 100px;">
+            <div style="font-size: 17px; font-weight: bold" class="company-name"></div>
+            <div style="font-size: 12px; margin-top: 10px;">
+                <span class="company-city"></span> - <span class="company-industrial-town"></span>
+                <br><span class="company-description"></span>
+            </div>
+        </div>
+    </div>
+    <div id="temp_section_medium_box" style="display: none"></div>
+
+{% end block container %}
+
+{% block other_scripts %}
+<script src="{{ static_url('js/slide_show.js') }}"></script>
+<script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
+<script>
+    var trash = '<i class="fa fa-trash-o"></i>';
+    var loader = '<img src="{{ static_url('images/loading.gif') }}" width="20" height="20">';
+    var __company_image = '{{ static_url('images/company_image/' + '__image__') }}';
+    var __static_url = '{{ static_url('images/company_logo/' + '__pic__') }}';
+
+    function create_autocomplete(){
+        $('input[name=search-company]').autocomplete({
+            select: function( a, b ) {
+                var _this = $(this).closest('.company-box');
+                var __type = _this.attr('data-type-box');
+                if(__type == "small"){
+                    var small_box = $("#temp_small_box");
+                    small_box.html($("#small_box").html());
+                    small_box.find('.company-image').attr('src', __company_image.replace('__image__', b.item.pic));
+                    small_box.find('.company-name').html(b.item.label);
+                    small_box.find('.company-city').html(b.item.city);
+                    small_box.find('.company-industrial-town').html(b.item.industrial_town);
+                    small_box.find('.company-description').html(b.item.description);
+                    _this.attr('data-company', b.item.id);
+                    _this.find('.set-company-box').hide();
+                    _this.find('.info-company-box').html(small_box.html()).show();
+                }
+                if(__type == "medium"){
+                    var medium_box = $("#temp_medium_box");
+                    medium_box.html($("#medium_box").html());
+                    medium_box.find('.company-image').attr('src', __company_image.replace('__image__', b.item.pic));
+                    medium_box.find('.company-name').html(b.item.label);
+                    _this.attr('data-company', b.item.id);
+                    _this.find('.set-company-box').hide();
+                    _this.find('.info-company-box').html(medium_box.html()).show();
+                }
+                if(__type == "section-small"){
+                    var section_small_box = $("#temp_section_small_box");
+                    section_small_box.html($("#section_small_box").html());
+                    section_small_box.find('.company-image').attr('src', __company_image.replace('__image__', b.item.pic));
+                    section_small_box.find('.company-name').html(b.item.label);
+                    section_small_box.find('.company-city').html(b.item.city);
+                    section_small_box.find('.company-industrial-town').html(b.item.industrial_town);
+                    section_small_box.find('.company-description').html(b.item.description);
+                    _this.attr('data-company', b.item.id);
+                    _this.find('.set-company-box').hide();
+                    _this.find('.info-company-box').html(section_small_box.html()).show();
+                }
+                if(__type == "section-medium"){
+                    var section_medium_box = $("#temp_section_medium_box");
+                    section_medium_box.html($("#section_medium_box").html());
+                    section_medium_box.find('.company-image').attr('src', __company_image.replace('__image__', b.item.pic));
+                    section_medium_box.find('.company-name').html(b.item.label);
+                    section_medium_box.find('.company-city').html(b.item.city);
+                    section_medium_box.find('.company-industrial-town').html(b.item.industrial_town);
+                    section_medium_box.find('.company-description').html(b.item.description);
+                    _this.attr('data-company', b.item.id);
+                    _this.find('.set-company-box').hide();
+                    _this.find('.info-company-box').html(section_medium_box.html()).show();
+                }
+            }
+        });
+    }
+    create_autocomplete();
+    $(document).on('keyup','input[name=search-company]',function(){
+        if($(this).val() != ''){
+            var __loader = $(this).closest('.search').find('.loader');
+            __loader.show();
+            var arr = {
+                text: $(this).val(),
+                _xsrf: '{{ handler.xsrf_token }}'
+            };
+            var th = $(this);
+            $.ajax({
+                data: arr,
+                type: 'put',
+                url: '',
+                async: true,
+                success: function(output){
+                    var ret = JSON.parse(output);
+                    if (ret.status == 'ok'){
+                        $(th).autocomplete({
+                            source: ret.full_item
+                        }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                            return $( "<li>" )
+                                    .append('<a>' +
+                                            '<img src="' + __static_url.replace('__pic__', item.pic) + '" height="50" width="50" class="img-circle img-thumbnail autocomp_item_img">' +
+                                            '<span style="vertical-align: middle;font-size:10pt; !important;">' + item.label + '</span>' +
+                                        '</a>')
+                                    .appendTo(ul);
+                        };
+                        __loader.hide();
+
+                    }
+                },
+                complete: function(){
+                    __loader.hide();
+                },
+                fail: function(){
+                    __loader.hide();
+                }
+            });
+        }
+    });
+
+    var __static_slide_url = '{{ static_url('images/company_slider/' + '__pic__') }}';
+    $(document).on('click', '.delete-company', function(e){
+        var elm = $(e.target).closest('.delete-company');
+        elm.closest('.company-box').attr('data-company', "None");
+        elm.closest('.company-box').find('input[name=search-company]').val('');
+        elm.closest('.company-box').find('.info-company-box').hide();
+        elm.closest('.company-box').find('.set-company-box').show();
+    });
+
+    $(document).on('click', '.save-edit', function(e){
+        var __error = false;
+        var elm = $(e.target).closest('.save-edit');
+        var btn_html = elm.html();
+        elm.html(loader);
+        var boxes = [];
+        $.each($('.companies-boxes .company-box'), function(){
+            if($(this).attr('data-company') == "None"){
+                __error = true;
+            }
+            boxes.push({
+                box: $(this).attr('data-box'),
+                company: $(this).attr('data-company')
+            });
+        });
+        var unit_sections = [];
+        $.each($('.unit-sections .unit-sections-companies'), function(){
+            var companies = [];
+            $.each($(this).find('.company-box'), function(){
+                if($(this).attr('data-company') == "None"){
+                    __error = true;
+                }
+                companies.push($(this).attr('data-company'));
+            });
+            unit_sections.push({
+                companies: companies,
+                unit: $(this).attr('data-unit'),
+                format: $(this).attr('data-format')
+            });
+        });
+        if(__error){
+            Alert.render('همه باکس ها را تعیین کنید.', function(){
+                elm.html(btn_html);
+                return;
+            });
+        }else{
+            var postData = [
+                {name: '_xsrf', value: '{{ handler.xsrf_token }}'},
+                {name: 'boxes', value: JSON.stringify(boxes)},
+                {name: 'unit_sections', value: JSON.stringify(unit_sections)},
+                {name: 'action', value: "Save"}
+            ];
+            jQuery.ajax(
+            {
+                url: '',
+                type: "post",
+                data: postData,
+                success: function (response) {
+                    var status = response['status'];
+                    var value = response['value'];
+                    var messages = response['messages'];
+                    if (status) {
+                        location.href = "";
+                    }else{
+                        var error = '';
+                        for(var i = 0; i < messages.length ; i++){
+                            error += messages[i] + '<br>';
+                        }
+                        if(error == '')
+                            error = 'error';
+                        Alert.render(error, function(){
+                            elm.html(btn_html);
+                            __b = true;
+                        });
+                    }
+                },
+                error: function () {
+                    Alert.render('error', function(){
+                        elm.html(btn_html);
+                        __b = true;
+                    });
+                }
+            });
+        }
+    });
+
+    $(document).on('click', '.add-unit-section', function(e){
+        var elm = $(e.target).closest('.add-unit-section');
+        var btn_html = elm.html();
+        elm.html(loader);
+        var _format = $('select[name=format]').val();
+        var _unit = $('select[name=unit]').val();
+        if(_unit == "" || _format == ""){
+            Alert.render('همه موارد را وارد کنید.', function(){
+                elm.html(btn_html);
+                return;
+            });
+        }else{
+            var postData = [
+                {name: '_xsrf', value: '{{ handler.xsrf_token }}'},
+                {name: 'action', value: "AddUnitSection"},
+                {name: 'format', value: _format},
+                {name: 'unit', value: _unit}
+            ];
+            jQuery.ajax(
+            {
+                url: '',
+                type: "post",
+                data: postData,
+                success: function (response) {
+                    var status = response['status'];
+                    var value = response['value'];
+                    var messages = response['messages'];
+                    if (status) {
+                        $('.unit-sections').append(value);
+                        elm.html(btn_html);
+                        create_autocomplete();
+                    }else{
+                        var error = '';
+                        for(var i = 0; i < messages.length ; i++){
+                            error += messages[i] + '<br>';
+                        }
+                        if(error == '')
+                            error = 'error';
+                        Alert.render(error, function(){
+                            elm.html(btn_html);
+                        });
+                    }
+                },
+                error: function () {
+                    Alert.render('error', function(){
+                        elm.html(btn_html);
+                    });
+                }
+            });
+        }
+    });
+</script>
+{% end block other_scripts %}

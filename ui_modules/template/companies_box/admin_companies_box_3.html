@@ -1,0 +1,150 @@
+{% if empty %}
+    <div style="direction: rtl" class="col col-md-3">
+        <div class="custom-box">
+            <div class="custom-small-box company-box" data-company="None" data-type-box="section-small" style="margin-top: 0 !important; height: 95px">
+                <div class="set-company-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding-top: 30px;">
+                                <input data-area="1" type="text" class="form-control" name="search-company">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-company-box"></div>
+            </div>
+            <hr style="margin: 10px 0 5px 0;">
+            <div class="custom-small-box company-box" data-company="None" data-type-box="section-small" style="margin-top: 0 !important; height: 95px">
+                <div class="set-company-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding-top: 30px;">
+                                <input data-area="1" type="text" class="form-control" name="search-company">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-company-box"></div>
+            </div>
+            <hr style="margin: 10px 0 5px 0;">
+            <div class="custom-small-box company-box" data-company="None" data-type-box="section-small" style="margin-top: 0 !important;margin-bottom: 5px; height: 95px">
+                <div class="set-company-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding-top: 30px;">
+                                <input data-area="1" type="text" class="form-control" name="search-company">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-company-box"></div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div style="direction: rtl" class="col col-md-3">
+        <div class="custom-box">
+            <div class="custom-small-box company-box" data-company="{{ company_1['_id'] }}" data-type-box="section-small" style="margin-top: 0 !important; height: 95px">
+                <div class="info-company-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="text-center R_butt_red delete-company" style="position: absolute;padding: 1px 5px;top: -3px;right: 12px">
+                                <i class="fa fa-times"></i>
+                            </div>
+                            <img style="height: 100px; width: 100%" src="{{ static_url('images/company_image/' + company_1['image']) }}">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding: 3px">
+                                <div style="font-size: 17px; font-weight: bold">{{ company_1['name'] }}</div>
+                                <div style="font-size: 12px; margin-top: 10px;">{{ company_1['city'] }} - {{ company_1['industrial_town'] }}<br>{{ company_1['description'] }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="set-company-box" style="display: none">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding-top: 30px;">
+                                <input data-area="1" type="text" class="form-control" name="search-company">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr style="margin: 10px 0 5px 0;">
+            <div class="custom-small-box company-box" data-company="{{ company_2['_id'] }}" data-type-box="section-small" style="margin-top: 0 !important; height: 95px">
+                <div class="info-company-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="text-center R_butt_red delete-company" style="position: absolute;padding: 1px 5px;top: -3px;right: 12px">
+                                <i class="fa fa-times"></i>
+                            </div>
+                            <img style="height: 100px; width: 100%" src="{{ static_url('images/company_image/' + company_2['image']) }}">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding: 3px">
+                                <div style="font-size: 17px; font-weight: bold">{{ company_2['name'] }}</div>
+                                <div style="font-size: 12px; margin-top: 10px;">{{ company_2['city'] }} - {{ company_2['industrial_town'] }}<br>{{ company_2['description'] }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="set-company-box" style="display: none">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding-top: 30px;">
+                                <input data-area="1" type="text" class="form-control" name="search-company">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr style="margin: 10px 0 5px 0;">
+            <div class="custom-small-box company-box" data-company="{{ company_3['_id'] }}" data-type-box="section-small" style="margin-top: 0 !important;margin-bottom: 5px; height: 95px">
+                <div class="info-company-box">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="text-center R_butt_red delete-company" style="position: absolute;padding: 1px 5px;top: -3px;right: 12px">
+                                <i class="fa fa-times"></i>
+                            </div>
+                            <img style="height: 100px; width: 100%" src="{{ static_url('images/company_image/' + company_3['image']) }}">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding: 3px">
+                                <div style="font-size: 17px; font-weight: bold">{{ company_3['name'] }}</div>
+                                <div style="font-size: 12px; margin-top: 10px;">{{ company_3['city'] }} - {{ company_3['industrial_town'] }}<br>{{ company_3['description'] }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="set-company-box" style="display: none">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
+                        </div>
+                        <div class="col-xs-7">
+                            <div style="padding-top: 30px;">
+                                <input data-area="1" type="text" class="form-control" name="search-company">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% end %}

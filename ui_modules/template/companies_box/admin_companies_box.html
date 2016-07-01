@@ -1,0 +1,277 @@
+{% if empty %}
+    {% if position == "P1" %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P2" %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P3" %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P4" %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P5" %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P6" %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P7" %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(empty=True) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P8" %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(empty=True) %}
+        {% except %}
+        {% end %}
+    {% end %}
+{% else %}
+    {% if position == "P1" %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[0]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[1], company_2=companies[2], company_3=companies[3]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[4]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[5], company_2=companies[6], company_3=companies[7]) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P2" %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[0], company_2=companies[1], company_3=companies[2]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[3]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[4], company_2=companies[5], company_3=companies[6]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[7]) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P3" %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[0]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[1], company_2=companies[2], company_3=companies[3]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[4], company_2=companies[5], company_3=companies[6]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[7]) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P4" %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[0], company_2=companies[1], company_3=companies[2]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[3]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[4]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[5], company_2=companies[6], company_3=companies[7]) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P5" %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[0], company_2=companies[1], company_3=companies[2]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[3], company_2=companies[4], company_3=companies[5]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[6]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[7]) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P6" %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[0]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[1]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[2], company_2=companies[3], company_3=companies[4]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[5], company_2=companies[6], company_3=companies[7]) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P7" %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[0]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[1]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[2]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox1(company=companies[3]) %}
+        {% except %}
+        {% end %}
+    {% elif position == "P8" %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[0], company_2=companies[1], company_3=companies[2]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[3], company_2=companies[4], company_3=companies[5]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[6], company_2=companies[7], company_3=companies[8]) %}
+        {% except %}
+        {% end %}
+        {% try %}
+            {% module AdminCompaniesBox3(company_1=companies[9], company_2=companies[10], company_3=companies[11]) %}
+        {% except %}
+        {% end %}
+    {% end %}
+{% end %}

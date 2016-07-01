@@ -451,7 +451,7 @@ class CompaniesModel:
     @staticmethod
     def get_all_by_like_has_slider(__text=""):
         try:
-            __body = {'name': {"$regex": __text}, "slider": True}
+            __body = {'name': {"$regex": __text}, "slider": True, "active": True}
             __key = {'name': 1, 'logo': 1, "slider_image": 1}
             __a = MongodbModel(body=__body, key=__key, collection="companies", sort="name", ascending=1, size=10).get_all_key_pagination()
             __r = []
@@ -461,6 +461,26 @@ class CompaniesModel:
                     name=__i['name'],
                     logo=__i['logo'],
                     slider_image=__i['slider_image'] if 'slider_image' in __i.keys() else None,
+                ))
+            return __r
+        except:
+            return []
+
+    @staticmethod
+    def get_all_active_main_page(__text=""):
+        try:
+            __body = {'name': {"$regex": __text}, "active": True}
+            __key = {'name': 1, 'image': 1, 'city': 1, 'industrial_town': 1, 'description': 1}
+            __a = MongodbModel(body=__body, key=__key, collection="companies", sort="name", ascending=1, size=10).get_all_key_pagination()
+            __r = []
+            for __i in __a:
+                __r.append(dict(
+                    _id=__i['_id'],
+                    name=__i['name'],
+                    image=__i['image'] if "image" in __i.keys() else "",
+                    city=ProvinceCityModel(_id=__i['city']).get_city()['name'],
+                    industrial_town=IndustrialTownCompaniesModel(_id=__i['industrial_town']).get_one()['name'],
+                    description=__i['description']
                 ))
             return __r
         except:
@@ -485,3 +505,20 @@ class CompaniesModel:
             return __r
         except:
             return []
+
+    @staticmethod
+    def get_one_main_page(__id=None):
+        try:
+            __body = {'_id': __id}
+            __key = {'name': 1, 'image': 1, 'city': 1, 'industrial_town': 1, 'description': 1}
+            __i = MongodbModel(body=__body, key=__key, collection="companies").get_one_key()
+            return dict(
+                _id=__i['_id'],
+                name=__i['name'],
+                image=__i['image'] if "image" in __i.keys() else "",
+                city=ProvinceCityModel(_id=__i['city']).get_city()['name'],
+                industrial_town=IndustrialTownCompaniesModel(_id=__i['industrial_town']).get_one()['name'],
+                description=__i['description']
+            )
+        except:
+            return False

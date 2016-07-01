@@ -1,0 +1,24 @@
+{% set __specified = False %}
+<div class="custom-box custom-medium-box company-box" data-company="{% try %}{% if company != None %}{{ company['_id'] }}{% else %}None{% end %}{% except %}None{% end %}" data-box="{{ box }}" data-type-box="medium">
+    <div class="info-company-box">
+        {% try %}
+            {% if company != None %}
+                <div class="text-center R_butt_red delete-company" style="position: absolute;padding: 1px 5px;top: 0px;right: 11px">
+                    <i class="fa fa-times"></i>
+                </div>
+                <img style="height: 212px; width: 100%" src="{{ static_url('images/company_image/' + company['image']) }}">
+                <div class="carousel-caption" style="padding: 0">
+                    <h4 style="margin: 0">{{ company['name'] }}</h4>
+                </div>
+                {% set __specified = True %}
+            {% end %}
+        {% except %}
+        {% end %}
+    </div>
+    <div class="set-company-box" {% if __specified %}style="display: none"{% end %}>
+        <img style="height: 212px; width: 100%" src="http://placehold.it/300x200" alt="">
+        <div class="carousel-caption" style="padding: 0">
+            <input data-area="1" type="text" class="form-control" name="search-company">
+        </div>
+    </div>
+</div>

@@ -1,10 +1,6 @@
 {% if position == "P1" %}
     {% try %}
-        {% module CompaniesBox1(company=companies[0]) %}
-    {% except %}
-    {% end %}
-    {% try %}
-        {% module CompaniesBox3(company_1=companies[1], company_2=companies[2], company_3=companies[3]) %}
+        {% module CompaniesBox3(company_1=companies[5], company_2=companies[6], company_3=companies[7]) %}
     {% except %}
     {% end %}
     {% try %}
@@ -12,16 +8,16 @@
     {% except %}
     {% end %}
     {% try %}
-        {% module CompaniesBox3(company_1=companies[5], company_2=companies[6], company_3=companies[7]) %}
+        {% module CompaniesBox3(company_1=companies[1], company_2=companies[2], company_3=companies[3]) %}
+    {% except %}
+    {% end %}
+    {% try %}
+        {% module CompaniesBox1(company=companies[0]) %}
     {% except %}
     {% end %}
 {% elif position == "P2" %}
     {% try %}
-        {% module CompaniesBox3(company_1=companies[0], company_2=companies[1], company_3=companies[2]) %}
-    {% except %}
-    {% end %}
-    {% try %}
-        {% module CompaniesBox1(company=companies[3]) %}
+        {% module CompaniesBox1(company=companies[7]) %}
     {% except %}
     {% end %}
     {% try %}
@@ -29,12 +25,20 @@
     {% except %}
     {% end %}
     {% try %}
-        {% module CompaniesBox1(company=companies[7]) %}
+        {% module CompaniesBox1(company=companies[3]) %}
+    {% except %}
+    {% end %}
+    {% try %}
+        {% module CompaniesBox3(company_1=companies[0], company_2=companies[1], company_3=companies[2]) %}
     {% except %}
     {% end %}
 {% elif position == "P3" %}
     {% try %}
-        {% module CompaniesBox1(company=companies[0]) %}
+        {% module CompaniesBox1(company=companies[7]) %}
+    {% except %}
+    {% end %}
+    {% try %}
+        {% module CompaniesBox3(company_1=companies[4], company_2=companies[5], company_3=companies[6]) %}
     {% except %}
     {% end %}
     {% try %}
@@ -42,20 +46,12 @@
     {% except %}
     {% end %}
     {% try %}
-        {% module CompaniesBox3(company_1=companies[4], company_2=companies[5], company_3=companies[6]) %}
-    {% except %}
-    {% end %}
-    {% try %}
-        {% module CompaniesBox1(company=companies[7]) %}
+        {% module CompaniesBox1(company=companies[0]) %}
     {% except %}
     {% end %}
 {% elif position == "P4" %}
     {% try %}
-        {% module CompaniesBox3(company_1=companies[0], company_2=companies[1], company_3=companies[2]) %}
-    {% except %}
-    {% end %}
-    {% try %}
-        {% module CompaniesBox1(company=companies[3]) %}
+        {% module CompaniesBox3(company_1=companies[5], company_2=companies[6], company_3=companies[7]) %}
     {% except %}
     {% end %}
     {% try %}
@@ -63,16 +59,16 @@
     {% except %}
     {% end %}
     {% try %}
-        {% module CompaniesBox3(company_1=companies[5], company_2=companies[6], company_3=companies[7]) %}
+        {% module CompaniesBox1(company=companies[3]) %}
     {% except %}
     {% end %}
-{% elif position == "P5" %}
     {% try %}
         {% module CompaniesBox3(company_1=companies[0], company_2=companies[1], company_3=companies[2]) %}
     {% except %}
     {% end %}
+{% elif position == "P5" %}
     {% try %}
-        {% module CompaniesBox3(company_1=companies[3], company_2=companies[4], company_3=companies[5]) %}
+        {% module CompaniesBox1(company=companies[7]) %}
     {% except %}
     {% end %}
     {% try %}
@@ -80,16 +76,16 @@
     {% except %}
     {% end %}
     {% try %}
-        {% module CompaniesBox1(company=companies[7]) %}
+        {% module CompaniesBox3(company_1=companies[3], company_2=companies[4], company_3=companies[5]) %}
+    {% except %}
+    {% end %}
+    {% try %}
+        {% module CompaniesBox3(company_1=companies[0], company_2=companies[1], company_3=companies[2]) %}
     {% except %}
     {% end %}
 {% elif position == "P6" %}
     {% try %}
-        {% module CompaniesBox1(company=companies[0]) %}
-    {% except %}
-    {% end %}
-    {% try %}
-        {% module CompaniesBox1(company=companies[1]) %}
+        {% module CompaniesBox3(company_1=companies[5], company_2=companies[6], company_3=companies[7]) %}
     {% except %}
     {% end %}
     {% try %}
@@ -97,16 +93,16 @@
     {% except %}
     {% end %}
     {% try %}
-        {% module CompaniesBox3(company_1=companies[5], company_2=companies[6], company_3=companies[7]) %}
+        {% module CompaniesBox1(company=companies[1]) %}
     {% except %}
     {% end %}
-{% elif position == "P7" %}
     {% try %}
         {% module CompaniesBox1(company=companies[0]) %}
     {% except %}
     {% end %}
+{% elif position == "P7" %}
     {% try %}
-        {% module CompaniesBox1(company=companies[1]) %}
+        {% module CompaniesBox1(company=companies[3]) %}
     {% except %}
     {% end %}
     {% try %}
@@ -114,16 +110,16 @@
     {% except %}
     {% end %}
     {% try %}
-        {% module CompaniesBox1(company=companies[3]) %}
+        {% module CompaniesBox1(company=companies[1]) %}
+    {% except %}
+    {% end %}
+    {% try %}
+        {% module CompaniesBox1(company=companies[0]) %}
     {% except %}
     {% end %}
 {% elif position == "P8" %}
     {% try %}
-        {% module CompaniesBox3(company_1=companies[0], company_2=companies[1], company_3=companies[2]) %}
-    {% except %}
-    {% end %}
-    {% try %}
-        {% module CompaniesBox3(company_1=companies[3], company_2=companies[4], company_3=companies[5]) %}
+        {% module CompaniesBox3(company_1=companies[9], company_2=companies[10], company_3=companies[11]) %}
     {% except %}
     {% end %}
     {% try %}
@@ -131,7 +127,11 @@
     {% except %}
     {% end %}
     {% try %}
-        {% module CompaniesBox3(company_1=companies[9], company_2=companies[10], company_3=companies[11]) %}
+        {% module CompaniesBox3(company_1=companies[3], company_2=companies[4], company_3=companies[5]) %}
+    {% except %}
+    {% end %}
+    {% try %}
+        {% module CompaniesBox3(company_1=companies[0], company_2=companies[1], company_3=companies[2]) %}
     {% except %}
     {% end %}
 {% end %}

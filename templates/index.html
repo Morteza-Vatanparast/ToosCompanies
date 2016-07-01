@@ -35,227 +35,44 @@
             <div class="col-md-6 col-sm-4 visible-sm visible-md visible-lg" style="padding-left: 15px; padding-right: 15px">
                 <div class="row">
                     <div class="col col-md-6">
-                        <div class="custom-box custom-medium-box">
-                            <img style="height: 212px; width: 100%" src="http://placehold.it/300x200" alt="">
-                            <div class="carousel-caption" style="padding: 0">
-                                <h4 style="margin: 0">Awesome words that</h4>
-                            </div>
-                        </div>
+                        {% try %}
+                            {% module CompaniesMediumBox(company=main_page['boxes'][0]) %}
+                        {% except %}
+                        {% end %}
                     </div>
                     <div class="col col-md-6 visible-md visible-lg">
-                        <div class="custom-box custom-medium-box">
-                            <img style="height: 212px; width: 100%" src="http://placehold.it/300x200" alt="">
-                            <div class="carousel-caption" style="padding: 0">
-                                <h4 style="margin: 0">Awesome words that</h4>
-                            </div>
-                        </div>
+                        {% try %}
+                            {% module CompaniesMediumBox(company=main_page['boxes'][1]) %}
+                        {% except %}
+                        {% end %}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col col-md-6">
-                        <div class="custom-box custom-small-box">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
-                                </div>
-                                <div class="col-xs-7">
-                                    <div style="padding: 3px">
-                                        <span>Woman's pregnancy reveal with IVF needles goes viral</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% try %}
+                            {% module CompaniesSmallBox(company=main_page['boxes'][2]) %}
+                        {% except %}
+                        {% end %}
                     </div>
                     <div class="col col-md-6 visible-md visible-lg">
-                        <div class="custom-box custom-small-box">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
-                                </div>
-                                <div class="col-xs-7">
-                                    <div style="padding: 3px">
-                                        <span>Woman's pregnancy reveal with IVF needles goes viral</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% try %}
+                            {% module CompaniesSmallBox(company=main_page['boxes'][3]) %}
+                        {% except %}
+                        {% end %}
                     </div>
                 </div>
             </div>
         </div>
         <div class="row" style="direction: ltr">
-            <div id="owl-example5" class="owl-carousel">
-                <div style="direction: rtl" class="col">
-                    <div class="custom-box custom-small-box">
-                        <div class="row">
-                            <div class="col-xs-5">
-                                <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
-                            </div>
-                            <div class="col-xs-7">
-                                <div style="padding: 3px">
-                                    <span>Woman's pregnancy reveal with IVF needles goes viral</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="custom-box custom-small-box">
-                        <div class="row">
-                            <div class="col-xs-5">
-                                <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
-                            </div>
-                            <div class="col-xs-7">
-                                <div style="padding: 3px">
-                                    <span>Woman's pregnancy reveal with IVF needles goes viral</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div style="direction: rtl" class="col">
-                    <div class="custom-box custom-small-box">
-                        <div class="row">
-                            <div class="col-xs-5">
-                                <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
-                            </div>
-                            <div class="col-xs-7">
-                                <div style="padding: 3px">
-                                    <span>Woman's pregnancy reveal with IVF needles goes viral</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="custom-box custom-small-box">
-                        <div class="row">
-                            <div class="col-xs-5">
-                                <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
-                            </div>
-                            <div class="col-xs-7">
-                                <div style="padding: 3px">
-                                    <span>Woman's pregnancy reveal with IVF needles goes viral</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div style="direction: rtl" class="col">
-                    <div class="custom-box custom-small-box">
-                        <div class="row">
-                            <div class="col-xs-5">
-                                <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
-                            </div>
-                            <div class="col-xs-7">
-                                <div style="padding: 3px">
-                                    <span>Woman's pregnancy reveal with IVF needles goes viral</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="custom-box custom-small-box">
-                        <div class="row">
-                            <div class="col-xs-5">
-                                <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
-                            </div>
-                            <div class="col-xs-7">
-                                <div style="padding: 3px">
-                                    <span>Woman's pregnancy reveal with IVF needles goes viral</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div style="direction: rtl" class="col">
-                <div class="custom-box custom-small-box">
-                    <div class="row">
-                        <div class="col-xs-5">
-                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
-                        </div>
-                        <div class="col-xs-7">
-                            <div style="padding: 3px">
-                                <span>Woman's pregnancy reveal with IVF needles goes viral</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="custom-box custom-small-box">
-                    <div class="row">
-                        <div class="col-xs-5">
-                            <img style="height: 100px; width: 100%" src="http://placehold.it/110x100">
-                        </div>
-                        <div class="col-xs-7">
-                            <div style="padding: 3px">
-                                <span>Woman's pregnancy reveal with IVF needles goes viral</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="OWL_RANDOM" class="owl-carousel">
+                {% module CompaniesSmallBoxRow(main_page['boxes'][4:]) %}
             </div>
         </div>
-        <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
-        <div class="row">
-            <div class="col-md-12">
-                <span style="font-size: 20px; font-weight: bold">غذایی</span> <i style="font-size: 20px; font-weight: bold; margin-right: 10px" class="fa fa-angle-left"></i>
-            </div>
-            <div class="col-md-12">
-                <div class="row" style="margin-top: 11px; direction: ltr">
-                    <div id="OWL_FOOD" class="owl-carousel">
-                        {% module CompaniesBox(FOOD, "P1") %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
-        <div class="row">
-            <div class="col-md-12">
-                <span style="font-size: 20px; font-weight: bold">شیمیایی</span> <i style="font-size: 20px; font-weight: bold; margin-right: 10px" class="fa fa-angle-left"></i>
-            </div>
-            <div class="col-md-12">
-                <div class="row" style="margin-top: 11px; direction: ltr">
-                    <div id="OWL_CHEMICAL" class="owl-carousel">
-                        {% module CompaniesBox(CHEMICAL, "P2") %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
-        <div class="row">
-            <div class="col-md-12">
-                <span style="font-size: 20px; font-weight: bold">فلزی</span> <i style="font-size: 20px; font-weight: bold; margin-right: 10px" class="fa fa-angle-left"></i>
-            </div>
-            <div class="col-md-12">
-                <div class="row" style="margin-top: 11px; direction: ltr">
-                    <div id="OWL_METAL" class="owl-carousel">
-                        {% module CompaniesBox(METAL, "P3") %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
-        <div class="row">
-            <div class="col-md-12">
-                <span style="font-size: 20px; font-weight: bold">برق و الکترونیک</span> <i style="font-size: 20px; font-weight: bold; margin-right: 10px" class="fa fa-angle-left"></i>
-            </div>
-            <div class="col-md-12">
-                <div class="row" style="margin-top: 11px; direction: ltr">
-                    <div id="OWL_ELECTRICAL" class="owl-carousel">
-                        {% module CompaniesBox(ELECTRICAL, "P4") %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
-        <div class="row">
-            <div class="col-md-12">
-                <span style="font-size: 20px; font-weight: bold">نساجی و کانی غیر فلزی</span> <i style="font-size: 20px; font-weight: bold; margin-right: 10px" class="fa fa-angle-left"></i>
-            </div>
-            <div class="col-md-12">
-                <div class="row" style="margin-top: 11px; direction: ltr">
-                    <div id="OWL_TEXTILE_MINERAL" class="owl-carousel">
-                        {% module CompaniesBox(TEXTILE + MINERAL, "P5") %}
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        {% for i in main_page['unit_sections'] %}
+            {% module UnitSectionBoxes(unit_name=i['unit_name'], _format=i['format'], companies=i['companies']) %}
+        {% end %}
+
         <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
         <div class="row">
             <div class="col-md-12">
@@ -350,32 +167,12 @@
             autoPlay: true,
             stopOnHover: true
         });
-        $("#OWL_FOOD").owlCarousel({
+        $(".owl-carousel-row").owlCarousel({
             autoPlay: true,
             items: 4,
             stopOnHover: true
         });
-        $("#OWL_CHEMICAL").owlCarousel({
-            autoPlay: true,
-            items: 4,
-            stopOnHover: true
-        });
-        $("#OWL_METAL").owlCarousel({
-            autoPlay: true,
-            items: 4,
-            stopOnHover: true
-        });
-        $("#OWL_ELECTRICAL").owlCarousel({
-            autoPlay: true,
-            items: 4,
-            stopOnHover: true
-        });
-        $("#OWL_TEXTILE_MINERAL").owlCarousel({
-            autoPlay: true,
-            items: 4,
-            stopOnHover: true
-        });
-        $("#owl-example5").owlCarousel({
+        $("#OWL_RANDOM").owlCarousel({
             autoPlay: true,
             items: 4,
             stopOnHover: true
