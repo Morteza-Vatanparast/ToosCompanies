@@ -31,9 +31,9 @@ def admin_authentication():
     return f
 
 
-class BaseHandler(tornado.web.RequestHandler, SessionMixin, NotificationMixin):
+class AdminBaseHandler(tornado.web.RequestHandler, SessionMixin, NotificationMixin):
     def __init__(self, application, request, **kwargs):
-        super(BaseHandler, self).__init__(application, request, **kwargs)
+        super(AdminBaseHandler, self).__init__(application, request, **kwargs)
         self.result = {'value': {}, 'status': False, 'messages': []}
         self.error_result = {'value': {}, 'status': False, 'messages': [u"عملیا ت با خطا مواجه شد"]}
         self.data = dict(
@@ -103,16 +103,58 @@ class BaseHandler(tornado.web.RequestHandler, SessionMixin, NotificationMixin):
                 self.errors.append(error_msg)
 
 
-class IndexHandler(BaseHandler):
-    def get(self, *args, **kwargs):
-        self.data['__now'] = datetime.datetime.now()
-        self.data['__now_name'] = khayyam.JalaliDatetime().now().strftime("%A - %d %B %Y")
-        self.data['main_page'] = SettingModel().get_main_page()
-        self.data['services'] = ServicesModel().get_all()
-        self.render('index.html', **self.data)
+class UserBaseHandler(tornado.web.RequestHandler, SessionMixin, NotificationMixin):
+    def __init__(self, application, request, **kwargs):
+        super(UserBaseHandler, self).__init__(application, request, **kwargs)
+        self.result = {'value': {}, 'status': False, 'messages': []}
+        self.error_result = {'value': {}, 'status': False, 'messages': [u"عملیا ت با خطا مواجه شد"]}
+        self.data = dict(
+            title=""
+        )
+        self.errors = []
+
+    @property
+    def value(self):
+        return self.result['value']
+
+    @value.setter
+    def value(self, value):
+        self.result['value'] = value
+
+    @property
+    def status(self):
+        return self.result['status']
+
+    @status.setter
+    def status(self, status):
+        self.result['status'] = status
+
+    @property
+    def messages(self):
+        return self.result['messages']
+
+    @messages.setter
+    def messages(self, messages):
+        self.result['messages'] = messages
+
+    def check_sent_value(self, val, _table, _field, error_msg=None, nullable=False, default=None):
+        vl = self.get_argument(val, None)
+
+        if vl is not None:
+            if not nullable:
+                if vl != '':
+                    _table[_field] = vl
+                else:
+                    if error_msg:
+                        self.errors.append(error_msg)
+            else:
+                _table[_field] = vl if vl else default
+        else:
+            if error_msg:
+                self.errors.append(error_msg)
 
 
-class ProvinceCityHandler(BaseHandler):
+class ProvinceCityHandler(UserBaseHandler):
     def post(self, *args, **kwargs):
         selected = ""
         try:
@@ -135,7 +177,7 @@ class ProvinceCityHandler(BaseHandler):
             self.write(dict(html="<option selected value="">انتخاب کنید.</option>", selected=selected))
 
 
-class SubTypeProductsHandler(BaseHandler):
+class SubTypeProductsHandler(UserBaseHandler):
     def post(self, *args, **kwargs):
         selected = ""
         try:

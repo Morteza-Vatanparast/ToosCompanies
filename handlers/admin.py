@@ -12,7 +12,7 @@ from classes.get_url import GetUrl
 from classes.public import Hash
 from classes.soap import Soap
 from classes.upload_pic import UploadPic
-from handlers.base import BaseHandler, admin_authentication
+from handlers.base import AdminBaseHandler, admin_authentication
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
 from models.mongodb.orders import OrdersModel
@@ -27,14 +27,14 @@ from models.mongodb.unit_companies import UnitCompaniesModel
 __author__ = 'Morteza'
 
 
-class AdminDashboardHandler(BaseHandler):
+class AdminDashboardHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
         self.render('admin/dashboard.html', **self.data)
 
 
-class AdminLoginHandler(BaseHandler):
+class AdminLoginHandler(AdminBaseHandler):
     @gen.coroutine
     def get(self, *args, **kwargs):
         if self.admin_is_authenticated():
@@ -66,7 +66,7 @@ class AdminLoginHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminLogoutHandler(BaseHandler):
+class AdminLogoutHandler(AdminBaseHandler):
     def get_post(self, *args, **kwargs):
         for i in self.session.keys():
             self.session.delete(i)
@@ -82,7 +82,7 @@ class AdminLogoutHandler(BaseHandler):
 
 
 
-class AdminSearchCompaniesHandler(BaseHandler):
+class AdminSearchCompaniesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -141,7 +141,7 @@ class AdminSearchCompaniesHandler(BaseHandler):
         self.render('admin/search_companies.html', **self.data)
 
 
-class AdminShowCompaniesHandler(BaseHandler):
+class AdminShowCompaniesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -160,7 +160,7 @@ class AdminShowCompaniesHandler(BaseHandler):
         self.render('admin/show_companies.html', **self.data)
 
 
-class AdminCompareCompaniesHandler(BaseHandler):
+class AdminCompareCompaniesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -248,7 +248,7 @@ class AdminCompareCompaniesHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminSearchProductsHandler(BaseHandler):
+class AdminSearchProductsHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -280,7 +280,7 @@ class AdminSearchProductsHandler(BaseHandler):
         self.render('admin/search_products.html', **self.data)
 
 
-class AdminShowProductsHandler(BaseHandler):
+class AdminShowProductsHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -297,7 +297,7 @@ class AdminShowProductsHandler(BaseHandler):
         self.render('admin/show_products.html', **self.data)
 
 
-class AdminCompaniesHandler(BaseHandler):
+class AdminCompaniesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -330,7 +330,7 @@ class AdminCompaniesHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminAddCompaniesHandler(BaseHandler):
+class AdminAddCompaniesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -395,7 +395,7 @@ class AdminAddCompaniesHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminEditCompaniesHandler(BaseHandler):
+class AdminEditCompaniesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -491,7 +491,7 @@ class AdminEditCompaniesHandler(BaseHandler):
         self.write(self.result)
 
 
-class AdminUnitCompaniesHandler(BaseHandler):
+class AdminUnitCompaniesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -529,7 +529,7 @@ class AdminUnitCompaniesHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminIndustrialTownCompaniesHandler(BaseHandler):
+class AdminIndustrialTownCompaniesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -568,7 +568,7 @@ class AdminIndustrialTownCompaniesHandler(BaseHandler):
 
 
 
-class AdminTablesHandler(BaseHandler):
+class AdminTablesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -644,7 +644,7 @@ class AdminTablesHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminTypeProductsHandler(BaseHandler):
+class AdminTypeProductsHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -697,7 +697,7 @@ class AdminTypeProductsHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminProductsHandler(BaseHandler):
+class AdminProductsHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -727,7 +727,7 @@ class AdminProductsHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminAddProductsHandler(BaseHandler):
+class AdminAddProductsHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -758,7 +758,7 @@ class AdminAddProductsHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminEditProductsHandler(BaseHandler):
+class AdminEditProductsHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -803,7 +803,7 @@ class AdminEditProductsHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminCompaniesProductsHandler(BaseHandler):
+class AdminCompaniesProductsHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -869,7 +869,7 @@ class AdminCompaniesProductsHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminServicesHandler(BaseHandler):
+class AdminServicesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -877,7 +877,7 @@ class AdminServicesHandler(BaseHandler):
         self.render('admin/services.html', **self.data)
 
 
-class AdminAddServicesHandler(BaseHandler):
+class AdminAddServicesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -901,7 +901,7 @@ class AdminAddServicesHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminEditServicesHandler(BaseHandler):
+class AdminEditServicesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -938,7 +938,7 @@ class AdminEditServicesHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminOrdersHandler(BaseHandler):
+class AdminOrdersHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -957,7 +957,7 @@ class AdminOrdersHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminSlideShowHandler(BaseHandler):
+class AdminSlideShowHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -980,7 +980,7 @@ class AdminSlideShowHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminSlideShowAddFormatHandler(BaseHandler):
+class AdminSlideShowAddFormatHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
@@ -1036,7 +1036,7 @@ class AdminSlideShowAddFormatHandler(BaseHandler):
             self.write(self.error_result)
 
 
-class AdminMainPageHandler(BaseHandler):
+class AdminMainPageHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
     def get(self, *args, **kwargs):
