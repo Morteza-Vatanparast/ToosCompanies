@@ -14,6 +14,7 @@ from classes.soap import Soap
 from classes.upload_pic import UploadPic
 from handlers.base import AdminBaseHandler, admin_authentication
 from models.mongodb.companies import CompaniesModel
+from models.mongodb.contact_us import ContactUsModel
 from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
 from models.mongodb.orders import OrdersModel
 from models.mongodb.products import ProductsModel
@@ -876,6 +877,17 @@ class AdminServicesHandler(AdminBaseHandler):
         self.data['services'] = ServicesModel().get_all()
         self.render('admin/services.html', **self.data)
 
+    @gen.coroutine
+    @admin_authentication()
+    def delete(self, *args, **kwargs):
+        try:
+            service = self.get_argument('service', '')
+            ServicesModel(_id=ObjectId(service)).delete()
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
 
 class AdminAddServicesHandler(AdminBaseHandler):
     @gen.coroutine
@@ -1115,5 +1127,24 @@ class AdminMainPageHandler(AdminBaseHandler):
                         'description': item['description']
                     })
                 self.write(json.dumps({'status': 'ok', 'items': [f['name'] for f in l], 'full_item': l}))
+        except:
+            self.write(self.error_result)
+
+
+class AdminContactUsHandler(AdminBaseHandler):
+    @gen.coroutine
+    @admin_authentication()
+    def get(self, *args, **kwargs):
+        self.data['contacts'] = ContactUsModel().get_all()
+        self.render('admin/contact_us.html', **self.data)
+
+    @gen.coroutine
+    @admin_authentication()
+    def delete(self, *args, **kwargs):
+        try:
+            contact = self.get_argument('contact', '')
+            ContactUsModel(_id=ObjectId(contact)).delete()
+            self.status = True
+            self.write(self.result)
         except:
             self.write(self.error_result)

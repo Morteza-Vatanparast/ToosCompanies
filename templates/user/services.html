@@ -18,7 +18,6 @@
     <link type="text/css" rel="stylesheet" href="{{ static_url('plugins/fontawesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('plugins/owl-carousel/owl-carousel/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ static_url('plugins/owl-carousel/owl-carousel/owl.theme.css') }}">
-    <link href="{{ static_url('plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ static_url('css/footer.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/index.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/navbar.css') }}">
@@ -44,58 +43,14 @@
 </head>
 
 <body style="background-color: #F4F4F4; font-family: Yekan; direction: rtl">
-    {% module NavBar(active="search_companies") %}
+    {% module NavBar(active="services") %}
     <div class="col-md-12" style="margin-top: 65px; padding: 0px 30px 30px 30px; min-height: 410px">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <div class="custom-box" style="padding: 30px;">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input class="form-control" value="{{ this_name }}" name="name" placeholder="نام شرکت">
-                        </div>
-                        <div class="col-md-6">
-                            <select class="select" name="unit">
-                                <option value="all">همه واحد ها</option>
-                                {% for u in units %}
-                                <option {% if this_unit == u['_id'] %}selected{% end %}
-                                        value="{{ u['_id'] }}">{{ u['name'] }}</option>
-                                {% end %}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row margin-top-10">
-                        <div class="col-md-6">
-                            <select class="select" name="province">
-                                <option value="all">همه استان ها</option>
-                                {% for p in provinces %}
-                                <option {% if this_province == p['_id'] %}selected{% end %}
-                                        value="{{ p['_id'] }}">{{ p['name'] }}</option>
-                                {% end %}
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <select class="select" name="city">
-                                <option value="all">همه شهر ها</option>
-                                {% for c in cities %}
-                                <option {% if this_city == c['_id'] %}selected{% end %}
-                                        value="{{ c['_id'] }}">{{ c['name'] }}</option>
-                                {% end %}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row margin-top-10">
-                        <div class="col-md-4 col-md-offset-4">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                <button style="border-radius: 5px 0 0 5px; border: 1px solid #ccc; width: 100%;" class="btn search">جستجو</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row companies-boxes">
-                    {% for _comp in companies %}
-                        <div class="col-md-4">
-                            {% module CompaniesSmallBox(_comp) %}
+                    {% for _s in services %}
+                        <div class="col-md-4 margin-top-10">
+                            {% module ServiceBox(_s) %}
                         </div>
                     {% end %}
                 </div>
@@ -114,37 +69,12 @@
 <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
 <script src="{{ static_url('js/navbar.js') }}"></script>
-<script src="{{ static_url('plugins/select2/dist/js/select2.min.js') }}"></script>
 
 <script>
-    $('.select').select2({
-        placeholder: "انتخاب کنید",
-        dir: "rtl",
-        theme: "classic"
-    });
-
-    $('.search').on("click", function () {
-        var __s = $('input[name=name]').val();
-        var name = __s == "" ? "all" : __s;
-        __s = $('select[name=province]').val();
-        var province = __s == "" ? "all" : __s;
-        __s = $('select[name=city]').val();
-        var city = __s == "" ? "all" : __s;
-        __s = $('select[name=unit]').val();
-        var unit = __s == "" ? "all" : __s;
-
-        location.href = "{{ reverse_url('search_companies_by_params',
-         '__name__', '__unit__', '__province__', '__city__') }}"
-                .replace("__name__", name)
-                .replace("__unit__", unit)
-                .replace("__province__", province)
-                .replace("__city__", city);
-    });
-
 
     var b = true;
     var c = true;
-    {% if count < 30 %}
+    {% if count < 15 %}
         c = false;
     {% end %}
     var page = 2;

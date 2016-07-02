@@ -28,7 +28,7 @@
                                             <td>{{ service['name'] }}</td>
                                             <td><img height="40" width="40" src="{{ static_url('images/service_image/' + service['image']) }}"></td>
                                             <td>
-                                                <span class="delete-company" data-company="{{ service['_id'] }}">
+                                                <span class="delete-service" data-service="{{ service['_id'] }}">
                                                     <i class="fa fa-trash-o"></i>
                                                 </span>
                                                 <a href="{{ reverse_url('admin:edit_services_by_id', service['_id']) }}">
@@ -62,15 +62,15 @@
 
 
     var __b = true;
-    $(document).on('click', '.delete-company', function(e){
+    $(document).on('click', '.delete-service', function(e){
         if(__b){
             __b = false;
             Confirm.render(0, 0, 0, 0, 0, function(){
-                var elm = $(e.target).closest('.delete-company');
-                var company = elm.attr('data-company');
+                var elm = $(e.target).closest('.delete-service');
+                var service = elm.attr('data-service');
                 elm.html(loader.replace(/20/g, '15'));
                 var postData = [
-                    {name: 'company', value: company},
+                    {name: 'service', value: service},
                     {name: '_xsrf', value: '{{ handler.xsrf_token }}'},
                     {name: 'action', value: 'delete'}
                 ];

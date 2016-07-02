@@ -445,8 +445,8 @@ class CompaniesModel:
             if not len(__body['$and']):
                 __body = {}
             __key = {'name': 1, 'image': 1, 'city': 1, 'industrial_town': 1, 'description': 1}
-            __a = MongodbModel(body=__body, key=__key, collection="companies", sort="name", page=page, size=size)\
-                .get_all_key_pagination()
+            __a = MongodbModel(body=__body, key=__key, collection="companies", sort="name", page=page, size=size,
+                               ascending=1).get_all_key_pagination()
             __r = []
             for __i in __a:
                 __r.append(dict(

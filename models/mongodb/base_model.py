@@ -48,6 +48,8 @@ class MongodbModel(MongodbBaseModel):
             self.collection = self.db.orders
         if collection == 'setting':
             self.collection = self.db.setting
+        if collection == 'contact_us':
+            self.collection = self.db.contact_us
 
     def insert(self):
         try:

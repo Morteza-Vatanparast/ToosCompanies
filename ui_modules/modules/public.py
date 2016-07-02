@@ -19,8 +19,8 @@ class Footer(UIModule):
 
 
 class NavBar(UIModule):
-    def render(self):
-        return self.render_string('../ui_modules/template/navbar/navbar.html')
+    def render(self, active="index"):
+        return self.render_string('../ui_modules/template/navbar/navbar.html', active=active)
 
 
 class CompaniesBox(UIModule):

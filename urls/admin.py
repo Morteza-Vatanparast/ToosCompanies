@@ -91,5 +91,8 @@ admin_url_patterns = {
 
     (r'^(?i)/Admin/SlideShow/AddFormat[/]?([\w^/]+)?[/]?$', admin.AdminSlideShowAddFormatHandler),
     (r'/Admin/SlideShow/AddFormat', admin.AdminSlideShowAddFormatHandler, None, 'admin:slide_show:add_format'),
-    (r'/Admin/SlideShow/AddFormat/(format)', admin.AdminSlideShowAddFormatHandler, None, 'admin:slide_show:add_format_by_format')
+    (r'/Admin/SlideShow/AddFormat/(format)', admin.AdminSlideShowAddFormatHandler, None, 'admin:slide_show:add_format_by_format'),
+
+    (r'^(?i)/Admin/ContactUs[/]?$', admin.AdminContactUsHandler),
+    (r'^/Admin/ContactUs', admin.AdminContactUsHandler, None, "admin:contact_us"),
 }

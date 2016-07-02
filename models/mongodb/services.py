@@ -32,6 +32,27 @@ class ServicesModel:
         except:
             return []
 
+    @staticmethod
+    def get_all_pagination(page=1, size=15):
+        try:
+            __body = {}
+            __a = MongodbModel(body=__body, collection="services", page=page, size=size, sort="name", ascending=1)\
+                .get_all_key_pagination()
+            __r = []
+            for __i in __a:
+                __r.append(__i)
+            return __r
+        except:
+            return []
+
+    @staticmethod
+    def count():
+        try:
+            __body = {}
+            return MongodbModel(body=__body, collection="services").count()
+        except:
+            return 0
+
     def update(self):
         try:
             __body = {

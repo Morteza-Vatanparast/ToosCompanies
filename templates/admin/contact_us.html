@@ -5,45 +5,38 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default margin-top-30 font-yekan">
-                    <div class="panel-heading"><i class="fa fa-folder-open-o"></i><span>مدیریت سفارشات</span> </div>
+                    <div class="panel-heading"><i class="fa fa-folder-open-o"></i><span>مدیریت ارتباط با ما</span> </div>
                     <div class="panel-body">
                         <div class="show_box">
                             <div class="box_header">
-                                <span>فهرست  سفارشات</span>
+                                <span>فهرست ارتباط با ما</span>
                             </div>
                             <div class="box_body unit-div pr_drag">
                                 <table class="table table-bordered source_news_table agency-table">
                                     <tr>
                                         <td>نام</td>
-                                        <td>خدمت</td>
-                                        <td>تعداد</td>
-                                        <td>شماره تماس</td>
+                                        <td>ایمیل</td>
                                         <td>امکانات</td>
                                     </tr>
                                     {% set __a = False %}
-                                    {% for order in orders  %}
+                                    {% for contact in contacts %}
                                         {% set __a = True %}
-                                        <tr class="order-row">
-                                            <td>{{ order['name'] }}</td>
-                                            <td>{{ order['service_name'] }}</td>
-                                            <td>{{ order['count'] }}</td>
-                                            <td>{{ order['phone'] }}</td>
+                                        <tr class="contact-row">
+                                            <td>{{ contact['name'] }}</td>
+                                            <td>{{ contact['email'] }}</td>
                                             <td>
-                                                <span class="show-order" data-order="{{ order['_id'] }}">
+                                                <span class="show-contact" data-contact="{{ contact['_id'] }}">
                                                     <i class="fa fa-eye" style="color: #00a0dc"></i>
                                                 </span>
-                                                <span class="delete-order" data-order="{{ order['_id'] }}">
+                                                <span class="delete-contact" data-contact="{{ contact['_id'] }}">
                                                     <i class="fa fa-trash-o"></i>
                                                 </span>
                                             </td>
                                         </tr>
-                                        <tr class="detail-order-row" data-order="{{ order['_id'] }}" style="display: none">
-                                            <td colspan="5" style="padding: 10px">
-                                                <div>
-                                                    <sapn>آدرس : </sapn> <span style="margin-right: 10px">{{ order['address'] }}</span>
-                                                </div>
+                                        <tr class="detail-contact-row" data-contact="{{ contact['_id'] }}" style="display: none">
+                                            <td colspan="5" style="padding: 25px">
                                                 <div style="margin-top: 10px">
-                                                    <sapn>توضیحات : </sapn> <span style="margin-right: 10px">{{ order['description'] }}</span>
+                                                    <span>{{ contact['description'] }}</span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -73,15 +66,15 @@
 
 
     var __b = true;
-    $(document).on('click', '.delete-order', function(e){
+    $(document).on('click', '.delete-contact', function(e){
         if(__b){
             __b = false;
             Confirm.render(0, 0, 0, 0, 0, function(){
-                var elm = $(e.target).closest('.delete-order');
-                var order = elm.attr('data-order');
+                var elm = $(e.target).closest('.delete-contact');
+                var contact = elm.attr('data-contact');
                 elm.html(loader.replace(/20/g, '15'));
                 var postData = [
-                    {name: 'order', value: order},
+                    {name: 'contact', value: contact},
                     {name: '_xsrf', value: '{{ handler.xsrf_token }}'},
                     {name: 'action', value: 'delete'}
                 ];
@@ -96,7 +89,7 @@
                             var messages = response['messages'];
                             if (status) {
                                 Alert.render('success', function () {
-                                    elm.closest('.order-row').remove();
+                                    elm.closest('.contact-row').remove();
                                     __b = true;
                                 });
                             }else{
@@ -124,16 +117,16 @@
             });
         }
     });
-    $(document).on('click', '.show-order', function (e) {
-        var elm = $(e.target).closest('.show-order');
-        var order = elm.attr('data-order');
+    $(document).on('click', '.show-contact', function (e) {
+        var elm = $(e.target).closest('.show-contact');
+        var contact = elm.attr('data-contact');
         var _show = elm.attr('data-show');
-        $('.detail-order-row').slideUp();
+        $('.detail-contact-row').slideUp();
         if (_show == "true") {
-            $('.detail-order-row[data-order=' + order + ']').slideUp();
+            $('.detail-contact-row[data-contact=' + contact + ']').slideUp();
             elm.attr('data-show', 'false');
         } else {
-            $('.detail-order-row[data-order=' + order + ']').slideDown();
+            $('.detail-contact-row[data-contact=' + contact + ']').slideDown();
             elm.attr('data-show', 'true');
         }
 

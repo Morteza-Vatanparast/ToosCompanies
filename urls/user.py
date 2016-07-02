@@ -11,4 +11,13 @@ user_url_patterns = {
     (r'^(?i)/SearchCompanies/([^/]+)/([\w^/]+)/([\w^/]+)/([\w^/]+)?[/]?$', user.SearchCompaniesHandler),
     (r'/SearchCompanies', user.SearchCompaniesHandler, None, 'search_companies'),
     (r'/SearchCompanies/(name)/(unit)/(province)/(city)', user.SearchCompaniesHandler, None, 'search_companies_by_params'),
+
+    (r'^(?i)/Services[/]?$', user.ServicesHandler),
+    (r'^/Services', user.ServicesHandler, None, "services"),
+
+    (r'^(?i)/ContactUs[/]?$', user.ContactUsHandler),
+    (r'^/ContactUs', user.ContactUsHandler, None, "contact_us"),
+
+    (r'^(?i)/AboutUs[/]?$', user.AboutUsHandler),
+    (r'^/AboutUs', user.AboutUsHandler, None, "about_us"),
 }

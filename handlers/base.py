@@ -111,6 +111,7 @@ class UserBaseHandler(tornado.web.RequestHandler, SessionMixin, NotificationMixi
         self.data = dict(
             title=""
         )
+        self.secure_cookie = self.get_secure_cookie("PYCKET_ID")
         self.errors = []
 
     @property

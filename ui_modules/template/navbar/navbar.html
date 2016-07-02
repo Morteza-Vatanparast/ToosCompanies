@@ -14,11 +14,11 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{ reverse_url('index') }}">صفحه اصلی</a></li>
-                    <li><a href="{{ reverse_url('search_companies') }}">جستجو شرکت ها</a></li>
-                    <li><a href="#about">خدمات</a></li>
-                    <li><a href="#about">ارتباط با ما</a></li>
-                    <li><a href="#contact">درباره ما</a></li>
+                    <li {% if active == "index" %}class="active"{% end %}><a href="{{ reverse_url('index') }}">صفحه اصلی</a></li>
+                    <li {% if active == "search_companies" %}class="active"{% end %}><a href="{{ reverse_url('search_companies') }}">جستجو شرکت ها</a></li>
+                    <li {% if active == "services" %}class="active"{% end %}><a href="{{ reverse_url('services') }}">خدمات</a></li>
+                    <li {% if active == "contact_us" %}class="active"{% end %}><a href="{{ reverse_url('contact_us') }}">ارتباط با ما</a></li>
+                    <li {% if active == "about_us" %}class="active"{% end %}><a href="{{ reverse_url('about_us') }}">درباره ما</a></li>
                 </ul>
             </div>
         </div>

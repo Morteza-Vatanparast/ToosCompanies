@@ -8,6 +8,7 @@ from tornado import gen
 
 from handlers.base import UserBaseHandler
 from models.mongodb.companies import CompaniesModel
+from models.mongodb.contact_us import ContactUsModel
 from models.mongodb.province_city import ProvinceCityModel
 from models.mongodb.services import ServicesModel
 from models.mongodb.setting import SettingModel
@@ -95,3 +96,54 @@ class SearchCompaniesHandler(UserBaseHandler):
             self.write({'count': len(companies), 'status': 'success', 'data': html, 'page': int(page) + 1})
         except:
             self.write({'status': 'failed', 'data': '', 'page': 0})
+
+
+class ServicesHandler(UserBaseHandler):
+    @gen.coroutine
+    def get(self, *args, **kwargs):
+        self.data['services'] = ServicesModel().get_all_pagination()
+        self.data['count'] = ServicesModel().count()
+        self.render('user/services.html', **self.data)
+
+    def post(self, *args, **kwargs):
+        try:
+            page = int(self.get_argument('page', 1))
+            services = ServicesModel().get_all_pagination(page=page)
+            html = ''
+            for _s in services:
+                html += '<div class="col-md-4 margin-top-10">'
+                html += self.render_string('../ui_modules/template/companies_box/service_box.html',
+                                           service=_s)
+                html += '</div>'
+            self.write({'count': len(services), 'status': 'success', 'data': html, 'page': int(page) + 1})
+        except:
+            self.write({'status': 'failed', 'data': '', 'page': 0})
+
+
+class ContactUsHandler(UserBaseHandler):
+    @gen.coroutine
+    def get(self, *args, **kwargs):
+        self.render('user/contact_us.html', **self.data)
+
+    def post(self, *args, **kwargs):
+        try:
+            name = self.get_argument('name', '')
+            email = self.get_argument('email', '')
+            email = email if email != "" else None
+            description = self.get_argument('description', '')
+            if name == "" or description == "":
+                self.write('empty')
+                return
+            if ContactUsModel().is_duplicate(self.secure_cookie):
+                self.write('duplicate')
+                return
+            ContactUsModel(name=name, email=email, description=description, secure_cookie=self.secure_cookie).insert()
+            self.write('success')
+        except:
+            self.write('error')
+
+
+class AboutUsHandler(UserBaseHandler):
+    @gen.coroutine
+    def get(self, *args, **kwargs):
+        self.render('user/about_us.html', **self.data)

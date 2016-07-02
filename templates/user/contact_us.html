@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Companies</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link type="text/css" rel="stylesheet" href="{{ static_url('css/bootstrap-rtl.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ static_url('css/bootstrap-theme.css') }}') }}">
+    <link type="text/css" rel="stylesheet" href="{{ static_url('css/fonts.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ static_url('plugins/fontawesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('plugins/owl-carousel/owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ static_url('plugins/owl-carousel/owl-carousel/owl.theme.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/footer.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/index.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/slide_show.css') }}">
+</head>
+
+<body style="background-color: #F4F4F4; font-family: Yekan; direction: rtl">
+    {% module NavBar(active="contact_us") %}
+    <div class="col-md-12" style="margin-top: 65px; padding: 0px 30px 30px 30px; min-height: 410px">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="custom-box text-center" style="padding: 30px;">
+                    ارتباط با ما
+                </div>
+                <div class="custom-box text-center" style="padding: 30px;; margin-top: 10px">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">نام و نام خانوادگی</label>
+                                    <div class="col-sm-6 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span style="font-size: 18px" class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input autocomplete="off" name="name" placeholder="نام و نام خانوادگی" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">ایمیل</label>
+                                    <div class="col-sm-6 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                            <input name="email" placeholder="ایمیل" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">توضیحات</label>
+                                    <div class="col-sm-9 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            <textarea rows="5" style="resize: vertical" class="form-control" name="description"
+                                                      placeholder="توضیحات"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row status" style="margin-top: 10px; display: none">
+                                <div class="col-md-12 text-center status-text">
+
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label"></label>
+                                    <div class="col-sm-4">
+                                        <div class="btn btn-default send-contact-us">ارسال <span class="fa fa-send"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% module Footer() %}
+<script src="{{ static_url('js/jquery.min.js') }}"></script>
+<script src="{{ static_url('js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
+<script src="{{ static_url('js/navbar.js') }}"></script>
+</body>
+<script>
+    var loader = '<img src="{{ static_url('images/loading.gif') }}" width="15" height="15">';
+    $(document).on('click', '.send-contact-us', function(e){
+        var elm = $(e.target).closest('.send-contact-us');
+        var btn_html = elm.html();
+        var name = $('input[name=name]').val();
+        var email = $('input[name=email]').val();
+        var description = $('textarea[name=description]').val();
+        if(name == "" || description == ""){
+            $('.status-text').html('لطفا نام و توضیحات را وارد کنید.').css('color', 'red');
+            $('.status').slideDown();
+            elm.html(btn_html);
+            return;
+        }
+        elm.html(loader);
+        var postData = [
+            {name: 'name', value: name},
+            {name: 'email', value: email},
+            {name: 'description', value: description},
+            {name: '_xsrf', value: '{{ handler.xsrf_token }}'}
+        ];
+        jQuery.ajax(
+            {
+                url: '',
+                type: "post",
+                data: postData,
+                success: function (status) {
+                    if(status == 'success'){
+                        $('.status-text').html('عملیات با موفقیت انجام شد.').css('color', 'green');
+                        $('.status').slideDown();
+                        $('input[name=name]').val("");
+                        $('input[name=email]').val("");
+                        $('textarea[name=description]').val("");
+                        elm.html(btn_html);
+                    }
+                    if(status == 'empty'){
+                        $('.status-text').html('لطفا نام و توضیحات را وارد کنید.').css('color', 'red');
+                        $('.status').slideDown();
+                        elm.html(btn_html);
+                    }
+                    if(status == 'error'){
+                        $('.status-text').html('متاسفانه در سیستم خطایی به وجود آمده، لطفا دوباره امتحان کنید.').css('color', 'red');
+                        $('.status').slideDown();
+                        elm.html(btn_html);
+                    }
+                    if(status == 'duplicate'){
+                        $('.status-text').html('شما در روز یک بار امکان ارسال دارید.').css('color', 'red');
+                        $('.status').slideDown();
+                        elm.html(btn_html);
+                    }
+                }
+            });
+    })
+</script>
+</html>
