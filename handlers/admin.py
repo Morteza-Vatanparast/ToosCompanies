@@ -901,12 +901,14 @@ class AdminAddServicesHandler(AdminBaseHandler):
         try:
             name = self.get_argument('name', '')
             description = self.get_argument('description', '')
+            main_page = self.get_argument('main_page', 'false')
+            main_page = True if main_page == 'true' else False
             if name != "" and description != "":
                 try:
                     image = UploadPic(handler=self, name='image', folder='service_image').upload()[0]
                 except:
                     image = 'default.jpg'
-                ServicesModel(name=name, description=description, image=image).insert()
+                ServicesModel(name=name, description=description, image=image, main_page=main_page).insert()
             self.status = True
             self.write(self.result)
         except:
@@ -938,12 +940,14 @@ class AdminEditServicesHandler(AdminBaseHandler):
         try:
             name = self.get_argument('name', '')
             description = self.get_argument('description', '')
+            main_page = self.get_argument('main_page', 'false')
+            main_page = True if main_page == 'true' else False
             if name != "" and description != "":
                 try:
                     image = UploadPic(handler=self, name='image', folder='service_image').upload()[0]
                 except:
                     image = []
-                ServicesModel(_id=service, name=name, description=description, image=image).update()
+                ServicesModel(_id=service, name=name, description=description, image=image, main_page=main_page).update()
             self.status = True
             self.write(self.result)
         except:

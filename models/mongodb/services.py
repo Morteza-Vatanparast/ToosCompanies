@@ -2,10 +2,11 @@ from models.mongodb.base_model import MongodbModel
 
 
 class ServicesModel:
-    def __init__(self, _id=None, name=None, description=None, image=None):
+    def __init__(self, _id=None, name=None, description=None, image=None, main_page=None):
         self.id = _id
         self.name = name
         self.image = image
+        self.main_page = main_page
         self.description = description
 
     def insert(self):
@@ -13,6 +14,7 @@ class ServicesModel:
             __body = {
                 "name": self.name,
                 "description": self.description,
+                "main_page": self.main_page,
                 "image": self.image
             }
             MongodbModel(body=__body, collection="services").insert()
@@ -24,6 +26,18 @@ class ServicesModel:
     def get_all():
         try:
             __body = {}
+            __a = MongodbModel(body=__body, collection="services").get_all()
+            __r = []
+            for __i in __a:
+                __r.append(__i)
+            return __r
+        except:
+            return []
+
+    @staticmethod
+    def get_all_main_page():
+        try:
+            __body = {"main_page": True}
             __a = MongodbModel(body=__body, collection="services").get_all()
             __r = []
             for __i in __a:
@@ -58,6 +72,7 @@ class ServicesModel:
             __body = {
                 "$set": {
                     "name": self.name,
+                    "main_page": self.main_page,
                     "description": self.description
                 }
             }

@@ -32,6 +32,14 @@
                                                 </div>
                                             </div>
                                             <div class="row margin-top-10">
+                                                <div class="col-xs-3 text-right">
+                                                    <span>صفحه اصلی: </span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input name="main_page" value="true" type="checkbox" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
                                                 <div class="col-xs-3">
                                                     <span class="form_label">عکس</span>
                                                 </div>
@@ -110,6 +118,7 @@
             data.append('name', check_value($('input[name=name]').val(), 'نام را وارد کنید.'));
             data.append('description', check_value(tinyMCE.get("editable").getContent(), 'توضیحات را وارد کنید.'));
             data.append('image', $('input[type=file][name=image]')[0].files[0]);
+            data.append('main_page', $('input[type=checkbox][name=main_page]').prop('checked'));
             if(__error){
                 Alert.render(__message, function(){
                     btn.html('افزودن');

@@ -23,7 +23,7 @@ class IndexHandler(UserBaseHandler):
         self.data['__now'] = datetime.datetime.now()
         self.data['__now_name'] = khayyam.JalaliDatetime().now().strftime("%A - %d %B %Y")
         self.data['main_page'] = SettingModel().get_main_page()
-        self.data['services'] = ServicesModel().get_all()
+        self.data['services'] = ServicesModel().get_all_main_page()
         self.render('user/index.html', **self.data)
 
 
