@@ -9,12 +9,13 @@ class CompaniesModel:
     def __init__(self, _id=None, name=None, main_page=None, slider=None, description=None, logo=None, images=None,
                  unit=None, active=None, industrial_town=None, address=None, phone=None, phone2=None, fax=None,
                  site=None, email=None, province=None, city=None, ceo=None, owner=None, mobile=None,
-                 products=None, materials=None, slider_image=None, image=None):
+                 products=None, materials=None, slider_image=None, about=None, image=None):
         self.id = _id
         self.name = name
         self.main_page = main_page
         self.slider = slider
         self.description = description
+        self.about = about
         self.logo = logo
         self.images = images
         self.slider_image = slider_image
@@ -47,6 +48,7 @@ class CompaniesModel:
                 "main_page": self.main_page,
                 "slider": self.slider,
                 "description": self.description,
+                "about": self.about,
                 "logo": self.logo,
                 "slider_image": self.slider_image,
                 "image": self.image,
@@ -94,6 +96,7 @@ class CompaniesModel:
                     "main_page": self.main_page,
                     "slider": self.slider,
                     "description": self.description,
+                    "about": self.about,
                     "unit": self.unit,
                     "industrial_town": self.industrial_town,
                     "address": self.address,
@@ -317,7 +320,8 @@ class CompaniesModel:
                 images=__get("images", []),
                 materials=materials,
                 products=products,
-                description=__get("description", "")
+                description=__get("description", ""),
+                about=__get("about", "")
             )
         except:
             return False

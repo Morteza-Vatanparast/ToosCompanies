@@ -349,6 +349,7 @@ class AdminAddCompaniesHandler(AdminBaseHandler):
             slider = self.get_argument('slider', 'false')
             active = self.get_argument('active', 'false')
             description = self.get_argument('description', '')
+            about = self.get_argument('about', '')
             address = self.get_argument('address', '')
             phone = self.get_argument('phone', '')
             phone2 = self.get_argument('phone2', '')
@@ -362,7 +363,7 @@ class AdminAddCompaniesHandler(AdminBaseHandler):
             city = int(self.get_argument('city', ''))
             unit = ObjectId(self.get_argument('unit', ''))
             industrial_town = ObjectId(self.get_argument('industrial_town', ''))
-            if name != "" and description != "" and address != "" and phone != "" and fax != "" \
+            if name != "" and unit != "" and industrial_town != ""\
                     and province != "" and city != "":
                 main_page = True if main_page == "true" else False
                 slider = True if slider == "true" else False
@@ -389,7 +390,7 @@ class AdminAddCompaniesHandler(AdminBaseHandler):
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
                                address=address, phone=phone, phone2=phone2, fax=fax, site=site, email=email,
                                province=province, city=city, ceo=ceo, owner=owner, slider_image=slider_image,
-                               image=image, mobile=mobile).insert()
+                               image=image, mobile=mobile, about=about).insert()
             self.status = True
             self.write(self.result)
         except:
@@ -428,6 +429,7 @@ class AdminEditCompaniesHandler(AdminBaseHandler):
             slider = self.get_argument('slider', 'false')
             active = self.get_argument('active', 'false')
             description = self.get_argument('description', '')
+            about = self.get_argument('about', '')
             address = self.get_argument('address', '')
             phone = self.get_argument('phone', '')
             phone2 = self.get_argument('phone2', '')
@@ -441,7 +443,7 @@ class AdminEditCompaniesHandler(AdminBaseHandler):
             city = int(self.get_argument('city', ''))
             unit = ObjectId(self.get_argument('unit', ''))
             industrial_town = ObjectId(self.get_argument('industrial_town', ''))
-            if name != "" and description != "" and address != "" and phone != "" and fax != "" \
+            if name != "" and unit != "" and industrial_town != ""\
                     and province != "" and city != "":
                 main_page = True if main_page == "true" else False
                 slider = True if slider == "true" else False
@@ -468,7 +470,7 @@ class AdminEditCompaniesHandler(AdminBaseHandler):
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
                                address=address, phone=phone, phone2=phone2, fax=fax, site=site, email=email,
                                province=province, mobile=mobile, city=city, ceo=ceo, owner=owner,
-                               slider_image=slider_image, image=image).update()
+                               slider_image=slider_image, image=image, about=about).update()
             self.status = True
             self.write(self.result)
         except:

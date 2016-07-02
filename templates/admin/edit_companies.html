@@ -265,10 +265,18 @@
                                             </div>
                                             <div class="row margin-top-10">
                                                 <div class="col-xs-3">
+                                                    <span class="form_label">توضیحات</span>
+                                                </div>
+                                                <div class="col-xs-9">
+                                                    <input class="form-control" name="description" value="{{ company['description'] }}" style="resize: none">
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-3">
                                                     <span class="form_label">درباره شرکت</span>
                                                 </div>
                                                 <div class="col-xs-9">
-                                                    <textarea class="form-control" cols="10" rows="10" name="description" style="resize: none">{{ company['description'] }}</textarea>
+                                                    <textarea class="form-control" cols="10" rows="10" name="about" style="resize: none">{{ company['about'] }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -318,11 +326,11 @@
             var data = new FormData();
             data.append('_xsrf', '{{ handler.xsrf_token }}');
             data.append('name', check_value($('input[name=name]').val(), 'نام را وارد کنید.'));
-            data.append('address', check_value($('textarea[name=address]').val(), 'آدرس را وارد کنید.'));
-            data.append('phone', check_value($('input[name=phone]').val(), 'تلفن را وارد کنید.'));
+            data.append('address', $('textarea[name=address]').val());
+            data.append('phone', $('input[name=phone]').val());
             data.append('mobile', $('input[name=mobile]').val());
             data.append('phone2', $('input[name=phone2]').val());
-            data.append('fax', check_value($('input[name=fax]').val(), 'فکس را وارد کنید.'));
+            data.append('fax', $('input[name=fax]').val());
             data.append('site', $('input[name=site]').val());
             data.append('email', $('input[name=email]').val());
             data.append('ceo', $('input[name=ceo]').val());
@@ -332,7 +340,8 @@
             data.append('main_page', $('input[name=main_page]').prop("checked"));
             data.append('slider', $('input[name=slider]').prop("checked"));
             data.append('active', $('input[name=active]').prop("checked"));
-            data.append('description', check_value($('textarea[name=description]').val(), 'توضیحات را وارد کنید.'));
+            data.append('description', $('textarea[name=description]').val());
+            data.append('about', $('input[name=about]').val());
             data.append('unit', check_value($('select[name=unit]').val(), 'واحد را وارد کنید.'));
             data.append('industrial_town', check_value($('select[name=industrial_town]').val(), 'شهرک صنعتی  را وارد کنید.'));
             data.append('logo', $('input[type=file][name=logo]')[0].files[0]);
