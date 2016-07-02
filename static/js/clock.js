@@ -1,12 +1,5 @@
 var duration = 0;
 var delay = 0;
-var year = parseInt('{{ __now.year }}');
-var month = parseInt('{{ __now.month }}');
-var day = parseInt('{{ __now.day }}');
-var hour = parseInt('{{ __now.hour }}');
-var minute = parseInt('{{ __now.minute }}');
-var second = parseInt('{{ __now.second }}');
-var millisecond = parseInt('{{ __now.microsecond }}');
 
 function drawClock(drawPlace, timestamp) {
     var canvas = document.getElementById(drawPlace),

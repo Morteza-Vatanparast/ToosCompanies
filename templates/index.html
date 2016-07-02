@@ -41,10 +41,18 @@
                         {% end %}
                     </div>
                     <div class="col col-md-6 visible-md visible-lg">
-                        {% try %}
-                            {% module CompaniesMediumBox(company=main_page['boxes'][1]) %}
-                        {% except %}
-                        {% end %}
+                        <div class="custom-box">
+                            <div class="box-medium">
+                                <div id="canvasClock">
+                                    <div style="text-align: center; font-size: 19px; margin-top: 0; direction: rtl;;"></div>
+                                    <canvas class="canvas center-block" id="analogClock" width="240" height="240" style="max-width: 100%; margin-top: -25px;"></canvas>
+                                    <div class="row text-center" style="margin-top: -23px;">
+                                        <div class="col col-md-7">{{ __now_name }}</div>
+                                        <div class="col col-md-5" id="digitalClock">00:00:00 AM</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -80,79 +88,25 @@
             </div>
             <div class="col-md-12">
                 <div class="row" style="margin-top: 11px; direction: ltr">
-                    <div id="owl-example" class="owl-carousel">
-                        <div class="col">
-                            <div class="custom-box">
-                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
-                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="custom-box">
-                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
-                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="custom-box">
-                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
-                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="custom-box">
-                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
-                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="custom-box">
-                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
-                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="custom-box">
-                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
-                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="custom-box">
-                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
-                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="custom-box">
-                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
-                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="custom-box">
-                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
-                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="custom-box">
-                                <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
-                                <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                        <div class="custom-box">
-                            <img style="width: 100%; height: 222px" src="http://placehold.it/300x230">
-                            <div style="padding: 10px; height: 100px;">The Most Breathtaking Celebrity Engagement Rings Ever</div>
-                        </div>
-                    </div>
+                    <div id="OWL_SERVICES" class="owl-carousel">
+                        {% for s in services %}
+                            {% module ServiceBox(s) %}
+                        {% end %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     {% module Footer() %}
+<script>
+var year = parseInt('{{ __now.year }}');
+var month = parseInt('{{ __now.month }}');
+var day = parseInt('{{ __now.day }}');
+var hour = parseInt('{{ __now.hour }}');
+var minute = parseInt('{{ __now.minute }}');
+var second = parseInt('{{ __now.second }}');
+var millisecond = parseInt('{{ __now.microsecond }}');
+</script>
 <script src="{{ static_url('js/jquery.min.js') }}"></script>
 <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
@@ -163,7 +117,7 @@
 <script>
 
     $(document).ready(function () {
-        $("#owl-example").owlCarousel({
+        $("#OWL_SERVICES").owlCarousel({
             autoPlay: true,
             stopOnHover: true
         });

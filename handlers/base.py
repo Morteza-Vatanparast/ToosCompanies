@@ -11,6 +11,7 @@ from pycket.session import SessionMixin
 
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.province_city import ProvinceCityModel
+from models.mongodb.services import ServicesModel
 from models.mongodb.setting import SettingModel
 from models.mongodb.type_products import TypeProductsModel
 from models.mongodb.unit_companies import UnitCompaniesModel
@@ -42,16 +43,24 @@ class BaseHandler(tornado.web.RequestHandler, SessionMixin, NotificationMixin):
 
     @property
     def current_admin(self):
-        return self.session.get('current_admin_toos', None)
+        try:
+            return self.session.get('current_admin_toos', None)
+        except:
+            return None
 
     @current_admin.setter
     def current_admin(self, current_admin):
-        self.session.set('current_admin_toos', current_admin)
+        try:
+            self.session.set('current_admin_toos', current_admin)
+        except:
+            self.session.set('current_admin_toos', None)
 
     def admin_is_authenticated(self):
-        if self.current_admin is not None:
-            return True
-        return False
+        try:
+            if self.current_admin is not None:
+                return True
+        except:
+            return False
 
     @property
     def value(self):
@@ -99,6 +108,7 @@ class IndexHandler(BaseHandler):
         self.data['__now'] = datetime.datetime.now()
         self.data['__now_name'] = khayyam.JalaliDatetime().now().strftime("%A - %d %B %Y")
         self.data['main_page'] = SettingModel().get_main_page()
+        self.data['services'] = ServicesModel().get_all()
         self.render('index.html', **self.data)
 
 

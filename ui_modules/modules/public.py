@@ -112,3 +112,9 @@ class AdminUnitSectionBoxes(UIModule):
         return self.render_string('../ui_modules/template/companies_box/admin_unit_section_boxes.html',
                                   unit_name=unit_name, unit_id=unit_id, _format=_format, empty=empty,
                                   companies=companies)
+
+
+class ServiceBox(UIModule):
+    def render(self, service=None):
+        return self.render_string('../ui_modules/template/companies_box/service_box.html',
+                                  service=service)
