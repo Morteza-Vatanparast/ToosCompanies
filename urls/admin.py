@@ -3,7 +3,7 @@
 from handlers import admin
 __author__ = 'Morteza'
 
-url_patterns = [
+admin_url_patterns = {
     (r'^(?i)/Admin/Companies[/]?([\d^/]+)?[/]?$', admin.AdminCompaniesHandler),
     (r'/Admin/Companies', admin.AdminCompaniesHandler, None, 'admin:companies'),
     (r'/Admin/Companies/(page)', admin.AdminCompaniesHandler, None, 'admin:companies_by_page'),
@@ -92,4 +92,4 @@ url_patterns = [
     (r'^(?i)/Admin/SlideShow/AddFormat[/]?([\w^/]+)?[/]?$', admin.AdminSlideShowAddFormatHandler),
     (r'/Admin/SlideShow/AddFormat', admin.AdminSlideShowAddFormatHandler, None, 'admin:slide_show:add_format'),
     (r'/Admin/SlideShow/AddFormat/(format)', admin.AdminSlideShowAddFormatHandler, None, 'admin:slide_show:add_format_by_format')
-]
+}
