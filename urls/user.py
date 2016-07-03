@@ -16,6 +16,10 @@ user_url_patterns = {
     (r'/Company', user.CompanyHandler, None, 'company'),
     (r'/Company/(id)', user.CompanyHandler, None, 'company_by_id'),
 
+    (r'^(?i)/Service/([\w^/]+)?[/]?$', user.ServiceHandler),
+    (r'/Service', user.ServiceHandler, None, 'service'),
+    (r'/Service/(id)', user.ServiceHandler, None, 'service_by_id'),
+
     (r'^(?i)/Services[/]?$', user.ServicesHandler),
     (r'^/Services', user.ServicesHandler, None, "services"),
 

@@ -1,9 +1,12 @@
+import datetime
+
 from models.mongodb.base_model import MongodbModel
 from models.mongodb.services import ServicesModel
 
 
 class OrdersModel:
-    def __init__(self, _id=None, name=None, count=None, service=None, phone=None, address=None, description=None):
+    def __init__(self, _id=None, name=None, count=None, service=None, phone=None, address=None, description=None,
+                 secure_cookie=None):
         self.id = _id
         self.name = name
         self.count = count
@@ -11,6 +14,7 @@ class OrdersModel:
         self.phone = phone
         self.address = address
         self.description = description
+        self.secure_cookie = secure_cookie
 
     def insert(self):
         try:
@@ -20,6 +24,8 @@ class OrdersModel:
                 "count": self.count,
                 "phone": self.phone,
                 "address": self.address,
+                "secure_cookie": self.secure_cookie,
+                "date": datetime.datetime.now(),
                 "description": self.description
             }
             MongodbModel(body=__body, collection="orders").insert()
@@ -64,5 +70,16 @@ class OrdersModel:
         try:
             __body = {"_id": self.id}
             return MongodbModel(body=__body, collection="orders").get_one()
+        except:
+            return False
+
+    @staticmethod
+    def is_duplicate(secure_cookie=None):
+        try:
+            __body = {"secure_cookie": secure_cookie, "date": {"$gte": datetime.datetime.now() - datetime.timedelta(hours=24)}}
+            __c = MongodbModel(body=__body, collection="orders").count()
+            if __c:
+                return True
+            return False
         except:
             return False

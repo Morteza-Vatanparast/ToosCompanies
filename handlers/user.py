@@ -12,6 +12,7 @@ from config import Config
 from handlers.base import UserBaseHandler
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.contact_us import ContactUsModel
+from models.mongodb.orders import OrdersModel
 from models.mongodb.province_city import ProvinceCityModel
 from models.mongodb.services import ServicesModel
 from models.mongodb.setting import SettingModel
@@ -180,3 +181,42 @@ class CompanyHandler(UserBaseHandler):
         photo_name = str(self.data['company']['_id']) + '.jpg'
         img.save(os.path.join(_folder, photo_name))
         self.render('user/company.html', **self.data)
+
+
+class ServiceHandler(UserBaseHandler):
+    @gen.coroutine
+    def get(self, *args, **kwargs):
+        try:
+            service = args[0]
+            if service is not None:
+                service = ObjectId(service)
+        except:
+            service = None
+        self.data['service'] = ServicesModel(_id=service).get_one()
+        self.data['similar_services'] = ServicesModel(_id=service).get_similar(_id=self.data['service']['_id'])
+        self.render('user/service.html', **self.data)
+
+    def post(self, *args, **kwargs):
+        try:
+            service = args[0]
+            if service is not None:
+                service = ObjectId(service)
+        except:
+            service = None
+        try:
+            name = self.get_argument('name', '')
+            phone = self.get_argument('phone', '')
+            count = self.get_argument('count', '')
+            address = self.get_argument('address', '')
+            description = self.get_argument('description', '')
+            if name == "" or phone == "" or count == "" or address == "" or description == "" or service is None:
+                self.write('empty')
+                return
+            if OrdersModel().is_duplicate(self.secure_cookie):
+                self.write('duplicate')
+                return
+            OrdersModel(name=name, phone=phone, count=count, address=address, description=description, service=service,
+                        secure_cookie=self.secure_cookie).insert()
+            self.write('success')
+        except:
+            self.write('error')

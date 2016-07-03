@@ -1,3 +1,5 @@
+import random
+
 from models.mongodb.base_model import MongodbModel
 
 
@@ -98,3 +100,30 @@ class ServicesModel:
             return MongodbModel(body=__body, collection="services").get_one()
         except:
             return False
+
+    @staticmethod
+    def get_similar(count=4, _id=None):
+        try:
+            __body = {"image": {"$ne": None}, "_id": {"$ne": _id}}
+            __key = {'name': 1, 'image': 1}
+            __count = MongodbModel(body=__body, collection="services").count()
+            __rand = []
+            __r = []
+            while len(__rand) < count:
+                _num = random.randint(0, __count - 1)
+                if _num not in __rand:
+                    __rand.append(_num)
+
+            for i in __rand:
+                __i = MongodbModel(body=__body, key=__key, size=i, collection="services").get_all_key_random()
+                try:
+                    __r.append(dict(
+                        _id=__i['_id'],
+                        name=__i['name'],
+                        image=__i['image'],
+                    ))
+                except:
+                    pass
+            return __r
+        except:
+            return []

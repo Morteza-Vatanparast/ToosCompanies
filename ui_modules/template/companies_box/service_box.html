@@ -1,5 +1,5 @@
 <div class="col">
-    <div class="custom-box">
+    <div class="custom-box service-box-link" onclick="location.href='{{ reverse_url('service_by_id', service['_id']) }}'">
         <img style="width: 100%; height: 222px" src="{{ static_url('images/service_image/' + service['image']) }}">
         <div style="padding: 10px; height: 50px; text-align: center; font-size: 17px; font-weight: bold;">{{ service['name'] }}</div>
     </div>

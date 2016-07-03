@@ -21,5 +21,23 @@
 .company-box-link {
     cursor: pointer;
 }
-.company-box-link img { transition: all .2s ease-in-out; }
-.company-box-link:hover img { transform: scale(1.05); }
+
+.company-box-link img {
+    transition: all .2s ease-in-out;
+}
+
+.company-box-link:hover img {
+    transform: scale(1.05);
+}
+
+.service-box-link {
+    cursor: pointer;
+}
+
+.service-box-link img {
+    transition: all .2s ease-in-out;
+}
+
+.service-box-link:hover img {
+    transform: scale(1.05);
+}
