@@ -1,7 +1,7 @@
 <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">
 <div class="row unit-sections-companies">
     <div class="col-md-12">
-        <span style="font-size: 20px; font-weight: bold">{{ unit_name }}</span>
+        <span style="font-size: 20px; font-weight: bold; cursor: pointer" onclick="location.href='{{ reverse_url('search_companies_by_params', 'all', str(unit_id), 'all', 'all') }}'">{{ unit_name }}</span>
         <i style="font-size: 20px; font-weight: bold; margin-right: 10px" class="fa fa-angle-left"></i>
     </div>
     <div class="col-md-12">

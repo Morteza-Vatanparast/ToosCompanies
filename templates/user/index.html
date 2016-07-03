@@ -41,18 +41,22 @@
                         {% end %}
                     </div>
                     <div class="col col-md-6 visible-md visible-lg">
-                        <div class="custom-box">
-                            <div class="box-medium">
-                                <div id="canvasClock">
-                                    <div style="text-align: center; font-size: 19px; margin-top: 0; direction: rtl;;"></div>
-                                    <canvas class="canvas center-block" id="analogClock" width="240" height="240" style="max-width: 100%; margin-top: -25px;"></canvas>
-                                    <div class="row text-center" style="margin-top: -23px;">
-                                        <div class="col col-md-7">{{ __now_name }}</div>
-                                        <div class="col col-md-5" id="digitalClock">00:00:00 AM</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% try %}
+                            {% module CompaniesMediumBox(company=main_page['boxes'][1]) %}
+                        {% except %}
+                        {% end %}
+{#                        <div class="custom-box">#}
+{#                            <div class="box-medium">#}
+{#                                <div id="canvasClock">#}
+{#                                    <div style="text-align: center; font-size: 19px; margin-top: 0; direction: rtl;;"></div>#}
+{#                                    <canvas class="canvas center-block" id="analogClock" width="240" height="240" style="max-width: 100%; margin-top: -25px;"></canvas>#}
+{#                                    <div class="row text-center" style="margin-top: -23px;">#}
+{#                                        <div class="col col-md-7">{{ __now_name }}</div>#}
+{#                                        <div class="col col-md-5" id="digitalClock">00:00:00 AM</div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
                     </div>
                 </div>
                 <div class="row">
@@ -78,7 +82,7 @@
         </div>
 
         {% for i in main_page['unit_sections'] %}
-            {% module UnitSectionBoxes(unit_name=i['unit_name'], _format=i['format'], companies=i['companies']) %}
+            {% module UnitSectionBoxes(unit_name=i['unit_name'], unit_id=i['unit_id'], _format=i['format'], companies=i['companies']) %}
         {% end %}
 
         <hr style="border-top: 2px solid #000000; margin-top: 16px; margin-bottom: 16px">

@@ -17,3 +17,9 @@
     height: 107px;
     margin-top: 11px !important;
 }
+
+.company-box-link {
+    cursor: pointer;
+}
+.company-box-link img { transition: all .2s ease-in-out; }
+.company-box-link:hover img { transform: scale(1.05); }

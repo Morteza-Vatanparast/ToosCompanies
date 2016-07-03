@@ -98,11 +98,11 @@ class AdminCompaniesMediumBox(UIModule):
 
 
 class UnitSectionBoxes(UIModule):
-    def render(self, unit_name=None, _format=None, companies=None):
+    def render(self, unit_name=None, unit_id=None, _format=None, companies=None):
         if companies is None:
             companies = []
         return self.render_string('../ui_modules/template/companies_box/unit_section_boxes.html',
-                                  unit_name=unit_name, _format=_format, companies=companies)
+                                  unit_name=unit_name, unit_id=unit_id, _format=_format, companies=companies)
 
 
 class AdminUnitSectionBoxes(UIModule):
