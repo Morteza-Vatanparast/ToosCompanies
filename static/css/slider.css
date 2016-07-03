@@ -1,0 +1,58 @@
+.custom-slider-small .slider-large-box img {
+    width: 100%;
+    height: 300px
+}
+
+.custom-slider-small .slider-small-boxes {
+    height: 50px
+}
+
+.custom-slider-small .slider-small-boxes .slider-angle-right {
+    padding-left: 0;
+    font-size: 30px;
+    cursor: pointer;
+    height: 50px;
+    width: 11% !important;
+    float: right !important;
+}
+
+.custom-slider-small .slider-small-boxes .slider-angle-left {
+    padding-right: 0;
+    font-size: 30px;
+    cursor: pointer;
+    height: 50px;
+    width: 11% !important;
+    float: left !important;
+}
+
+.custom-slider-small .slider-small-boxes .slider-angle-i {
+    height: 50px;
+}
+
+.custom-slider-small .slider-small-boxes .slider-angle-i:hover{
+    background-color: #F4F4F4;
+}
+
+.custom-slider-small .slider-small-boxes .slider-angle-i i{
+    margin-top: 8px;
+}
+
+.custom-slider-small .slider-small-boxes .slider-small-image {
+    padding: 0;
+    opacity: 0.3;
+    cursor: pointer;
+    width: 15.6% !important;
+}
+
+.custom-slider-small .slider-small-boxes .slider-small-image.active {
+    opacity: 1;
+}
+
+.custom-slider-small .slider-small-boxes .slider-small-image:hover {
+    opacity: 1;
+}
+
+.custom-slider-small .slider-small-boxes .slider-small-image img {
+    width: 100%;
+    height: 50px;
+}

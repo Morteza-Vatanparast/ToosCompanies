@@ -227,11 +227,13 @@
                                                 </div>
                                             </div>
                                             <div class="row margin-top-10">
-                                                <div class="col-xs-3">
-                                                    <span class="form_label">عکس ها</span>
-                                                </div>
-                                                <div class="col-xs-3 col-md-offset-3">
-                                                    <div class="R_butt_blue add-image text-center">+ افزودن عکس</div>
+                                                <div class="add-image-div" {% if len(company['images']) >= 4 %}style="display: none" {% end %}>
+                                                    <div class="col-xs-3">
+                                                        <span class="form_label">عکس ها</span>
+                                                    </div>
+                                                    <div class="col-xs-3 col-md-offset-3">
+                                                        <div class="R_butt_blue add-image text-center">+ افزودن عکس</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row margin-top-10 images-uploads">
@@ -340,8 +342,8 @@
             data.append('main_page', $('input[name=main_page]').prop("checked"));
             data.append('slider', $('input[name=slider]').prop("checked"));
             data.append('active', $('input[name=active]').prop("checked"));
-            data.append('description', $('textarea[name=description]').val());
-            data.append('about', $('input[name=about]').val());
+            data.append('description', $('input[name=description]').val());
+            data.append('about', $('textarea[name=about]').val());
             data.append('unit', check_value($('select[name=unit]').val(), 'واحد را وارد کنید.'));
             data.append('industrial_town', check_value($('select[name=industrial_town]').val(), 'شهرک صنعتی  را وارد کنید.'));
             data.append('logo', $('input[type=file][name=logo]')[0].files[0]);
@@ -402,24 +404,30 @@
                 });
         }
     });
-
+    var count_images = parseInt('{{ len(company['images']) }}');
     $(document).on('click', '.add-image', function(){
-        $('.images-uploads').append('<div class="col-md-3 image-row margin-top-20">\
-                <div><i class="fa fa-times delete-image cursor-pointer" style="font-size: 30px; color: red; float: right;"></i></div>\
-                <div class="fileupload fileupload-new" data-provides="fileupload">\
-                <div id="photo_show" class="fileupload-new thumbnail" style="width: 184px; height: 134px;">\
-                    <img  src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />\
-                </div>\
-                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 184px; max-height: 134px; line-height: 20px;"></div>\
-                <div>\
-                    <span class="btn backgroundBlue colorWhite btn-file">\
-                    <span data-toggle="modal" href="#cropper-foodlist" class="fileupload-new"><i class="fa fa-paper-clip"></i> انتخاب تصویر </span>\
-                    <span class="fileupload-exists"><i class="fa fa-undo"></i> تغییر</span>\
-                    <input name="images" type="file" class="default add-source" />\
-                    </span>\
-                    <a href="#" class="btn backgroundRed colorWhite fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> حذف</a>\
-                </div>\
-            </div></div>');
+        if(count_images <= 4) {
+            count_images += 1;
+            $('.images-uploads').append('<div class="col-md-3 image-row margin-top-20">\
+                    <div><i class="fa fa-times delete-image cursor-pointer" style="font-size: 30px; color: red; float: right;"></i></div>\
+                    <div class="fileupload fileupload-new" data-provides="fileupload">\
+                    <div id="photo_show" class="fileupload-new thumbnail" style="width: 184px; height: 134px;">\
+                        <img  src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />\
+                    </div>\
+                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 184px; max-height: 134px; line-height: 20px;"></div>\
+                    <div>\
+                        <span class="btn backgroundBlue colorWhite btn-file">\
+                        <span data-toggle="modal" href="#cropper-foodlist" class="fileupload-new"><i class="fa fa-paper-clip"></i> انتخاب تصویر </span>\
+                        <span class="fileupload-exists"><i class="fa fa-undo"></i> تغییر</span>\
+                        <input name="images" type="file" class="default add-source" />\
+                        </span>\
+                        <a href="#" class="btn backgroundRed colorWhite fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> حذف</a>\
+                    </div>\
+                </div></div>');
+        }
+        if(count_images >= 4){
+            $(".add-image-div").slideUp();
+        }
     });
 
     $(document).on('click', '.delete-image', function(e){
@@ -440,6 +448,10 @@
                 data: postData,
                 success: function () {
                     elm.closest('.image-row').remove();
+                    count_images -= 1;
+                    if(count_images < 4){
+                        $(".add-image-div").slideDown();
+                    }
                 }
             });
     });

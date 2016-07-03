@@ -10,7 +10,7 @@ __author__ = 'Morteza'
 class Config:
     def __init__(self):
         self.applications_root = os.path.join(os.path.dirname(__file__), "")
-        self.domain = '.localhost'
+        self.domain = '37.59.92.3:8099'
 
         self.SESSION_TIME = datetime.timedelta(seconds=3600)
 

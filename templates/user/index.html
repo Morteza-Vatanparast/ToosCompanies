@@ -107,6 +107,9 @@ var minute = parseInt('{{ __now.minute }}');
 var second = parseInt('{{ __now.second }}');
 var millisecond = parseInt('{{ __now.microsecond }}');
 </script>
+<script>
+    var search_url = "{{ reverse_url('search_companies_by_params', '__name__', 'all', 'all', 'all') }}";
+</script>
 <script src="{{ static_url('js/jquery.min.js') }}"></script>
 <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>

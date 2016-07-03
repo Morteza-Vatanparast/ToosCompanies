@@ -75,6 +75,12 @@ class MongodbModel(MongodbBaseModel):
         except:
             return False
 
+    def get_all_key_random(self):
+        try:
+            return self.collection.find(self.__body, self.__key).limit(-1).skip(self.__size).next()
+        except:
+            return False
+
     def get_all_key_limit(self):
         try:
             return self.collection.find(self.__body, self.__key).skip(self.__size * (self.__page - 1)).limit(self.__size)

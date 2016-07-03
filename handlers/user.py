@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import datetime
+import os
 
 import khayyam
+import qrcode
 from bson import ObjectId
 from tornado import gen
 
+from config import Config
 from handlers.base import UserBaseHandler
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.contact_us import ContactUsModel
@@ -147,3 +150,31 @@ class AboutUsHandler(UserBaseHandler):
     @gen.coroutine
     def get(self, *args, **kwargs):
         self.render('user/about_us.html', **self.data)
+
+
+class CompanyHandler(UserBaseHandler):
+    @gen.coroutine
+    def get(self, *args, **kwargs):
+        try:
+            company = args[0]
+            if company is not None:
+                company = ObjectId(company)
+        except:
+            company = None
+        self.data['company'] = CompaniesModel(_id=company).get_one()
+        self.data['similar_companies'] = CompaniesModel(_id=company).get_similar(unit=self.data['company']['unit'], _id=self.data['company']['_id'])
+
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+
+        qr.add_data(Config().domain + self.reverse_url('company_by_id', str(self.data['company']['_id'])))
+        qr.make(fit=True)
+        img = qr.make_image()
+        _folder = os.path.join(Config().applications_root, 'static', 'images', 'company_qr_code')
+        photo_name = str(self.data['company']['_id']) + '.jpg'
+        img.save(os.path.join(_folder, photo_name))
+        self.render('user/company.html', **self.data)

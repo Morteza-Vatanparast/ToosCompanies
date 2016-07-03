@@ -36,6 +36,9 @@
         </div>
     </div>
     {% module Footer() %}
+<script>
+    var search_url = "{{ reverse_url('search_companies_by_params', '__name__', 'all', 'all', 'all') }}";
+</script>
 <script src="{{ static_url('js/jquery.min.js') }}"></script>
 <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>

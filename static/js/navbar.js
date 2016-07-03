@@ -5,7 +5,7 @@ $(window).scroll(function () {
 
 $('#search_submit').click(function(){
     if($('#search_input').hasClass('search-input-focus') && $('#search_input').val() != ""){
-        location.href = '';
+        location.href = search_url.replace('__name__', $('#search_input').val());
     }else {
        $('#search_input').addClass('search-input-focus').focus();
     }

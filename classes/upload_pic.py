@@ -13,9 +13,9 @@ class UploadPic:
         self.result = []
         self.status = False
 
-    def upload(self):
+    def upload(self, count=1):
         try:
-            pics = self.__handler.request.files[self.name]
+            pics = self.__handler.request.files[self.name][:count]
             for pic in pics:
                 try:
                     extension = os.path.splitext(pic['filename'])[1].lower()

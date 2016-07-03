@@ -383,7 +383,7 @@ class AdminAddCompaniesHandler(AdminBaseHandler):
                 except:
                     slider_image = None
                 try:
-                    images = UploadPic(handler=self, name='images', folder='company_images').upload()
+                    images = UploadPic(handler=self, name='images', folder='company_images').upload(count=4)
                 except:
                     images = []
                 CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo,
@@ -463,7 +463,7 @@ class AdminEditCompaniesHandler(AdminBaseHandler):
                 except:
                     slider_image = []
                 try:
-                    images = UploadPic(handler=self, name='image', folder='company_images').upload()
+                    images = UploadPic(handler=self, name='images', folder='company_images').upload(count=4)
                 except:
                     images = []
                 CompaniesModel(_id=company, name=name, main_page=main_page, slider=slider, description=description, logo=logo,

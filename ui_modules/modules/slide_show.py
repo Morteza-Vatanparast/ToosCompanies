@@ -17,6 +17,13 @@ class SlideShow(UIModule):
         return self.render_string('../ui_modules/template/slide_show/slide_show.html', _formats=_formats)
 
 
+class Slider(UIModule):
+    def render(self, image=None, images=None, count=0):
+        if images is None:
+            images = []
+        return self.render_string('../ui_modules/template/slide_show/slider.html', image=image, images=images, count=count)
+
+
 class SlideShowFormat1(UIModule):
     def render(self, admin=False, _format=None, _slide=None, all_slide=None):
         if admin:

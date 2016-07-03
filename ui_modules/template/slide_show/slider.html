@@ -1,0 +1,27 @@
+<div class="slider-small-boxes">
+    <div class="row">
+        <div class="col-xs-1 slider-angle-right slider-angle">
+            <div class="slider-angle-i">
+                <i class="fa fa-angle-right"></i>
+            </div>
+        </div>
+        {% set count_slide = 0 %}
+        {% if image is not None %}
+            {% set count_slide = count_slide + 1 %}
+            <div class="col-xs-2 slider-small-image active" data-slide="{{ count_slide }}" data-all-slide="{{ count }}">
+                <img src="{{ static_url("images/company_image/" + image) }}">
+            </div>
+        {% end %}
+        {% for _img in images %}
+            {% set count_slide = count_slide + 1 %}
+            <div class="col-xs-2 slider-small-image {% if count_slide == 1 %}active{% end %}" data-slide="{{ count_slide }}" data-all-slide="{{ count }}">
+                <img src="{{ static_url("images/company_images/" + _img) }}">
+            </div>
+        {% end %}
+        <div class="col-xs-1 slider-angle-left slider-angle">
+            <div class="slider-angle-i">
+                <i class="fa fa-angle-left"></i>
+            </div>
+        </div>
+    </div>
+</div>
