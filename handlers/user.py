@@ -175,6 +175,8 @@ class CompanyHandler(UserBaseHandler):
         qr.make(fit=True)
         img = qr.make_image()
         _folder = os.path.join(Config().applications_root, 'static', 'images', 'company_qr_code')
+        if not os.path.exists(_folder):
+            os.makedirs(_folder)
         photo_name = str(self.data['company']['_id']) + '.jpg'
         img.save(os.path.join(_folder, photo_name))
         self.render('user/company.html', **self.data)
