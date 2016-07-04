@@ -22,6 +22,11 @@
     <link rel="stylesheet" href="{{ static_url('css/index.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/slide_show.css') }}">
+    <style>
+        .margin-top-10{
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body style="background-color: #F4F4F4; font-family: Yekan; direction: rtl">
@@ -29,8 +34,31 @@
     <div class="col-md-12" style="margin-top: 65px; padding: 0px 30px 30px 30px; min-height: 410px">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <div class="custom-box text-center" style="padding: 30px;">
-                    ارتباط با ما
+                <div class="custom-box text-center" style="padding: 30px; text-align: justify;">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div style="font-size: 15px;">
+                                <div class="row">
+                                    <div class="col-md-3">آدرس : </div>
+                                    <div class="col-md-9">مشهد - شهرک صنعتی توس فاز 1 - دفتر پست</div>
+                                </div>
+                                <div class="row margin-top-10">
+                                    <div class="col-md-3">تلفن : </div>
+                                    <div class="col-md-9">051 - 35412602</div>
+                                </div>
+                                <div class="row margin-top-10">
+                                    <div class="col-md-3">همراه : </div>
+                                    <div class="col-md-9">09157203675</div>
+                                </div>
+                                <div class="row margin-top-10">
+                                    <div class="col-md-3">ایمیل : </div>
+                                    <div class="col-md-9">example@email.com</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="height: 115px" id="googleMap">
+                        </div>
+                    </div>
                 </div>
                 <div class="custom-box text-center" style="padding: 30px;; margin-top: 10px">
                     <div class="row">
@@ -92,6 +120,25 @@
     {% module Footer() %}
 <script>
     var search_url = "{{ reverse_url('search_companies_by_params', '__name__', 'all', 'all', 'all') }}";
+</script>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script>
+var myCenter=new google.maps.LatLng(36.432284, 59.414048);
+function initialize()
+{
+var mapProp = {
+center:myCenter,
+zoom:15,
+mapTypeId:google.maps.MapTypeId.ROADMAP
+};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+var marker=new google.maps.Marker({
+position:myCenter
+});
+marker.setMap(map);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
 </script>
 <script src="{{ static_url('js/jquery.min.js') }}"></script>
 <script src="{{ static_url('js/bootstrap.min.js') }}"></script>

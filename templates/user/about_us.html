@@ -22,15 +22,76 @@
     <link rel="stylesheet" href="{{ static_url('css/index.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/slide_show.css') }}">
+    <style>
+        .margin-top-10{
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body style="background-color: #F4F4F4; font-family: Yekan; direction: rtl">
     {% module NavBar(active="about_us") %}
     <div class="col-md-12" style="margin-top: 65px; padding: 0px 30px 30px 30px; min-height: 410px">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="custom-box text-center" style="padding: 30px;">
-                    درباره ما
+            <div class="col-md-8 margin-top-10">
+                <div class="custom-box text-center" style="padding: 30px; text-align: justify;">
+                    <div style="text-align: center; font-size: 30px; font-weight: bold; padding: 10px;">درباره ما</div>
+                    <div style="font-size: 20px">نکته مهمی که در بیشتر سایتهای ایرانی توجهی به آن نمیشود طراحی صفحه درباره ما یا همان About Us است. اکثر سایتها در این بخش مطالبی طولانی و خسته کننده برای کاربر و یا نوشته ای کوتاه و ناقص قرار میدهند که میتواند اعتبار سایت یا شرکت شما را زیر سوال ببرد. معمولا تصور میشود که کسی به درباره ما توجهی نکرده و بیشتر به خدمات و محصولات ارائه شده در سایت مراجعه میکنند، این تفکر تا حدی صحیح است ولی زمانیکه قرار است یک بازدیدکننده به مشتری تبدیل شود اهمیت صفحه درباره شرکت یا درباره ما بیش از پیش میشود. بعنوان طراح سایت یا صاحب شرکت تمرکز ما بیشتر بر روی صفحات داخلی سایت و ارائه بهتر محصولات است و این امر موجب کاهش توجه به بخش های اصلی مانند درباره ما و تماس با ما خواهد شد.<br><br><br> در دنیای تجارت امروز، برندها و شرکت های بزرگ در ارتباط با مشتریان و ایجاد احساس شناخت متقابل بسیار موفق عمل کرده اند تا جاییکه شما صاحبان بسیاری از شرکت های بزرگ مانند اپل و گوگل را بخوبی میشناسید و حتی ممکن است زندگینامه آنها را مطالعه کرده باشید. علاقه شما به خوانندگان و هنرمندان تا حد زیادی مدیون شناخت آنها و اطلاع از زندگی شخصی شان میباشد. چرا شرکت های بزرگ توجه ویژه ای به ارتباط دوطرفه با مشتریان دارند؟ ایجاد شناخت از شرکت شما به چه شکلی قابل انجام است؟ طراحی مناسب و ارائه اطلاعات در صفحه درباره ما میتواند اولین قدم شما در این مسیر باشد.</div>
+                </div>
+            </div>
+            <div class="col-md-4 margin-top-10">
+                <div class="custom-box text-center" style="padding: 30px; text-align: justify;">
+                    <div style="text-align: center; font-size: 30px; font-weight: bold; padding: 10px;">اطلاعات</div>
+                    <div style="font-size: 15px;">
+                        <div class="row">
+                            <div class="col-md-3">آدرس : </div>
+                            <div class="col-md-9">مشهد - شهرک صنعتی توس فاز 1 - دفتر پست</div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">تلفن : </div>
+                            <div class="col-md-9">051 - 35412602</div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">همراه : </div>
+                            <div class="col-md-9">09157203675</div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">ایمیل : </div>
+                            <div class="col-md-9">example@email.com</div>
+                        </div>
+                        <div class="row margin-top-10" style="padding-top: 10px">
+                            <div class="col-md-12" style="height: 200px; width: 100%" id="googleMap"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-10">
+            <div class="col-md-6 margin-top-10">
+                <div class="custom-box text-center" style="padding: 10px;">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <img style="width: 100%" class="img-circle" src="{{ static_url('images/about_us/sepehri.jpg') }}">
+                        </div>
+                        <div class="col-xs-8">
+                            <div style="padding: 20px; font-size: 40px;">مسعود سپهری</div>
+                            <div style="padding: 10px; font-size: 15px;">حامی مالی و ایده پرداز و مشاور</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 margin-top-10">
+                <div class="custom-box text-center" style="padding: 10px;">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <img style="width: 100%" class="img-circle" src="{{ static_url('images/about_us/sepehri.jpg') }}">
+                        </div>
+                        <div class="col-xs-8" style="padding: 0;">
+                            <div style="font-size: 40px;">مرتضی وطن پرست</div>
+                            <div style="padding: 10px; font-size: 15px;">برنامه نویس و طراح و گرافیست وب</div>
+                            <div style="padding: 0; font-size: 12px;">مسلط به زبان های برنامه نویسی، python، php، css، javaScript، bootstrap، html، Tornado framwork، Django Framwork و معماری سه لایه و طراح دیتابیس های SQL و NoSQL</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,6 +99,25 @@
     {% module Footer() %}
 <script>
     var search_url = "{{ reverse_url('search_companies_by_params', '__name__', 'all', 'all', 'all') }}";
+</script>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script>
+var myCenter=new google.maps.LatLng(36.432284, 59.414048);
+function initialize()
+{
+var mapProp = {
+center:myCenter,
+zoom:15,
+mapTypeId:google.maps.MapTypeId.ROADMAP
+};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+var marker=new google.maps.Marker({
+position:myCenter
+});
+marker.setMap(map);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
 </script>
 <script src="{{ static_url('js/jquery.min.js') }}"></script>
 <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
