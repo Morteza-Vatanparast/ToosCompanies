@@ -79,7 +79,7 @@ class ServicesModel:
                 }
             }
             if len(self.image):
-                __body['$set']['image'] = self.image
+                __body['$set']['image'] = self.image[0]
             __condition = {"_id": self.id}
             MongodbModel(body=__body, condition=__condition, collection="services").update()
             return True

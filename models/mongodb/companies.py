@@ -91,7 +91,7 @@ class CompaniesModel:
             return []
 
     def update(self):
-        try:
+        # try:
             __body = {
                 "$set": {
                     "name": self.name,
@@ -128,8 +128,8 @@ class CompaniesModel:
             __condition = {"_id": self.id}
             MongodbModel(body=__body, condition=__condition, collection="companies").update()
             return True
-        except:
-            return False
+        # except:
+        #     return False
 
     def update_compare(self):
         try:

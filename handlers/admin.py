@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import base64
 import json
 
 import datetime
+import os
+import random
 
 import khayyam
 from bson import ObjectId
@@ -12,6 +15,7 @@ from classes.get_url import GetUrl
 from classes.public import Hash
 from classes.soap import Soap
 from classes.upload_pic import UploadPic
+from config import Config
 from handlers.base import AdminBaseHandler, admin_authentication
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.contact_us import ContactUsModel
@@ -363,27 +367,32 @@ class AdminAddCompaniesHandler(AdminBaseHandler):
             city = int(self.get_argument('city', ''))
             unit = ObjectId(self.get_argument('unit', ''))
             industrial_town = ObjectId(self.get_argument('industrial_town', ''))
+
             if name != "" and unit != "" and industrial_town != ""\
                     and province != "" and city != "":
                 main_page = True if main_page == "true" else False
                 slider = True if slider == "true" else False
                 active = True if active == "true" else False
                 try:
-                    logo = UploadPic(handler=self, name='logo', folder='company_logo').upload()[0]
+                    logo = UploadPic(handler=self, folder='company_logo').upload_from_cropper(base64_str=[self.get_argument('logo', '')])[0]
                 except:
                     logo = 'default.jpg'
                 try:
-                    image = UploadPic(handler=self, name='image', folder='company_image').upload()[0]
+                    image = UploadPic(handler=self, folder='company_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])[0]
                 except:
                     image = 'default.jpg'
                 try:
                     slider_image = None
                     if slider:
-                        slider_image = UploadPic(handler=self, name='slider_image', folder='company_slider').upload()[0]
+                        slider_image = UploadPic(handler=self, folder='company_slider').upload_from_cropper(base64_str=[self.get_argument('slider_image', '')])[0]
                 except:
                     slider_image = None
                 try:
-                    images = UploadPic(handler=self, name='images', folder='company_images').upload(count=4)
+                    try:
+                        images = self.request.arguments['images']
+                    except:
+                        images = []
+                    images = UploadPic(handler=self, name='images', folder='company_images').upload_from_cropper(count=4, base64_str=images)
                 except:
                     images = []
                 CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo,
@@ -423,6 +432,7 @@ class AdminEditCompaniesHandler(AdminBaseHandler):
                 company = ObjectId(company)
         except:
             company = None
+
         try:
             name = self.get_argument('name', '')
             main_page = self.get_argument('main_page', 'false')
@@ -443,27 +453,32 @@ class AdminEditCompaniesHandler(AdminBaseHandler):
             city = int(self.get_argument('city', ''))
             unit = ObjectId(self.get_argument('unit', ''))
             industrial_town = ObjectId(self.get_argument('industrial_town', ''))
+
             if name != "" and unit != "" and industrial_town != ""\
                     and province != "" and city != "":
                 main_page = True if main_page == "true" else False
                 slider = True if slider == "true" else False
                 active = True if active == "true" else False
                 try:
-                    logo = UploadPic(handler=self, name='logo', folder='company_logo').upload()
+                    logo = UploadPic(handler=self, folder='company_logo').upload_from_cropper(base64_str=[self.get_argument('logo', '')])
                 except:
                     logo = []
                 try:
-                    image = UploadPic(handler=self, name='image', folder='company_image').upload()
+                    image = UploadPic(handler=self, folder='company_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])
                 except:
-                    image = 'default.jpg'
+                    image = []
                 try:
                     slider_image = []
                     if slider:
-                        slider_image = UploadPic(handler=self, name='slider_image', folder='company_slider').upload()
+                        slider_image = UploadPic(handler=self, folder='company_slider').upload_from_cropper(base64_str=[self.get_argument('slider_image', '')])
                 except:
                     slider_image = []
                 try:
-                    images = UploadPic(handler=self, name='images', folder='company_images').upload(count=4)
+                    try:
+                        images = self.request.arguments['images']
+                    except:
+                        images = []
+                    images = UploadPic(handler=self, name='images', folder='company_images').upload_from_cropper(count=4, base64_str=images)
                 except:
                     images = []
                 CompaniesModel(_id=company, name=name, main_page=main_page, slider=slider, description=description, logo=logo,
@@ -751,7 +766,7 @@ class AdminAddProductsHandler(AdminBaseHandler):
 
             if name != "" and _type != "" and _sub_type != "":
                 try:
-                    image = UploadPic(handler=self, name='image', folder='product_image').upload()[0]
+                    image = UploadPic(handler=self, folder='product_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])[0]
                 except:
                     image = 'default.jpg'
                 ProductsModel(name=name, _type=_type, _sub_type=_sub_type, image=image).insert()
@@ -796,7 +811,7 @@ class AdminEditProductsHandler(AdminBaseHandler):
 
             if name != "" and _type != "" and _sub_type != "":
                 try:
-                    image = UploadPic(handler=self, name='image', folder='product_image').upload()[0]
+                    image = UploadPic(handler=self, folder='product_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])
                 except:
                     image = []
                 ProductsModel(_id=product, name=name, _type=_type, _sub_type=_sub_type, image=image).update()
@@ -907,7 +922,7 @@ class AdminAddServicesHandler(AdminBaseHandler):
             main_page = True if main_page == 'true' else False
             if name != "" and description != "":
                 try:
-                    image = UploadPic(handler=self, name='image', folder='service_image').upload()[0]
+                    image = UploadPic(handler=self, folder='service_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])[0]
                 except:
                     image = 'default.jpg'
                 ServicesModel(name=name, description=description, image=image, main_page=main_page).insert()
@@ -946,7 +961,7 @@ class AdminEditServicesHandler(AdminBaseHandler):
             main_page = True if main_page == 'true' else False
             if name != "" and description != "":
                 try:
-                    image = UploadPic(handler=self, name='image', folder='service_image').upload()[0]
+                    image = UploadPic(handler=self, folder='service_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])
                 except:
                     image = []
                 ServicesModel(_id=service, name=name, description=description, image=image, main_page=main_page).update()
