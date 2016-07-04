@@ -1,21 +1,27 @@
-<div class="col-md-12 custom-slide {% if _slide == 1 %}active{% end %}" data-slide="{{ _slide }}" data-all-slide="{{ all_slide }}" {% if _slide == 1 %}style="display: block" {% end %}>
+<div class="col-md-12 custom-slide {% if _slide == 1 %}active{% end %}" data-slide="{{ _slide }}" data-all-slide="{{ all_slide }}" style="{% if _slide == 1 %}display: block;{% end %}">
     <div class="row">
-        <div class="col-xs-4" style="padding-left: 2px">
-            <img style="height: 330px; width: 100%" src="{{ static_url('images/company_slider/' + _format['areas'][0]['company']['slider_image']) }}" alt="">
-            <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
-                <h4 style="margin: 0">{{ _format['areas'][0]['company']['name'] }}</h4>
+        <div class="col-xs-4" style="padding-left: 2px;">
+            <div style="cursor: pointer" onclick="location.href='{{ reverse_url('company_by_id', _format['areas'][0]['company']['_id']) }}'">
+                <img style="height: 330px; width: 100%" src="{{ static_url('images/company_slider/' + _format['areas'][0]['company']['slider_image']) }}" alt="">
+                <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
+                    <h4 style="margin: 0; font-family: Yekan">{{ _format['areas'][0]['company']['name'] }}</h4>
+                </div>
             </div>
         </div>
-        <div class="col-xs-4" style="padding-left: 2px; padding-right: 2px">
-            <img style="height: 330px; width: 100%" src="{{ static_url('images/company_slider/' + _format['areas'][1]['company']['slider_image']) }}" alt="">
-            <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
-                <h4 style="margin: 0">{{ _format['areas'][1]['company']['name'] }}</h4>
+        <div class="col-xs-4" style="padding-left: 2px; padding-right: 2px;">
+            <div style="cursor: pointer" onclick="location.href='{{ reverse_url('company_by_id', _format['areas'][1]['company']['_id']) }}'">
+                <img style="height: 330px; width: 100%" src="{{ static_url('images/company_slider/' + _format['areas'][1]['company']['slider_image']) }}" alt="">
+                <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
+                    <h4 style="margin: 0; font-family: Yekan">{{ _format['areas'][1]['company']['name'] }}</h4>
+                </div>
             </div>
         </div>
-        <div class="col-xs-4" style="padding-right: 2px">
-            <img style="height: 330px; width: 100%" src="{{ static_url('images/company_slider/' + _format['areas'][2]['company']['slider_image']) }}" alt="">
-            <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
-                <h4 style="margin: 0">{{ _format['areas'][2]['company']['name'] }}</h4>
+        <div class="col-xs-4" style="padding-right: 2px;">
+            <div style="cursor: pointer" onclick="location.href='{{ reverse_url('company_by_id', _format['areas'][2]['company']['_id']) }}'">
+                <img style="height: 330px; width: 100%" src="{{ static_url('images/company_slider/' + _format['areas'][2]['company']['slider_image']) }}" alt="">
+                <div class="carousel-caption custom-carousel-caption" style="padding: 20px 0">
+                    <h4 style="margin: 0; font-family: Yekan">{{ _format['areas'][2]['company']['name'] }}</h4>
+                </div>
             </div>
         </div>
     </div>
