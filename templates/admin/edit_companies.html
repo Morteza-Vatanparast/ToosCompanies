@@ -79,16 +79,14 @@
                                                     <input type="hidden" name="slider_image">
                                                 </div>
                                                 <div class="col-xs-9">
-                                                    <div class="col-xs-3">
-                                                        <div class="row" style="margin: 10px 0">
-                                                            <div class="col-md-12 col-sm-12 text-center" style="direction: ltr">
-                                                                <div id="company_slider_show" class="thumbnail preview-lg" style="overflow: hidden;width: 184px; height: 142px; margin: auto">
-                                                                    <img class="recipe_photo" src="{% if company['slider'] %}{{ static_url('images/company_slider/' + str(company['slider_image'])) }}{% else %}http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image{% end %}" alt="" />
-                                                                </div>
+                                                    <div class="row" style="margin: 10px 0">
+                                                        <div class="col-md-12 col-sm-12 text-center" style="direction: ltr">
+                                                            <div id="company_slider_show" class="thumbnail preview-lg" style="overflow: hidden;width: 184px; height: 142px; margin: auto">
+                                                                <img class="recipe_photo" src="{% if company['slider'] %}{{ static_url('images/company_slider/' + str(company['slider_image'])) }}{% else %}http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image{% end %}" alt="" />
                                                             </div>
-                                                            <div class="col-md-12 col-sm-12 text-center margin-top-20">
-                                                                <span data-toggle="modal" href="#company_slider_modal" class="R_butt_blue">انتخاب تصویر</span>
-                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 text-center margin-top-20">
+                                                            <span data-toggle="modal" href="#company_slider_modal" class="R_butt_blue">انتخاب تصویر</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -774,7 +772,7 @@
     $('.send_image_slider').click(function(){
         var h = company_slider.cropit('export');
         $('#company_slider_show img').attr({ src: h });
-        $('input[name=slider]').val(h);
+        $('input[name=slider_image]').val(h);
     });
 
     var company_image = $('#company_image').cropit({
