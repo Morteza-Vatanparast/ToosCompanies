@@ -22,12 +22,26 @@
     <link rel="stylesheet" href="{{ static_url('css/index.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/slide_show.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ static_url('plugins/fontawesome/css/font-awesome.min.css') }}">
 
 </head>
 
-<body style="background-color: #F4F4F4; font-family: Yekan; direction: rtl">
+<body style="background-color: #F4F4F4; font-family: Yekan; direction: rtl; background-image: url('{{ static_url('images/header_background.png') }}')">
+    <div class="col-md-12" style="padding-left: 0; padding-right: 0; direction: ltr; height: 200px">
+        <div style="background: #7D1935 url('{{ static_url('images/header_background.png') }}');padding: 30px">
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-1 col-xs-4">
+                    <img style="width: 140px" src="{{ static_url('images/logo.png') }}">
+                </div>
+                <div class="col-sm-8 col-xs-8" style="color: white">
+                    <div style="font-size: 80px; color: white">ICKR</div>
+                    <div style="font-size: 20px; color: rgba(255,255,255,.8);">Industrial Companies Khorasan Razavi</div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% module NavBar() %}
-    <div class="col-md-12" style="margin-top: 65px; padding: 0px 30px 30px 30px;">
+    <div class="col-md-12" style="padding: 0px 30px 30px 30px;">
         <div class="row">
             <div class="col col-md-6 col-sm-8 col-xs-12">
                 {% module SlideShow() %}

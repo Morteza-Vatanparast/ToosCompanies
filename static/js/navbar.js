@@ -1,6 +1,6 @@
 $(window).scroll(function () {
     var $navbar = $(".navbar");
-    $navbar.offset() && ($navbar.offset().top > 50 ? $navbar.addClass("top-nav-collapse") : $navbar.removeClass("top-nav-collapse"))
+    $navbar.offset() && ($navbar.offset().top > 200 ? $navbar.addClass("top-nav-collapse") : $navbar.removeClass("top-nav-collapse"))
 });
 
 $('#search_submit').click(function(){

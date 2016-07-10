@@ -45,10 +45,10 @@ class UploadPic:
             for _str in base64_str[:count]:
                 try:
                     _str = base64.b64decode(_str.split(",")[1].strip())
-                    _path_dir = os.path.join(Config().applications_root, "images", "temp")
+                    _path_dir = os.path.join(Config().applications_root, "static", "images", "temp")
                     if not os.path.exists(_path_dir):
                         os.makedirs(_path_dir)
-                    _path = os.path.join(Config().applications_root, "images", "temp", "img_tmp")
+                    _path = os.path.join(Config().applications_root, "static", "images", "temp", "img_tmp")
                     if not os.path.exists(_path):
                         os.makedirs(_path)
                     f = open(_path, "wb")
