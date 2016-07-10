@@ -23,6 +23,11 @@ class NavBar(UIModule):
         return self.render_string('../ui_modules/template/navbar/navbar.html', active=active)
 
 
+class Info(UIModule):
+    def render(self):
+        return self.render_string('../ui_modules/template/navbar/info.html')
+
+
 class CompaniesBox(UIModule):
     def render(self, companies=None, position=""):
         if companies is None:

@@ -37,6 +37,7 @@
 </head>
 
 <body style="background-color: #F4F4F4; font-family: Yekan; direction: rtl">
+    {% module Info() %}
     {% module NavBar() %}
     {% set count_images = len(company['images']) %}
     {% if company['image'] is not None %}
