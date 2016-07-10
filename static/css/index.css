@@ -3,10 +3,9 @@
     padding-right: 10px !important;
 }
 .custom-box {
-    border: solid #dfdfdd;
-    border-width: 0 1px 1px 0;
+    border: solid #6DBDD6;
+    border-width: 3px;
     background: #fff;
-    padding: 3px;
 }
 
 .custom-medium-box {

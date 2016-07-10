@@ -16,3 +16,11 @@ $( "body" ).click(function( e ) {
       $('#search_input').removeClass('search-input-focus');
   }
 });
+
+$('#search_input').on("keypress", function(e) {
+    if (e.keyCode == 13) {
+        if($('#search_input').hasClass('search-input-focus') && $('#search_input').val() != ""){
+            location.href = search_url.replace('__name__', $('#search_input').val());
+        }
+    }
+});
