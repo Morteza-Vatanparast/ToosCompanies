@@ -1,5 +1,5 @@
 <div class="col-md-12 custom-slide {% if _slide == 1 %}active{% end %}" data-slide="{{ _slide }}" data-all-slide="{{ all_slide }}" style="{% if _slide == 1 %}display: block;{% end %}">
-    <div onclick="location.href='{{ reverse_url('company_by_id', _format['areas'][0]['company']['_id']) }}'" style="cursor: pointer">
+    <div onclick="window.open('{{ reverse_url('company_by_id', _format['areas'][0]['company']['_id']) }}')" style="cursor: pointer">
         <img style="height: 331px; width: 100%" src="{{ static_url('images/company_slider/' + _format['areas'][0]['company']['slider_image']) }}" alt="">
         <div style="padding: 20px 0" class="carousel-caption custom-carousel-caption">
             <h4 style="margin: 0; font-family: Yekan">{{ _format['areas'][0]['company']['name'] }}</h4>

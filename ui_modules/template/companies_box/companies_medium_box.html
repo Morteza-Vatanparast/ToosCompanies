@@ -1,4 +1,4 @@
-<div class="custom-box custom-medium-box company-box-link" onclick="location.href='{{ reverse_url('company_by_id', company['_id']) }}'">
+<div class="custom-box custom-medium-box company-box-link" onclick="window.open('{{ reverse_url('company_by_id', company['_id']) }}')">
     <img style="height: 213px; width: 100%" src="{{ static_url('images/company_image/' + str(company['image'])) }}" alt="">
     <div class="carousel-caption" style="padding: 0">
         <h4 style="margin: 0; font-family: Yekan">{{ company['name'] }}</h4>

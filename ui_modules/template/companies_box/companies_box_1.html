@@ -1,5 +1,5 @@
 <div style="direction: rtl;" class="col">
-    <div class="custom-box company-box-link" onclick="location.href='{{ reverse_url('company_by_id', company['_id']) }}'">
+    <div class="custom-box company-box-link" onclick="window.open('{{ reverse_url('company_by_id', company['_id']) }}')">
         <img style="width: 100%; height: 222px" src="{{ static_url('images/company_image/' + company['image']) }}">
         <div style="padding: 10px; height: 100px;">
             <div style="font-size: 17px; font-weight: bold">{{ company['name'] }}</div>
