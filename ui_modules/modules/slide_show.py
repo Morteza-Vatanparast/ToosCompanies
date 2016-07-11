@@ -16,6 +16,7 @@ class SlideShow(UIModule):
             __areas = []
             for j in i['areas']:
                 company = CompaniesModel(_id=j['company']).get_one()
+                print company['_id']
                 if company is not False:
                     __areas.append(j)
             i['areas'] = __areas
