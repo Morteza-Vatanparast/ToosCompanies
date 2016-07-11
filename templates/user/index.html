@@ -29,9 +29,15 @@
 
 <body id="BODY_SECTION" style="background-color: #F4F4F4; font-family: Yekan; direction: rtl; background-image: url('{{ static_url('images/background.png') }}');background-size: 150px auto; ">
     <div style="position: fixed; top: 80px; right: 10px;z-index: 10;">
-        <input type="text" class="custom-color" value="7D1935" id="CHANGE_INFO_SECTION">
-        <input type="text" class="custom-color" value="757575" id="CHANGE_NAV_SECTION">
-        <input type="text" class="custom-color" value="F4F4F4" id="CHANGE_BODY_SECTION">
+        <div class="col-md-3">
+            <input type="text" class="custom-color" value="7D1935" id="CHANGE_INFO_SECTION">
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="custom-color" value="757575" id="CHANGE_NAV_SECTION">
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="custom-color" value="F4F4F4" id="CHANGE_BODY_SECTION">
+        </div>
     </div>
     {% module Info() %}
     {% module NavBar() %}
