@@ -82,7 +82,20 @@ class CompaniesModel:
 
     def get_all(self, page=1, size=30):
         try:
-            __body = {}
+            __body = {"register": False}
+            __a = MongodbModel(body=__body, collection="companies", sort="name", size=size, page=page, ascending=1).get_all_pagination()
+            __r = []
+            for __i in __a:
+                company = self.get_company(__i)
+                if company is not False:
+                    __r.append(company)
+            return __r
+        except:
+            return []
+
+    def get_all_register(self, page=1, size=30):
+        try:
+            __body = {"register": True}
             __a = MongodbModel(body=__body, collection="companies", sort="name", size=size, page=page, ascending=1).get_all_pagination()
             __r = []
             for __i in __a:
@@ -94,7 +107,7 @@ class CompaniesModel:
             return []
 
     def update(self):
-        # try:
+        try:
             __body = {
                 "$set": {
                     "name": self.name,
@@ -132,8 +145,8 @@ class CompaniesModel:
             __condition = {"_id": self.id}
             MongodbModel(body=__body, condition=__condition, collection="companies").update()
             return True
-        # except:
-        #     return False
+        except:
+            return False
 
     def update_compare(self):
         try:
@@ -182,7 +195,15 @@ class CompaniesModel:
     @staticmethod
     def count():
         try:
-            __body = {}
+            __body = {"register": False}
+            return MongodbModel(body=__body, collection="companies").count()
+        except:
+            return 0
+
+    @staticmethod
+    def count_register():
+        try:
+            __body = {"register": True}
             return MongodbModel(body=__body, collection="companies").count()
         except:
             return 0

@@ -336,6 +336,39 @@ class AdminCompaniesHandler(AdminBaseHandler):
             self.write(self.error_result)
 
 
+class AdminRegisterCompaniesHandler(AdminBaseHandler):
+    @gen.coroutine
+    @admin_authentication()
+    def get(self, *args, **kwargs):
+        try:
+            page = int(args[0])
+        except:
+            page = 1
+        companies = CompaniesModel().get_all_register(page=page, size=30)
+        count_all = CompaniesModel().count_register()
+        self.data['companies'] = []
+        self.data['pagination'] = dict(count_all=count_all, count_per_page=30, active_page=page)
+        for i in companies:
+            try:
+                i['unit_name'] = UnitCompaniesModel(_id=i['unit']).get_one()['name']
+            except:
+                i['unit_name'] = u"وجود ندارد"
+            i['active'] = i['active'] if 'active' in i.keys() else False
+            self.data['companies'].append(i)
+        self.render('admin/register_companies.html', **self.data)
+
+    @gen.coroutine
+    @admin_authentication()
+    def delete(self, *args, **kwargs):
+        try:
+            company = self.get_argument('company', '')
+            CompaniesModel(_id=ObjectId(company)).delete()
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
 class AdminAddCompaniesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()

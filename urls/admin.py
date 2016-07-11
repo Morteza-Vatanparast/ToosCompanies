@@ -8,6 +8,10 @@ admin_url_patterns = {
     (r'/Admin/Companies', admin.AdminCompaniesHandler, None, 'admin:companies'),
     (r'/Admin/Companies/(page)', admin.AdminCompaniesHandler, None, 'admin:companies_by_page'),
 
+    (r'^(?i)/Admin/RegisterCompanies[/]?([\d^/]+)?[/]?$', admin.AdminRegisterCompaniesHandler),
+    (r'/Admin/RegisterCompanies', admin.AdminRegisterCompaniesHandler, None, 'admin:register_companies'),
+    (r'/Admin/RegisterCompanies/(page)', admin.AdminRegisterCompaniesHandler, None, 'admin:register_companies_by_page'),
+
     (r'^(?i)/Admin/Login[/]?$', admin.AdminLoginHandler),
     (r'^/Admin/Login', admin.AdminLoginHandler, None, "admin:login"),
 

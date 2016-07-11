@@ -234,7 +234,7 @@ class RegisterCompaniesHandler(UserBaseHandler):
 
     @gen.coroutine
     def post(self, *args, **kwargs):
-        try:
+        # try:
             name = self.get_argument('name', '')
             description = self.get_argument('description', '')
             about = self.get_argument('about', '')
@@ -258,10 +258,10 @@ class RegisterCompaniesHandler(UserBaseHandler):
                 main_page = False
                 slider = True
                 active = False
-                try:
-                    logo = UploadPic(handler=self, folder='company_logo').upload_from_cropper(base64_str=[self.get_argument('logo', '')])[0]
-                except:
-                    logo = False
+                # try:
+                logo = UploadPic(handler=self, folder='company_logo').upload_from_cropper(base64_str=[self.get_argument('logo', '')])[0]
+                # except:
+                #     logo = False
                 if logo is False:
                     self.messages = ['لوگو شرکت را انتخاب کنید.']
                     self.status = False
@@ -281,7 +281,7 @@ class RegisterCompaniesHandler(UserBaseHandler):
                 except:
                     slider_image = False
                 if slider_image is False:
-                    self.messages = ['عکس شرکت را انتخاب کنید.']
+                    self.messages = ['اسلایدر شرکت را انتخاب کنید.']
                     self.status = False
                     self.write(self.result)
                     return
@@ -300,5 +300,5 @@ class RegisterCompaniesHandler(UserBaseHandler):
                                image=image, mobile=mobile, about=about).insert(register=True)
             self.status = True
             self.write(self.result)
-        except:
-            self.write(self.error_result)
+        # except:
+        #     self.write(self.error_result)

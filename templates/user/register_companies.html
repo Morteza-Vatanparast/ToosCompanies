@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ static_url('css/navbar.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ static_url('plugins/cropper/cropper.min.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/slide_show.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ static_url('plugins/custom-alert/custom_alert.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ static_url('css/cropit.css') }}">
     <style>
         .select{
@@ -343,7 +344,7 @@
     </div>
     {% module Footer() %}
 
-<div class="modal fade in" id="company_logo_modal" tabindex="-1" role="basic" aria-hidden="false">
+<div class="modal fade in" id="company_logo_modal" style="z-index: 1000000000000" tabindex="-1" role="basic" aria-hidden="false">
     <div class="modal-dialog" style="margin-top: 65px;font-family: Yekan; width: 50%">
         <div class="modal-content" style="border-radius: 7px !important;">
             <div class="col-md-12 col-sm-12">
@@ -401,8 +402,8 @@
     </div>
 </div>
 
-<div class="modal fade in" id="company_slider_modal" tabindex="-1" role="basic" aria-hidden="false">
-    <div class="modal-dialog" style="font-family: Yekan; width: 55%">
+<div class="modal fade in" id="company_slider_modal" style="z-index: 1000000000000" tabindex="-1" role="basic" aria-hidden="false">
+    <div class="modal-dialog" style="margin-top: 65px;font-family: Yekan; width: 55%">
         <div class="modal-content" style="border-radius: 7px !important;">
             <div class="col-md-12 col-sm-12">
                 <div class="row" style="background: #b8b8b8;border-radius: 5px 5px 0px 0px !important;padding:10px;">
@@ -459,7 +460,7 @@
     </div>
 </div>
 
-<div class="modal fade in" id="company_image_modal" tabindex="-1" role="basic" aria-hidden="false">
+<div class="modal fade in" id="company_image_modal" style="z-index: 1000000000000" tabindex="-1" role="basic" aria-hidden="false">
     <div class="modal-dialog" style="margin-top: 65px;font-family: Yekan; width: 50%">
         <div class="modal-content" style="border-radius: 7px !important;">
             <div class="col-md-12 col-sm-12">
@@ -517,7 +518,7 @@
     </div>
 </div>
 
-<div class="modal fade in" id="company_images_1_modal" tabindex="-1" role="basic" aria-hidden="false">
+<div class="modal fade in" id="company_images_1_modal" style="z-index: 1000000000000" tabindex="-1" role="basic" aria-hidden="false">
     <div class="modal-dialog" style="margin-top: 65px;font-family: Yekan; width: 50%">
         <div class="modal-content" style="border-radius: 7px !important;">
             <div class="col-md-12 col-sm-12">
@@ -575,7 +576,7 @@
     </div>
 </div>
 
-<div class="modal fade in" id="company_images_2_modal" tabindex="-1" role="basic" aria-hidden="false">
+<div class="modal fade in" id="company_images_2_modal" style="z-index: 1000000000000" tabindex="-1" role="basic" aria-hidden="false">
     <div class="modal-dialog" style="margin-top: 65px;font-family: Yekan; width: 50%">
         <div class="modal-content" style="border-radius: 7px !important;">
             <div class="col-md-12 col-sm-12">
@@ -633,7 +634,7 @@
     </div>
 </div>
 
-<div class="modal fade in" id="company_images_3_modal" tabindex="-1" role="basic" aria-hidden="false">
+<div class="modal fade in" id="company_images_3_modal" style="z-index: 1000000000000" tabindex="-1" role="basic" aria-hidden="false">
     <div class="modal-dialog" style="margin-top: 65px;font-family: Yekan; width: 50%">
         <div class="modal-content" style="border-radius: 7px !important;">
             <div class="col-md-12 col-sm-12">
@@ -691,7 +692,7 @@
     </div>
 </div>
 
-<div class="modal fade in" id="company_images_4_modal" tabindex="-1" role="basic" aria-hidden="false">
+<div class="modal fade in" id="company_images_4_modal" style="z-index: 1000000000000" tabindex="-1" role="basic" aria-hidden="false">
     <div class="modal-dialog" style="margin-top: 65px;font-family: Yekan; width: 50%">
         <div class="modal-content" style="border-radius: 7px !important;">
             <div class="col-md-12 col-sm-12">
@@ -757,6 +758,7 @@
 <script src="{{ static_url('js/navbar.js') }}"></script>
 <script type="text/javascript" src="{{ static_url('plugins/cropper/jquery.cropit.min.js') }}"></script>
 <script src="{{ static_url('plugins/select2/dist/js/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ static_url('plugins/custom-alert/custom_alert.js') }}"></script>
 
 <script>
 
@@ -909,9 +911,7 @@
             data.append('industrial_town', check_value($('select[name=industrial_town]').val(), 'شهرک صنعتی  را وارد کنید.'));
             data.append('logo', $('input[name=logo]').val());
             data.append('image', $('input[name=image]').val());
-            if($('input[type=checkbox][name=slider]').prop("checked")){
-                data.append('slider_image', $('input[name=slider_image]').val());
-            }
+            data.append('slider_image', $('input[name=slider_image]').val());
             data.append('images', $('input[name=images_1]').val());
             data.append('images', $('input[name=images_2]').val());
             data.append('images', $('input[name=images_3]').val());
