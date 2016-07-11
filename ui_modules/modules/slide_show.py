@@ -13,10 +13,10 @@ class SlideShow(UIModule):
         _formats = SettingModel().get_format_slide_show()
         __formats = []
         for i in _formats:
+            print i
             __areas = []
             for j in i['areas']:
                 company = CompaniesModel(_id=j['company']).get_one()
-                print company['_id']
                 if company is not False:
                     __areas.append(j)
             i['areas'] = __areas
