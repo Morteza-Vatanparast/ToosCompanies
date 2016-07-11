@@ -8,10 +8,12 @@ import qrcode
 from bson import ObjectId
 from tornado import gen
 
+from classes.upload_pic import UploadPic
 from config import Config
 from handlers.base import UserBaseHandler
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.contact_us import ContactUsModel
+from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
 from models.mongodb.orders import OrdersModel
 from models.mongodb.province_city import ProvinceCityModel
 from models.mongodb.services import ServicesModel
@@ -220,3 +222,82 @@ class ServiceHandler(UserBaseHandler):
             self.write('success')
         except:
             self.write('error')
+
+
+class RegisterCompaniesHandler(UserBaseHandler):
+    @gen.coroutine
+    def get(self, *args, **kwargs):
+        self.data['units'] = UnitCompaniesModel().get_all()
+        self.data['industrial_towns'] = IndustrialTownCompaniesModel().get_all()
+        self.data['provinces'] = ProvinceCityModel().get_all_province()
+        self.render('user/register_companies.html', **self.data)
+
+    @gen.coroutine
+    def post(self, *args, **kwargs):
+        try:
+            name = self.get_argument('name', '')
+            description = self.get_argument('description', '')
+            about = self.get_argument('about', '')
+            address = self.get_argument('address', '')
+            phone = self.get_argument('phone', '')
+            phone2 = self.get_argument('phone2', '')
+            mobile = self.get_argument('mobile', '')
+            fax = self.get_argument('fax', '')
+            site = self.get_argument('site', '')
+            email = self.get_argument('email', '')
+            ceo = self.get_argument('ceo', '')
+            owner = self.get_argument('owner', '')
+            province = int(self.get_argument('province', ''))
+            city = int(self.get_argument('city', ''))
+            unit = ObjectId(self.get_argument('unit', ''))
+            industrial_town = ObjectId(self.get_argument('industrial_town', ''))
+
+            if name != "" and unit != "" and industrial_town != ""\
+                    and province != "" and city != "":
+                main_page = False
+                slider = True
+                active = False
+                try:
+                    logo = UploadPic(handler=self, folder='company_logo').upload_from_cropper(base64_str=[self.get_argument('logo', '')])[0]
+                except:
+                    logo = False
+                if logo is False:
+                    self.messages = ['لوگو شرکت را انتخاب کنید.']
+                    self.status = False
+                    self.write(self.result)
+                    return
+                try:
+                    image = UploadPic(handler=self, folder='company_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])[0]
+                except:
+                    image = False
+                if image is False:
+                    self.messages = ['عکس شرکت را انتخاب کنید.']
+                    self.status = False
+                    self.write(self.result)
+                    return
+                try:
+                    slider_image = UploadPic(handler=self, folder='company_slider').upload_from_cropper(base64_str=[self.get_argument('slider_image', '')])[0]
+                except:
+                    slider_image = False
+                if slider_image is False:
+                    self.messages = ['اسلایدر شرکت را انتخاب کنید.']
+                    self.status = False
+                    self.write(self.result)
+                    return
+                try:
+                    try:
+                        images = self.request.arguments['images']
+                    except:
+                        images = []
+                    images = UploadPic(handler=self, name='images', folder='company_images').upload_from_cropper(count=4, base64_str=images)
+                except:
+                    images = []
+                CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo,
+                               images=images, unit=unit, active=active, industrial_town=industrial_town,
+                               address=address, phone=phone, phone2=phone2, fax=fax, site=site, email=email,
+                               province=province, city=city, ceo=ceo, owner=owner, slider_image=slider_image,
+                               image=image, mobile=mobile, about=about).insert(register=True)
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)

@@ -228,7 +228,7 @@
                                             <div class="row margin-top-10 images-uploads">
                                                 <div class="col-xs-3 images-div" {% if len(company['images']) < 1 %}style="display: none"{% end %} data-image="1">
                                                     <input type="hidden" class="input-images" name="images_1">
-                                                    <div class="delete-image {% if len(company['images']) >= 1 %}base-image{% end %}" data-image="{% try %}{{ company['images'][0] }}{% except %}{% end %}"><i class="fa fa-times cursor-pointer" style="font-size: 30px; color: red; float: right;"></i></div>
+                                                    <div class="delete-image {% if len(company['images']) >= 1 %}base-image{% end %}" data-image="{% try %}{{ company['images'][0] }}{% except %}{% end %}"><i class="fa fa-times cursor-pointer" style="z-index: 999;font-size: 30px; color: red; float: right;"></i></div>
                                                     <div class="row" style="margin: 10px 0">
                                                         <div class="col-md-12 col-sm-12 text-center" style="direction: ltr">
                                                             <div class="thumbnail preview-lg" id="company_images_1_show" style="overflow: hidden;width: 100%; margin: auto">
@@ -242,7 +242,7 @@
                                                 </div>
                                                 <div class="col-xs-3 images-div" {% if len(company['images']) < 2 %}style="display: none"{% end %} data-image="2">
                                                     <input type="hidden" class="input-images" name="images_2">
-                                                    <div class="delete-image {% if len(company['images']) >= 2 %}base-image{% end %}" data-image="{% try %}{{ company['images'][1] }}{% except %}{% end %}"><i class="fa fa-times cursor-pointer" style="font-size: 30px; color: red; float: right;"></i></div>
+                                                    <div class="delete-image {% if len(company['images']) >= 2 %}base-image{% end %}" data-image="{% try %}{{ company['images'][1] }}{% except %}{% end %}"><i class="fa fa-times cursor-pointer" style="z-index: 999;font-size: 30px; color: red; float: right;"></i></div>
                                                     <div class="row" style="margin: 10px 0">
                                                         <div class="col-md-12 col-sm-12 text-center" style="direction: ltr">
                                                             <div class="thumbnail preview-lg" id="company_images_2_show" style="overflow: hidden;width: 100%; margin: auto">
@@ -256,7 +256,7 @@
                                                 </div>
                                                 <div class="col-xs-3 images-div" {% if len(company['images']) < 3 %}style="display: none"{% end %} data-image="3">
                                                     <input type="hidden" class="input-images" name="images_3">
-                                                    <div class="delete-image {% if len(company['images']) >= 3 %}base-image{% end %}" data-image="{% try %}{{ company['images'][2] }}{% except %}{% end %}"><i class="fa fa-times cursor-pointer" style="font-size: 30px; color: red; float: right;"></i></div>
+                                                    <div class="delete-image {% if len(company['images']) >= 3 %}base-image{% end %}" data-image="{% try %}{{ company['images'][2] }}{% except %}{% end %}"><i class="fa fa-times cursor-pointer" style="z-index: 999;font-size: 30px; color: red; float: right;"></i></div>
                                                     <div class="row" style="margin: 10px 0">
                                                         <div class="col-md-12 col-sm-12 text-center" style="direction: ltr">
                                                             <div class="thumbnail preview-lg" id="company_images_3_show" style="overflow: hidden;width: 100%; margin: auto">
@@ -270,7 +270,7 @@
                                                 </div>
                                                 <div class="col-xs-3 images-div" {% if len(company['images']) < 4 %}style="display: none"{% end %} data-image="4">
                                                     <input type="hidden" class="input-images" name="images_4">
-                                                    <div class="delete-image {% if len(company['images']) >= 4 %}base-image{% end %}" data-image="{% try %}{{ company['images'][3] }}{% except %}{% end %}"><i class="fa fa-times cursor-pointer" style="font-size: 30px; color: red; float: right;"></i></div>
+                                                    <div class="delete-image {% if len(company['images']) >= 4 %}base-image{% end %}" data-image="{% try %}{{ company['images'][3] }}{% except %}{% end %}"><i class="fa fa-times cursor-pointer" style="z-index: 999;font-size: 30px; color: red; float: right;"></i></div>
                                                     <div class="row" style="margin: 10px 0">
                                                         <div class="col-md-12 col-sm-12 text-center" style="direction: ltr">
                                                             <div class="thumbnail preview-lg" id="company_images_4_show" style="overflow: hidden;width: 100%; margin: auto">

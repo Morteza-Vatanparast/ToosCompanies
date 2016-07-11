@@ -43,7 +43,7 @@ class CompaniesModel:
         self.ceo = ceo
         self.owner = owner
 
-    def insert(self):
+    def insert(self, register=False):
         try:
             __body = {
                 "name": self.name,
@@ -70,6 +70,7 @@ class CompaniesModel:
                 "owner": self.owner,
                 "active": self.active,
                 "products": self.products,
+                "register": register,
                 "materials": self.materials
             }
             MongodbModel(body=__body, collection="companies").insert()

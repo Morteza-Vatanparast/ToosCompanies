@@ -26,6 +26,9 @@ user_url_patterns = {
     (r'^(?i)/ContactUs[/]?$', user.ContactUsHandler),
     (r'^/ContactUs', user.ContactUsHandler, None, "contact_us"),
 
+    (r'^(?i)/RegisterCompanies[/]?$', user.RegisterCompaniesHandler),
+    (r'^/RegisterCompanies', user.RegisterCompaniesHandler, None, "about_us"),
+
     (r'^(?i)/AboutUs[/]?$', user.AboutUsHandler),
-    (r'^/AboutUs', user.AboutUsHandler, None, "about_us"),
+    (r'^/AboutUs', user.AboutUsHandler, None, "register_companies"),
 }

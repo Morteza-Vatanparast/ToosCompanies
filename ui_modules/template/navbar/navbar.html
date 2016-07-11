@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="200" style="background: #757575 none; border-bottom: 3px solid #6DBDD6; z-index: 999999;border-radius: 0;">
+<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="200" id="NAV_SECTION" style="background-color: #757575; border-bottom: 3px solid #6DBDD6; z-index: 999999;border-radius: 0;">
     <div class="col-md-12">
         <div class="row">
             <div class="col-sm-9">
@@ -16,6 +16,7 @@
                     <ul class="nav navbar-nav">
                         <li {% if active == "index" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('index') }}">صفحه اصلی</a></li>
                         <li {% if active == "search_companies" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('search_companies') }}">جستجو شرکت ها</a></li>
+                        <li {% if active == "register_companies" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('register_companies') }}">ثبت نام شرکت ها</a></li>
                         <li {% if active == "services" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('services') }}">خدمات</a></li>
                         <li {% if active == "contact_us" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('contact_us') }}">ارتباط با ما</a></li>
                         <li {% if active == "about_us" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('about_us') }}">درباره ما</a></li>
