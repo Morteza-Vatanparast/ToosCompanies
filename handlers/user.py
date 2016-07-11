@@ -24,15 +24,10 @@ __author__ = 'Morteza'
 class IndexHandler(UserBaseHandler):
     @gen.coroutine
     def get(self, *args, **kwargs):
-        print 11111111111
         self.data['__now'] = datetime.datetime.now()
-        print 22222222222
         self.data['__now_name'] = khayyam.JalaliDatetime().now().strftime("%A - %d %B %Y")
-        print 33333333333
         self.data['main_page'] = SettingModel().get_main_page()
-        print 44444444444
         self.data['services'] = ServicesModel().get_all_main_page()
-        print 55555555555
         self.render('user/index.html', **self.data)
 
 

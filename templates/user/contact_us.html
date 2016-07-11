@@ -44,29 +44,32 @@
     <div class="col-md-12" style="margin-top: 65px; padding: 0px 30px 30px 30px; min-height: 410px">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <div class="custom-box text-center" style="padding: 30px; text-align: justify;">
+                <div class="custom-box text-center" style="text-align: justify;">
                     <div class="row">
-                        <div class="col-md-8">
-                            <div style="font-size: 15px;">
+                        <div class="col-md-12">
+                            <div id="googleMap" style="height: 150px"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div style="font-size: 15px;; height: 150px; text-align: center; padding: 20px">
                                 <div class="row">
-                                    <div class="col-md-3">آدرس : </div>
-                                    <div class="col-md-9">مشهد - شهرک صنعتی توس فاز 1 - دفتر پست</div>
-                                </div>
-                                <div class="row margin-top-10">
-                                    <div class="col-md-3">تلفن : </div>
-                                    <div class="col-md-9">051 - 35412602</div>
-                                </div>
-                                <div class="row margin-top-10">
-                                    <div class="col-md-3">همراه : </div>
-                                    <div class="col-md-9">09157203675</div>
-                                </div>
-                                <div class="row margin-top-10">
-                                    <div class="col-md-3">ایمیل : </div>
-                                    <div class="col-md-9">example@email.com</div>
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-3" style="font-size: 20px; font-weight: bold; margin-bottom: 15px">آدرس : </div>
+                                            <div class="col-md-3" style="font-size: 20px; font-weight: bold; margin-bottom: 15px">تلفن : </div>
+                                            <div class="col-md-3" style="font-size: 20px; font-weight: bold; margin-bottom: 15px">همراه : </div>
+                                            <div class="col-md-3" style="font-size: 20px; font-weight: bold; margin-bottom: 15px">ایمیل : </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-3">مشهد - شهرک صنعتی توس فاز 1 - دفتر پست</div>
+                                            <div class="col-md-3">051 - 35412602</div>
+                                            <div class="col-md-3">09157203675</div>
+                                            <div class="col-md-3">example@email.com</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4" style="height: 115px" id="googleMap">
                         </div>
                     </div>
                 </div>
@@ -138,7 +141,7 @@ function initialize()
 {
 var mapProp = {
 center:myCenter,
-zoom:15,
+zoom:14,
 mapTypeId:google.maps.MapTypeId.ROADMAP
 };
 var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
