@@ -103,12 +103,14 @@ class SettingModel:
                         format=i['format'],
                         companies=[]
                     )
+                    # for j in i['companies']:
+                    #     a['companies'].append(__c.get_one_main_page(j))
+                    # unit_sections.append(a)
+
                     for j in i['companies']:
                         __c = __c.get_one_main_page(j)
                         if __c is not False:
                             a['companies'].append(__c)
-                    if len(a['companies']):
-                        unit_sections.append(a)
             except:
                 pass
             return dict(
