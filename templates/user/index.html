@@ -182,8 +182,7 @@ var millisecond = parseInt('{{ __now.microsecond }}');
     });
 
     $(document).on('change', "#CHANGE_NAV_SECTION", function(){
-        alert($(this).val());
-        $("#NAV_SECTION").css('background', $(this).val() + " none");
+        $(".NAV_SECTION").css('background', $(this).val() + " none");
     });
 
     $(document).on('change', "#CHANGE_BODY_SECTION", function(){
