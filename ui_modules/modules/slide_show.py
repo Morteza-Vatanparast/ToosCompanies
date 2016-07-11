@@ -17,6 +17,7 @@ class SlideShow(UIModule):
                 j['company'] = CompaniesModel(_id=j['company']).get_one()
                 if j['company'] is not False:
                     _f.append(j)
+        print _f
         return self.render_string('../ui_modules/template/slide_show/slide_show.html', _formats=_f)
 
 
