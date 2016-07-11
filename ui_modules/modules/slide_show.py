@@ -11,14 +11,18 @@ __author__ = 'Morteza'
 class SlideShow(UIModule):
     def render(self, *args, **kwargs):
         _formats = SettingModel().get_format_slide_show()
-        _f = []
+        __formats = []
         for i in _formats:
+            __areas = []
             for j in i['areas']:
-                j['company'] = CompaniesModel(_id=j['company']).get_one()
-                if j['company'] is not False:
-                    _f.append(j)
-        print _f
-        return self.render_string('../ui_modules/template/slide_show/slide_show.html', _formats=_f)
+                company = CompaniesModel(_id=j['company']).get_one()
+                if company is not False:
+                    __areas.append(j)
+            i['areas'] = __areas
+            if len(__areas):
+                __formats.append(i)
+
+        return self.render_string('../ui_modules/template/slide_show/slide_show.html', _formats=_formats)
 
 
 class Slider(UIModule):
