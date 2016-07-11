@@ -26,7 +26,7 @@
 
 </head>
 
-<body id="BODY_SECTION" style="background-color: #F4F4F4; font-family: Yekan; direction: rtl; background-image: url('{{ static_url('images/background.png') }}');background-size: 150px auto; ">
+<body id="BODY_SECTION" style="background-color: #F4F4F4; font-family: Yekan; direction: rtl; background-image: url('{{ static_url('images/background.png') }}');background-size: 150px auto;z-index: 10; ">
     <div style="position: absolute; top: 20px; right: 10px;">
         <input type="text" value="#7D1935" id="CHANGE_INFO_SECTION">
         <input type="text" value="#757575" id="CHANGE_NAV_SECTION">
@@ -152,7 +152,7 @@ var millisecond = parseInt('{{ __now.microsecond }}');
     });
 
     $(document).on('keyup', "#CHANGE_NAV_SECTION", function(){
-        $("#NAV_SECTION").css('background-color', $(this).val());
+        $("#NAV_SECTION").css('background', $(this).val() + " none");
     });
 
     $(document).on('keyup', "#CHANGE_BODY_SECTION", function(){
