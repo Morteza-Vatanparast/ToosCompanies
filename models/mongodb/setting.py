@@ -104,7 +104,8 @@ class SettingModel:
                         companies=[]
                     )
                     for j in i['companies']:
-                        a['companies'].append(__c.get_one_main_page(j))
+                        _com = __c.get_one_main_page(j)
+                        a['companies'].append(_com)
                     unit_sections.append(a)
 
                     # for j in i['companies']:
