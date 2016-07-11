@@ -109,9 +109,9 @@ class SettingModel:
 
                     for j in i['companies']:
                         __c = __c.get_one_main_page(j)
+                        print __c
                         if __c is not False:
                             a['companies'].append(__c)
-                    unit_sections.append(a)
             except:
                 pass
             return dict(
