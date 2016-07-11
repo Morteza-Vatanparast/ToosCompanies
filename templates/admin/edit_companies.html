@@ -48,7 +48,7 @@
                                                     <div class="row" style="margin: 10px 0">
                                                         <div class="col-md-12 col-sm-12 text-center" style="direction: ltr">
                                                             <div id="company_logo_show" class="thumbnail preview-lg" style="overflow: hidden;width: 184px; height: 142px; margin: auto">
-                                                                <img class="recipe_photo" src="{{ static_url('images/company_logo/' + company['logo']) }}" alt="" />
+                                                                <img class="recipe_photo" src="{% if company['logo'] is not None %}{{ static_url('images/company_logo/' + company['logo']) }}{% end %}" alt="" />
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-center margin-top-20">
@@ -64,7 +64,7 @@
                                                     <div class="row" style="margin: 10px 0">
                                                         <div class="col-md-12 col-sm-12 text-center" style="direction: ltr">
                                                             <div id="company_image_show" class="thumbnail preview-lg" style="overflow: hidden;width: 184px; height: 142px; margin: auto">
-                                                                <img class="recipe_photo" src="{{ static_url('images/company_image/' + company['image']) }}" alt="" />
+                                                                <img class="recipe_photo" src="{% if company['image'] is not None %}{{ static_url('images/company_image/' + company['image']) }}{% end %}" alt="" />
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-center margin-top-20">
