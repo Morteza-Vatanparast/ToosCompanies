@@ -248,7 +248,7 @@
                                     </div>
                                 </div>
                                 <div class="row margin-top-10 images-uploads">
-                                    <div class="col-xs-3 images-div" style="display: none" data-image="1">
+                                    <div class="col-xs-3 images-div" data-image="1">
                                         <input type="hidden" class="input-images" name="images_1">
                                         <div><i class="fa fa-times delete-image cursor-pointer" style="z-index: 999;font-size: 30px; color: red; float: right;"></i></div>
                                         <div class="row" style="margin: 10px 0">
@@ -262,7 +262,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-3 images-div" style="display: none" data-image="2">
+                                    <div class="col-xs-3 images-div" data-image="2">
                                         <input type="hidden" class="input-images" name="images_2">
                                         <div><i class="fa fa-times delete-image cursor-pointer" style="z-index: 999;font-size: 30px; color: red; float: right;"></i></div>
                                         <div class="row" style="margin: 10px 0">
@@ -276,7 +276,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-3 images-div" style="display: none" data-image="3">
+                                    <div class="col-xs-3 images-div" data-image="3">
                                         <input type="hidden" class="input-images" name="images_3">
                                         <div><i class="fa fa-times delete-image cursor-pointer" style="z-index: 999;font-size: 30px; color: red; float: right;"></i></div>
                                         <div class="row" style="margin: 10px 0">
@@ -290,7 +290,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-3 images-div" style="display: none" data-image="4">
+                                    <div class="col-xs-3 images-div" data-image="4">
                                         <input type="hidden" class="input-images" name="images_4">
                                         <div><i class="fa fa-times delete-image cursor-pointer" style="z-index: 999;font-size: 30px; color: red; float: right;"></i></div>
                                         <div class="row" style="margin: 10px 0">
@@ -959,10 +959,10 @@
         }
     });
 
-    var images_1 = false;
-    var images_2 = false;
-    var images_3 = false;
-    var images_4 = false;
+    var images_1 = true;
+    var images_2 = true;
+    var images_3 = true;
+    var images_4 = true;
 
     var count_images = 0;
     $(document).on('click', '.add-image', function(){
