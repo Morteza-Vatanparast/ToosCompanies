@@ -10,7 +10,7 @@ from models.mongodb.unit_companies import UnitCompaniesModel
 class CompaniesModel:
     def __init__(self, _id=None, name=None, main_page=None, slider=None, description=None, logo=None, images=None,
                  unit=None, active=None, industrial_town=None, address=None, phone=None, phone2=None, fax=None,
-                 site=None, email=None, province=None, city=None, ceo=None, owner=None, mobile=None,
+                 site=None, email=None, province=None, city=None, ceo=None, coordinator=None, owner=None, mobile=None,
                  products=None, materials=None, slider_image=None, about=None, image=None):
         self.id = _id
         self.name = name
@@ -41,6 +41,7 @@ class CompaniesModel:
         self.province = province
         self.city = city
         self.ceo = ceo
+        self.coordinator = coordinator
         self.owner = owner
 
     def insert(self, register=False):
@@ -67,6 +68,7 @@ class CompaniesModel:
                 "province": self.province,
                 "city": self.city,
                 "ceo": self.ceo,
+                "coordinator": self.coordinator,
                 "owner": self.owner,
                 "active": self.active,
                 "products": self.products,
@@ -112,6 +114,7 @@ class CompaniesModel:
                     "province": self.province,
                     "city": self.city,
                     "ceo": self.ceo,
+                    "coordinator": self.coordinator,
                     "owner": self.owner,
                     "active": self.active,
                     "products": self.products
@@ -150,6 +153,7 @@ class CompaniesModel:
                     "province": self.province,
                     "city": self.city,
                     "ceo": self.ceo,
+                    "coordinator": self.coordinator,
                     "owner": self.owner,
                 }
             }
@@ -311,6 +315,7 @@ class CompaniesModel:
                 site=__get("site", ""),
                 email=__get("email", ""),
                 ceo=__get("ceo", ""),
+                coordinator=__get("coordinator", ""),
                 owner=__get("owner", ""),
                 province=__get("province", ""),
                 province_name=province_name,

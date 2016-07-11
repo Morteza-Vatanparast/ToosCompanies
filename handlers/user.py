@@ -246,6 +246,7 @@ class RegisterCompaniesHandler(UserBaseHandler):
             site = self.get_argument('site', '')
             email = self.get_argument('email', '')
             ceo = self.get_argument('ceo', '')
+            coordinator = self.get_argument('coordinator', '')
             owner = self.get_argument('owner', '')
             province = int(self.get_argument('province', ''))
             city = int(self.get_argument('city', ''))
@@ -280,7 +281,7 @@ class RegisterCompaniesHandler(UserBaseHandler):
                 except:
                     slider_image = False
                 if slider_image is False:
-                    self.messages = ['اسلایدر شرکت را انتخاب کنید.']
+                    self.messages = ['عکس شرکت را انتخاب کنید.']
                     self.status = False
                     self.write(self.result)
                     return
@@ -295,7 +296,7 @@ class RegisterCompaniesHandler(UserBaseHandler):
                 CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
                                address=address, phone=phone, phone2=phone2, fax=fax, site=site, email=email,
-                               province=province, city=city, ceo=ceo, owner=owner, slider_image=slider_image,
+                               province=province, city=city, ceo=ceo, coordinator=coordinator, owner=owner, slider_image=slider_image,
                                image=image, mobile=mobile, about=about).insert(register=True)
             self.status = True
             self.write(self.result)

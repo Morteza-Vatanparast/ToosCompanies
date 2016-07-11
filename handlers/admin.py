@@ -236,6 +236,7 @@ class AdminCompareCompaniesHandler(AdminBaseHandler):
             site = self.get_argument('site', '')
             email = self.get_argument('email', '')
             ceo = self.get_argument('ceo', '')
+            coordinator = self.get_argument('coordinator', '')
             owner = self.get_argument('owner', '')
             province = int(self.get_argument('province', ''))
             city = int(self.get_argument('city', ''))
@@ -245,7 +246,7 @@ class AdminCompareCompaniesHandler(AdminBaseHandler):
                     and province != "" and city != "":
                 CompaniesModel(_id=company, name=name, description=description, unit=unit,
                                industrial_town=industrial_town, address=address, phone=phone, phone2=phone2, fax=fax,
-                               site=site, email=email, province=province, city=city, ceo=ceo,
+                               site=site, email=email, province=province, city=city, ceo=ceo, coordinator=coordinator,
                                mobile=mobile, owner=owner).update_compare()
             self.status = True
             self.write(self.result)
@@ -362,6 +363,7 @@ class AdminAddCompaniesHandler(AdminBaseHandler):
             site = self.get_argument('site', '')
             email = self.get_argument('email', '')
             ceo = self.get_argument('ceo', '')
+            coordinator = self.get_argument('coordinator', '')
             owner = self.get_argument('owner', '')
             province = int(self.get_argument('province', ''))
             city = int(self.get_argument('city', ''))
@@ -398,7 +400,7 @@ class AdminAddCompaniesHandler(AdminBaseHandler):
                 CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
                                address=address, phone=phone, phone2=phone2, fax=fax, site=site, email=email,
-                               province=province, city=city, ceo=ceo, owner=owner, slider_image=slider_image,
+                               province=province, city=city, ceo=ceo, coordinator=coordinator, owner=owner, slider_image=slider_image,
                                image=image, mobile=mobile, about=about).insert()
             self.status = True
             self.write(self.result)
@@ -448,6 +450,7 @@ class AdminEditCompaniesHandler(AdminBaseHandler):
             site = self.get_argument('site', '')
             email = self.get_argument('email', '')
             ceo = self.get_argument('ceo', '')
+            coordinator = self.get_argument('coordinator', '')
             owner = self.get_argument('owner', '')
             province = int(self.get_argument('province', ''))
             city = int(self.get_argument('city', ''))
@@ -484,7 +487,7 @@ class AdminEditCompaniesHandler(AdminBaseHandler):
                 CompaniesModel(_id=company, name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
                                address=address, phone=phone, phone2=phone2, fax=fax, site=site, email=email,
-                               province=province, mobile=mobile, city=city, ceo=ceo, owner=owner,
+                               province=province, mobile=mobile, city=city, ceo=ceo, coordinator=coordinator, owner=owner,
                                slider_image=slider_image, image=image, about=about).update()
             self.status = True
             self.write(self.result)
