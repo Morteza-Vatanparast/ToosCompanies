@@ -23,14 +23,15 @@
     <link rel="stylesheet" href="{{ static_url('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ static_url('css/slide_show.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ static_url('plugins/fontawesome/css/font-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ static_url('plugins/mini-colors/jquery.minicolors.css') }}">
 
 </head>
 
 <body id="BODY_SECTION" style="background-color: #F4F4F4; font-family: Yekan; direction: rtl; background-image: url('{{ static_url('images/background.png') }}');background-size: 150px auto; ">
     <div style="position: fixed; top: 80px; right: 10px;z-index: 10;">
-        <input type="text" value="7D1935" id="CHANGE_INFO_SECTION">
-        <input type="text" value="757575" id="CHANGE_NAV_SECTION">
-        <input type="text" value="F4F4F4" id="CHANGE_BODY_SECTION">
+        <input type="text" class="custom-color" value="7D1935" id="CHANGE_INFO_SECTION">
+        <input type="text" class="custom-color" value="757575" id="CHANGE_NAV_SECTION">
+        <input type="text" class="custom-color" value="F4F4F4" id="CHANGE_BODY_SECTION">
     </div>
     {% module Info() %}
     {% module NavBar() %}
@@ -128,8 +129,31 @@ var millisecond = parseInt('{{ __now.microsecond }}');
 {#<script src="{{ static_url('js/clock.js') }}"></script>#}
 <script src="{{ static_url('js/navbar.js') }}"></script>
 <script src="{{ static_url('js/slide_show.js') }}"></script>
+<script src="{{ static_url('plugins/mini-colors/jquery.minicolors.js') }}"></script>
 <script>
 
+
+    function create_color(){
+            $('.custom-color').minicolors({
+                control: $(this).attr('data-control') || 'hue',
+                defaultValue: $(this).attr('data-defaultValue') || '',
+                format: $(this).attr('data-format') || 'hex',
+                keywords: $(this).attr('data-keywords') || '',
+                inline: $(this).attr('data-inline') === 'true',
+                letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                opacity: $(this).attr('data-opacity'),
+                position: $(this).attr('data-position') || 'bottom left',
+                change: function(value, opacity) {
+                    if( !value ) return;
+                    if( opacity ) value += ', ' + opacity;
+                    if( typeof console === 'object' ) {
+                        console.log(value);
+                    }
+                },
+                theme: 'bootstrap'
+            });
+        }
+    create_color();
     $(document).ready(function () {
         $("#OWL_SERVICES").owlCarousel({
             autoPlay: true,
