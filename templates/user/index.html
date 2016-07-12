@@ -38,6 +38,9 @@
         <div class="col-md-3">
             <input type="text" class="custom-color form-control" value="F4F4F4" id="CHANGE_BODY_SECTION">
         </div>
+        <div class="col-md-3">
+            <input type="text" class="custom-color form-control" value="F4F4F4" id="CHANGE_ACTIVE_NAV_SECTION">
+        </div>
     </div>
     {% module Info() %}
     {% module NavBar() %}
@@ -187,6 +190,10 @@ var millisecond = parseInt('{{ __now.microsecond }}');
 
     $(document).on('change', "#CHANGE_BODY_SECTION", function(){
         $("#BODY_SECTION").css('background-color', $(this).val());
+    });
+
+    $(document).on('change', "#CHANGE_ACTIVE_NAV_SECTION", function(){
+        $(".navbar-inverse .navbar-nav > .active > a").css('background-color', "linear-gradient(to bottom, " + $(this).val() + " 0%, " + $(this).val() + " 100%) !important");
     });
 
 </script>
