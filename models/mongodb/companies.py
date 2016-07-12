@@ -82,7 +82,7 @@ class CompaniesModel:
 
     def get_all(self, page=1, size=30):
         try:
-            __body = {"register": False}
+            __body = {}
             __a = MongodbModel(body=__body, collection="companies", sort="name", size=size, page=page, ascending=1).get_all_pagination()
             __r = []
             for __i in __a:
@@ -195,7 +195,7 @@ class CompaniesModel:
     @staticmethod
     def count():
         try:
-            __body = {"register": False}
+            __body = {}
             return MongodbModel(body=__body, collection="companies").count()
         except:
             return 0
