@@ -234,7 +234,7 @@ class RegisterCompaniesHandler(UserBaseHandler):
 
     @gen.coroutine
     def post(self, *args, **kwargs):
-        # try:
+        try:
             name = self.get_argument('name', '')
             description = self.get_argument('description', '')
             about = self.get_argument('about', '')
@@ -247,6 +247,9 @@ class RegisterCompaniesHandler(UserBaseHandler):
             email = self.get_argument('email', '')
             ceo = self.get_argument('ceo', '')
             coordinator = self.get_argument('coordinator', '')
+            mobile_coordinator = self.get_argument('mobile_coordinator', '')
+            products_info = self.get_argument('products_info', '')
+            materials_info = self.get_argument('materials_info', '')
             owner = self.get_argument('owner', '')
             province = int(self.get_argument('province', ''))
             city = int(self.get_argument('city', ''))
@@ -258,10 +261,10 @@ class RegisterCompaniesHandler(UserBaseHandler):
                 main_page = False
                 slider = True
                 active = False
-                # try:
-                logo = UploadPic(handler=self, folder='company_logo').upload_from_cropper(base64_str=[self.get_argument('logo', '')])[0]
-                # except:
-                #     logo = False
+                try:
+                    logo = UploadPic(handler=self, folder='company_logo').upload_from_cropper(base64_str=[self.get_argument('logo', '')])[0]
+                except:
+                    logo = False
                 if logo is False:
                     self.messages = ['لوگو شرکت را انتخاب کنید.']
                     self.status = False
@@ -296,9 +299,11 @@ class RegisterCompaniesHandler(UserBaseHandler):
                 CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
                                address=address, phone=phone, phone2=phone2, fax=fax, site=site, email=email,
-                               province=province, city=city, ceo=ceo, coordinator=coordinator, owner=owner, slider_image=slider_image,
-                               image=image, mobile=mobile, about=about).insert(register=True)
+                               province=province, city=city, ceo=ceo, coordinator=coordinator,
+                               mobile_coordinator=mobile_coordinator, products_info=products_info,
+                               materials_info=materials_info, owner=owner,
+                               slider_image=slider_image, image=image, mobile=mobile, about=about).insert(register=True)
             self.status = True
             self.write(self.result)
-        # except:
-        #     self.write(self.error_result)
+        except:
+            self.write(self.error_result)

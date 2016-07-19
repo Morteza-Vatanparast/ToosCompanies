@@ -10,7 +10,8 @@ from models.mongodb.unit_companies import UnitCompaniesModel
 class CompaniesModel:
     def __init__(self, _id=None, name=None, main_page=None, slider=None, description=None, logo=None, images=None,
                  unit=None, active=None, industrial_town=None, address=None, phone=None, phone2=None, fax=None,
-                 site=None, email=None, province=None, city=None, ceo=None, coordinator=None, owner=None, mobile=None,
+                 site=None, email=None, province=None, city=None, ceo=None, coordinator=None,
+                 mobile_coordinator=None, products_info=None, materials_info=None, owner=None, mobile=None,
                  products=None, materials=None, slider_image=None, about=None, image=None):
         self.id = _id
         self.name = name
@@ -42,6 +43,9 @@ class CompaniesModel:
         self.city = city
         self.ceo = ceo
         self.coordinator = coordinator
+        self.mobile_coordinator = mobile_coordinator
+        self.products_info = products_info
+        self.materials_info = materials_info
         self.owner = owner
 
     def insert(self, register=False):
@@ -69,6 +73,9 @@ class CompaniesModel:
                 "city": self.city,
                 "ceo": self.ceo,
                 "coordinator": self.coordinator,
+                "mobile_coordinator": self.mobile_coordinator,
+                "products_info": self.products_info,
+                "materials_info": self.materials_info,
                 "owner": self.owner,
                 "active": self.active,
                 "products": self.products,
@@ -128,6 +135,9 @@ class CompaniesModel:
                     "city": self.city,
                     "ceo": self.ceo,
                     "coordinator": self.coordinator,
+                    "mobile_coordinator": self.mobile_coordinator,
+                    "products_info": self.products_info,
+                    "materials_info": self.materials_info,
                     "owner": self.owner,
                     "active": self.active,
                     "products": self.products
@@ -167,6 +177,9 @@ class CompaniesModel:
                     "city": self.city,
                     "ceo": self.ceo,
                     "coordinator": self.coordinator,
+                    "mobile_coordinator": self.mobile_coordinator,
+                    "products_info": self.products_info,
+                    "materials_info": self.materials_info,
                     "owner": self.owner,
                 }
             }
@@ -337,6 +350,9 @@ class CompaniesModel:
                 email=__get("email", ""),
                 ceo=__get("ceo", ""),
                 coordinator=__get("coordinator", ""),
+                mobile_coordinator=__get("mobile_coordinator", ""),
+                products_info=__get("products_info", ""),
+                materials_info=__get("materials_info", ""),
                 owner=__get("owner", ""),
                 province=__get("province", ""),
                 province_name=province_name,

@@ -237,6 +237,9 @@ class AdminCompareCompaniesHandler(AdminBaseHandler):
             email = self.get_argument('email', '')
             ceo = self.get_argument('ceo', '')
             coordinator = self.get_argument('coordinator', '')
+            mobile_coordinator = self.get_argument('mobile_coordinator', '')
+            products_info = self.get_argument('products_info', '')
+            materials_info = self.get_argument('materials_info', '')
             owner = self.get_argument('owner', '')
             province = int(self.get_argument('province', ''))
             city = int(self.get_argument('city', ''))
@@ -247,7 +250,9 @@ class AdminCompareCompaniesHandler(AdminBaseHandler):
                 CompaniesModel(_id=company, name=name, description=description, unit=unit,
                                industrial_town=industrial_town, address=address, phone=phone, phone2=phone2, fax=fax,
                                site=site, email=email, province=province, city=city, ceo=ceo, coordinator=coordinator,
-                               mobile=mobile, owner=owner).update_compare()
+                               mobile_coordinator=mobile_coordinator, products_info=products_info,
+                               materials_info=materials_info, mobile=mobile, owner=owner)\
+                    .update_compare()
             self.status = True
             self.write(self.result)
         except:
@@ -397,6 +402,9 @@ class AdminAddCompaniesHandler(AdminBaseHandler):
             email = self.get_argument('email', '')
             ceo = self.get_argument('ceo', '')
             coordinator = self.get_argument('coordinator', '')
+            mobile_coordinator = self.get_argument('mobile_coordinator', '')
+            products_info = self.get_argument('products_info', '')
+            materials_info = self.get_argument('materials_info', '')
             owner = self.get_argument('owner', '')
             province = int(self.get_argument('province', ''))
             city = int(self.get_argument('city', ''))
@@ -433,8 +441,10 @@ class AdminAddCompaniesHandler(AdminBaseHandler):
                 CompaniesModel(name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
                                address=address, phone=phone, phone2=phone2, fax=fax, site=site, email=email,
-                               province=province, city=city, ceo=ceo, coordinator=coordinator, owner=owner, slider_image=slider_image,
-                               image=image, mobile=mobile, about=about).insert()
+                               province=province, city=city, ceo=ceo, coordinator=coordinator,
+                               mobile_coordinator=mobile_coordinator, products_info=products_info,
+                               materials_info=materials_info, owner=owner,
+                               slider_image=slider_image, image=image, mobile=mobile, about=about).insert()
             self.status = True
             self.write(self.result)
         except:
@@ -484,6 +494,9 @@ class AdminEditCompaniesHandler(AdminBaseHandler):
             email = self.get_argument('email', '')
             ceo = self.get_argument('ceo', '')
             coordinator = self.get_argument('coordinator', '')
+            mobile_coordinator = self.get_argument('mobile_coordinator', '')
+            products_info = self.get_argument('products_info', '')
+            materials_info = self.get_argument('materials_info', '')
             owner = self.get_argument('owner', '')
             province = int(self.get_argument('province', ''))
             city = int(self.get_argument('city', ''))
@@ -520,7 +533,9 @@ class AdminEditCompaniesHandler(AdminBaseHandler):
                 CompaniesModel(_id=company, name=name, main_page=main_page, slider=slider, description=description, logo=logo,
                                images=images, unit=unit, active=active, industrial_town=industrial_town,
                                address=address, phone=phone, phone2=phone2, fax=fax, site=site, email=email,
-                               province=province, mobile=mobile, city=city, ceo=ceo, coordinator=coordinator, owner=owner,
+                               province=province, mobile=mobile, city=city, ceo=ceo, coordinator=coordinator,
+                               mobile_coordinator=mobile_coordinator, products_info=products_info,
+                               materials_info=materials_info, owner=owner,
                                slider_image=slider_image, image=image, about=about).update()
             self.status = True
             self.write(self.result)
