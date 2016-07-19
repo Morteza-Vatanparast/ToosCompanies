@@ -135,7 +135,9 @@ class ContactUsHandler(UserBaseHandler):
         try:
             name = self.get_argument('name', '')
             email = self.get_argument('email', '')
+            phone = self.get_argument('phone', '')
             email = email if email != "" else None
+            phone = phone if phone != "" else None
             description = self.get_argument('description', '')
             if name == "" or description == "":
                 self.write('empty')
@@ -143,7 +145,7 @@ class ContactUsHandler(UserBaseHandler):
             if ContactUsModel().is_duplicate(self.secure_cookie):
                 self.write('duplicate')
                 return
-            ContactUsModel(name=name, email=email, description=description, secure_cookie=self.secure_cookie).insert()
+            ContactUsModel(name=name, email=email, phone=phone, description=description, secure_cookie=self.secure_cookie).insert()
             self.write('success')
         except:
             self.write('error')

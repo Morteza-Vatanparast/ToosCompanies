@@ -15,6 +15,7 @@
                                 <table class="table table-bordered source_news_table agency-table">
                                     <tr>
                                         <td>نام</td>
+                                        <td>تلفن</td>
                                         <td>ایمیل</td>
                                         <td>امکانات</td>
                                     </tr>
@@ -23,6 +24,7 @@
                                         {% set __a = True %}
                                         <tr class="contact-row">
                                             <td>{{ contact['name'] }}</td>
+                                            <td>{{ contact['phone'] }}</td>
                                             <td>{{ contact['email'] }}</td>
                                             <td>
                                                 <span class="show-contact" data-contact="{{ contact['_id'] }}">

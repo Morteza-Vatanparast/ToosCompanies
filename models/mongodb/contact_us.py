@@ -6,9 +6,10 @@ from models.mongodb.base_model import MongodbModel
 
 
 class ContactUsModel:
-    def __init__(self, _id=None, name=None, email=None, description=None, secure_cookie=None):
+    def __init__(self, _id=None, name=None, email=None, phone=None, description=None, secure_cookie=None):
         self.id = _id
         self.name = name
+        self.phone = phone
         self.email = email
         self.description = description
         self.secure_cookie = secure_cookie
@@ -17,6 +18,7 @@ class ContactUsModel:
         try:
             __body = {
                 "name": self.name,
+                "phone": self.phone,
                 "email": self.email,
                 "secure_cookie": self.secure_cookie,
                 "description": self.description,
@@ -37,6 +39,7 @@ class ContactUsModel:
                 __r.append(dict(
                     _id=__i['_id'],
                     name=__i['name'],
+                    phone=__i['phone'] if __i['phone'] is not None else u'وارد نشده',
                     email=__i['email'] if __i['email'] is not None else u'وارد نشده',
                     description=__i['description'],
                 ))

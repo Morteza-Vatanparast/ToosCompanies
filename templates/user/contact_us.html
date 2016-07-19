@@ -75,11 +75,17 @@
                 </div>
                 <div class="custom-box text-center" style="padding: 30px;; margin-top: 10px">
                     <div class="row">
-                        <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                        <div class="col-md-12">
+                            <div style="padding: 35px; font-size: 16px;">
+                                <span>جهت ارتباط با مدیریت سایت و به اشتراک گذاری نقطه نظرات، انتقادات و پیشنهاد و گزارش مشکلات احتمالی می‌توانید از فرم زیر استفاده نمایید</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                             <div class="row">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">نام و نام خانوادگی</label>
-                                    <div class="col-sm-6 inputGroupContainer">
+                                    <div class="col-sm-10 inputGroupContainer">
                                         <div class="input-group">
                                             <span style="font-size: 18px" class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input autocomplete="off" name="name" placeholder="نام و نام خانوادگی" class="form-control" type="text">
@@ -89,8 +95,17 @@
                             </div>
                             <div class="row" style="margin-top: 10px">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">ایمیل</label>
-                                    <div class="col-sm-6 inputGroupContainer">
+                                    <div class="col-sm-10 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                            <input name="phone" placeholder="تلفن تماس" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px">
+                                <div class="form-group">
+                                    <div class="col-sm-10 inputGroupContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                                             <input name="email" placeholder="ایمیل" class="form-control" type="text">
@@ -100,8 +115,7 @@
                             </div>
                             <div class="row" style="margin-top: 10px">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">توضیحات</label>
-                                    <div class="col-sm-9 inputGroupContainer">
+                                    <div class="col-sm-12 inputGroupContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                             <textarea rows="5" style="resize: vertical" class="form-control" name="description"
@@ -165,6 +179,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
         var btn_html = elm.html();
         var name = $('input[name=name]').val();
         var email = $('input[name=email]').val();
+        var phone = $('input[name=phone]').val();
         var description = $('textarea[name=description]').val();
         if(name == "" || description == ""){
             $('.status-text').html('لطفا نام و توضیحات را وارد کنید.').css('color', 'red');
@@ -176,6 +191,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
         var postData = [
             {name: 'name', value: name},
             {name: 'email', value: email},
+            {name: 'phone', value: phone},
             {name: 'description', value: description},
             {name: '_xsrf', value: '{{ handler.xsrf_token }}'}
         ];
