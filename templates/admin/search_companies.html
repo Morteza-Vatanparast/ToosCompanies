@@ -28,15 +28,15 @@
                         <div class="box_body unit-div pr_drag">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input class="form-control" value="{{ this_name }}" name="name"
+                                    <input class="form-control enter-search" value="{{ this_name }}" name="name"
                                            placeholder="نام شرکت">
                                 </div>
                                 <div class="col-md-3">
-                                    <input class="form-control" value="{{ this_ceo }}" name="ceo"
+                                    <input class="form-control enter-search" value="{{ this_ceo }}" name="ceo"
                                            placeholder="مدیر عامل">
                                 </div>
                                 <div class="col-md-3">
-                                    <input class="form-control" value="{{ this_owner }}" name="owner"
+                                    <input class="form-control enter-search" value="{{ this_owner }}" name="owner"
                                            placeholder="مالک">
                                 </div>
                             </div>
@@ -186,6 +186,37 @@
                 .replace("__city__", city)
                 .replace("__unit__", unit)
                 .replace("__industrial_town__", industrial_town);
+    });
+
+
+    $('input.enter-search').on("keypress", function(e) {
+        if (e.keyCode == 13) {
+
+            var __s = $('input[name=name]').val();
+            var name = __s == "" ? "all" : __s;
+            __s = $('input[name=ceo]').val();
+            var ceo = __s == "" ? "all" : __s;
+            __s = $('input[name=owner]').val();
+            var owner = __s == "" ? "all" : __s;
+            __s = $('select[name=province]').val();
+            var province = __s == "" ? "all" : __s;
+            __s = $('select[name=city]').val();
+            var city = __s == "" ? "all" : __s;
+            __s = $('select[name=unit]').val();
+            var unit = __s == "" ? "all" : __s;
+            __s = $('select[name=industrial_town]').val();
+            var industrial_town = __s == "" ? "all" : __s;
+
+            location.href = "{{ reverse_url('admin:search:companies_by_params',
+                    '__name__', '__ceo__', '__owner__', '__province__', '__city__', '__unit__', '__industrial_town__') }}"
+                    .replace("__name__", name)
+                    .replace("__ceo__", ceo)
+                    .replace("__owner__", owner)
+                    .replace("__province__", province)
+                    .replace("__city__", city)
+                    .replace("__unit__", unit)
+                    .replace("__industrial_town__", industrial_town);
+        }
     });
 </script>
 {% end block other_scripts %}
