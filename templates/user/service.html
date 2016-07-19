@@ -61,15 +61,30 @@
 
                         <div class="{% if not len(similar_services) %}col-xs-12{% else %}col-xs-11{% end %}">
                             <div class="row">
-                                <div class="col-sm-3 col-sm-offset-2 col-xs-4">
-                                    <img style="width: 100px; height: 100px" src="{{ static_url('images/service_image/' + service['image']) }}">
+                                <div class="col-sm-3 col-xs-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <img src="{{ static_url('images/service_image/' + service['image']) }}">
+                                        </div>
+                                        {% if service['special_offer'] %}
+                                            <div class="col-md-12" style="padding: 10px; color: #5FAFC8">
+                                                <span>{{ service['special_offer_text'] }}</span>
+                                            </div>
+                                        {% end %}
+                                    </div>
                                 </div>
-                                <div class="col-sm-5 col-xs-8" style="padding-top: 33px;font-weight: bold; font-size: 25px;">
-                                    <span>{{ service['name'] }}</span>
+                                <div class="col-sm-9 col-xs-8">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div style="padding: 50px;font-weight: bold; font-size: 25px;">
+                                                <span>{{ service['name'] }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span>{% raw service['description'] %}</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row margin-top-10 text-left" style="padding: 30px">
-                                {% raw service['description'] %}
                             </div>
                         </div>
                     </div>
@@ -84,8 +99,7 @@
                         <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
                             <div class="row">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">نام و نام خانوادگی</label>
-                                    <div class="col-sm-6 inputGroupContainer">
+                                    <div class="col-sm-9 inputGroupContainer">
                                         <div class="input-group">
                                             <span style="font-size: 18px" class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input autocomplete="off" name="name" placeholder="نام و نام خانوادگی" class="form-control" type="text">
@@ -95,8 +109,7 @@
                             </div>
                             <div class="row" style="margin-top: 10px">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">تلفن</label>
-                                    <div class="col-sm-6 inputGroupContainer">
+                                    <div class="col-sm-9 inputGroupContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                                             <input name="phone" placeholder="تلفن" class="form-control" type="text">
@@ -106,8 +119,7 @@
                             </div>
                             <div class="row" style="margin-top: 10px">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">تعداد</label>
-                                    <div class="col-sm-6 inputGroupContainer">
+                                    <div class="col-sm-9 inputGroupContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-list"></i></span>
                                             <input name="count" placeholder="تعداد" class="form-control" type="text">
@@ -117,8 +129,7 @@
                             </div>
                             <div class="row" style="margin-top: 10px">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">آدرس</label>
-                                    <div class="col-sm-9 inputGroupContainer">
+                                    <div class="col-sm-12 inputGroupContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                                             <input name="address" placeholder="آدرس" class="form-control" type="text">
@@ -128,8 +139,7 @@
                             </div>
                             <div class="row" style="margin-top: 10px">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">توضیحات</label>
-                                    <div class="col-sm-9 inputGroupContainer">
+                                    <div class="col-sm-12 inputGroupContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                             <textarea rows="5" style="resize: vertical" class="form-control" name="description"

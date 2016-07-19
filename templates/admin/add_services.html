@@ -34,11 +34,33 @@
                                                 </div>
                                             </div>
                                             <div class="row margin-top-10">
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input name="main_page" value="true" type="checkbox" class="form-control">
+                                                        </div>
+                                                        <div class="col-xs-4 text-center" style="padding: 8px">
+                                                            <span>صفحه اصلی</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input name="special_offer" value="true" type="checkbox" class="form-control">
+                                                        </div>
+                                                        <div class="col-xs-4 text-center" style="padding: 8px">
+                                                            <span>پیشنهاد ویژه</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-xs-3 text-right">
-                                                    <span>صفحه اصلی: </span>
+                                                    <span>متن پیشنهاد ویژه:</span>
                                                 </div>
                                                 <div class="col-xs-9">
-                                                    <input name="main_page" value="true" type="checkbox" class="form-control">
+                                                    <input name="special_offer_text" type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="row margin-top-10">
@@ -195,6 +217,8 @@
             data.append('description', check_value(tinyMCE.get("editable").getContent(), 'توضیحات را وارد کنید.'));
             data.append('image', $('input[name=image]').val());
             data.append('main_page', $('input[type=checkbox][name=main_page]').prop('checked'));
+            data.append('special_offer', $('input[type=checkbox][name=special_offer]').prop('checked'));
+            data.append('special_offer_text', $('input[name=special_offer_text]').val());
             if(__error){
                 Alert.render(__message, function(){
                     btn.html('افزودن');

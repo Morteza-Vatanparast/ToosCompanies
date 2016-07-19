@@ -4,11 +4,14 @@ from models.mongodb.base_model import MongodbModel
 
 
 class ServicesModel:
-    def __init__(self, _id=None, name=None, description=None, image=None, main_page=None):
+    def __init__(self, _id=None, name=None, description=None, image=None, main_page=None,
+                 special_offer=None, special_offer_text=None):
         self.id = _id
         self.name = name
         self.image = image
         self.main_page = main_page
+        self.special_offer = special_offer
+        self.special_offer_text = special_offer_text
         self.description = description
 
     def insert(self):
@@ -17,6 +20,8 @@ class ServicesModel:
                 "name": self.name,
                 "description": self.description,
                 "main_page": self.main_page,
+                "special_offer": self.special_offer,
+                "special_offer_text": self.special_offer_text,
                 "image": self.image
             }
             MongodbModel(body=__body, collection="services").insert()
@@ -75,7 +80,9 @@ class ServicesModel:
                 "$set": {
                     "name": self.name,
                     "main_page": self.main_page,
-                    "description": self.description
+                    "description": self.description,
+                    "special_offer": self.special_offer,
+                    "special_offer_text": self.special_offer_text,
                 }
             }
             if len(self.image):

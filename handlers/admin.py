@@ -970,13 +970,17 @@ class AdminAddServicesHandler(AdminBaseHandler):
             name = self.get_argument('name', '')
             description = self.get_argument('description', '')
             main_page = self.get_argument('main_page', 'false')
+            special_offer = self.get_argument('special_offer', 'false')
+            special_offer_text = self.get_argument('special_offer_text', '')
             main_page = True if main_page == 'true' else False
+            special_offer = True if special_offer == 'true' else False
             if name != "" and description != "":
                 try:
                     image = UploadPic(handler=self, folder='service_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])[0]
                 except:
                     image = 'default.jpg'
-                ServicesModel(name=name, description=description, image=image, main_page=main_page).insert()
+                ServicesModel(name=name, description=description, image=image, main_page=main_page,
+                              special_offer=special_offer, special_offer_text=special_offer_text).insert()
             self.status = True
             self.write(self.result)
         except:
