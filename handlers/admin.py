@@ -20,6 +20,7 @@ from handlers.base import AdminBaseHandler, admin_authentication
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.contact_us import ContactUsModel
 from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
+from models.mongodb.news import NewsModel
 from models.mongodb.orders import OrdersModel
 from models.mongodb.products import ProductsModel
 from models.mongodb.province_city import ProvinceCityModel
@@ -1224,3 +1225,11 @@ class AdminContactUsHandler(AdminBaseHandler):
             self.write(self.result)
         except:
             self.write(self.error_result)
+
+
+class AdminNewsHandler(AdminBaseHandler):
+    @gen.coroutine
+    @admin_authentication()
+    def get(self, *args, **kwargs):
+        self.data['news'] = NewsModel().get_all()
+        self.render('admin/news.html', **self.data)

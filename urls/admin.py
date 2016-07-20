@@ -99,4 +99,7 @@ admin_url_patterns = {
 
     (r'^(?i)/Admin/ContactUs[/]?$', admin.AdminContactUsHandler),
     (r'^/Admin/ContactUs', admin.AdminContactUsHandler, None, "admin:contact_us"),
+
+    (r'^(?i)/Admin/News[/]?$', admin.AdminNewsHandler),
+    (r'^/Admin/News', admin.AdminNewsHandler, None, "admin:news"),
 }

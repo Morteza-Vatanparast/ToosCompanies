@@ -1,0 +1,117 @@
+{% extends base.html %}
+
+{% block container %}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default margin-top-30 font-yekan">
+                    <div class="panel-heading"><i class="fa fa-folder-open-o"></i><span>ایجاد و مدیریت اخبار</span> </div>
+                    <div class="panel-body">
+                        <div class="show_box">
+                            <div class="box_header">
+                                <span>فهرست  خدمات</span>
+                                <div class="new_content_btn" onclick="location.href='{{ reverse_url('admin:add_news') }}'">
+                                    <i class="fa fa-plus"></i>ایجاد اخبار جدید
+                                </div>
+                            </div>
+                            <div class="box_body unit-div pr_drag">
+                                <table class="table table-bordered source_news_table agency-table">
+                                    <tr>
+                                        <td>عکس</td>
+                                        <td>عنوان</td>
+                                        <td>امکانات</td>
+                                    </tr>
+                                    {% set __a = False %}
+                                    {% for _n in news  %}
+                                        {% set __a = True %}
+                                        <tr class="company-row">
+                                            <td><img height="40" width="40" src="{{ static_url('images/news_image/' + _n['image']) }}"></td>
+                                            <td>{{ _n['title'] }}</td>
+                                            <td>
+                                                <span class="delete-news" data-news="{{ _n['_id'] }}">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </span>
+                                                <a href="{{ reverse_url('admin:edit_news_by_id', _n['_id']) }}">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% end %}
+                                    {% if not __a %}
+                                        <tr class="empty">
+                                            <td colspan="3">موردی وجود ندارد.</td>
+                                        </tr>
+                                    {% end %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% end block container %}
+
+{% block other_scripts %}
+<script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
+<script>
+
+    var trash = '<i class="fa fa-trash-o"></i>';
+
+    var loader = '<img src="{{ static_url('images/loading.gif') }}" width="20" height="20">';
+
+
+    var __b = true;
+    $(document).on('click', '.delete-news', function(e){
+        if(__b){
+            __b = false;
+            Confirm.render(0, 0, 0, 0, 0, function(){
+                var elm = $(e.target).closest('.delete-news');
+                var news = elm.attr('data-news');
+                elm.html(loader.replace(/20/g, '15'));
+                var postData = [
+                    {name: 'news', value: news},
+                    {name: '_xsrf', value: '{{ handler.xsrf_token }}'},
+                    {name: 'action', value: 'delete'}
+                ];
+                jQuery.ajax(
+                    {
+                        url: '',
+                        type: "delete",
+                        data: postData,
+                        success: function (response) {
+                            var status = response['status'];
+                            var value = response['value'];
+                            var messages = response['messages'];
+                            if (status) {
+                                Alert.render('success', function () {
+                                    elm.closest('.company-row').remove();
+                                    __b = true;
+                                });
+                            }else{
+                                var error = '';
+                                for(var i = 0; i < messages.length ; i++){
+                                    error += messages[i] + '<br>';
+                                }
+                                if(error == '')
+                                    error = 'error';
+                                Alert.render(error, function(){
+                                    elm.html(trash);
+                                    __b = true;
+                                });
+                            }
+                        },
+                        error: function () {
+                            Alert.render('error', function(){
+                                elm.html(trash);
+                                __b = true;
+                            });
+                        }
+                    });
+            }, function(){
+                __b = true;
+            });
+        }
+    });
+</script>
+{% end block other_scripts %}
