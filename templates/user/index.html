@@ -89,11 +89,11 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="direction: ltr">
-            <div id="OWL_RANDOM" class="owl-carousel">
-                {% module CompaniesSmallBoxRow(main_page['boxes'][4:]) %}
-            </div>
-        </div>
+{#        <div class="row" style="direction: ltr">#}
+{#            <div id="OWL_RANDOM" class="owl-carousel">#}
+{#                {% module CompaniesSmallBoxRow(main_page['boxes'][4:]) %}#}
+{#            </div>#}
+{#        </div>#}
 
         {% for i in main_page['unit_sections'] %}
             {% module UnitSectionBoxes(unit_name=i['unit_name'], unit_id=i['unit_id'], _format=i['format'], companies=i['companies']) %}
