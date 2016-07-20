@@ -43,22 +43,22 @@
     {% module NavBar() %}
     <div class="col-md-12" style="padding: 0px 30px 30px 30px;">
         <div class="row">
-            <div class="col col-md-6 col-sm-8 col-xs-12">
+            <div class="col col-xs-12">
                 {% module SlideShow() %}
             </div>
-            <div class="col-md-6 col-sm-4 visible-sm visible-md visible-lg" style="padding-left: 15px; padding-right: 15px">
-                <div class="row">
-                    <div class="col col-md-6">
-                        {% try %}
-                            {% module CompaniesMediumBox(company=main_page['boxes'][0]) %}
-                        {% except %}
-                        {% end %}
-                    </div>
-                    <div class="col col-md-6 visible-md visible-lg">
-                        {% try %}
-                            {% module CompaniesMediumBox(company=main_page['boxes'][1]) %}
-                        {% except %}
-                        {% end %}
+{#            <div class="col-md-6 col-sm-4 visible-sm visible-md visible-lg" style="padding-left: 15px; padding-right: 15px">#}
+{#                <div class="row">#}
+{#                    <div class="col col-md-6">#}
+{#                        {% try %}#}
+{#                            {% module CompaniesMediumBox(company=main_page['boxes'][0]) %}#}
+{#                        {% except %}#}
+{#                        {% end %}#}
+{#                    </div>#}
+{#                    <div class="col col-md-6 visible-md visible-lg">#}
+{#                        {% try %}#}
+{#                            {% module CompaniesMediumBox(company=main_page['boxes'][1]) %}#}
+{#                        {% except %}#}
+{#                        {% end %}#}
 {#                        <div class="custom-box">#}
 {#                            <div class="box-medium">#}
 {#                                <div id="canvasClock">#}
@@ -71,23 +71,23 @@
 {#                                </div>#}
 {#                            </div>#}
 {#                        </div>#}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-md-6">
-                        {% try %}
-                            {% module CompaniesSmallBox(company=main_page['boxes'][2]) %}
-                        {% except %}
-                        {% end %}
-                    </div>
-                    <div class="col col-md-6 visible-md visible-lg">
-                        {% try %}
-                            {% module CompaniesSmallBox(company=main_page['boxes'][3]) %}
-                        {% except %}
-                        {% end %}
-                    </div>
-                </div>
-            </div>
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="row">#}
+{#                    <div class="col col-md-6">#}
+{#                        {% try %}#}
+{#                            {% module CompaniesSmallBox(company=main_page['boxes'][2]) %}#}
+{#                        {% except %}#}
+{#                        {% end %}#}
+{#                    </div>#}
+{#                    <div class="col col-md-6 visible-md visible-lg">#}
+{#                        {% try %}#}
+{#                            {% module CompaniesSmallBox(company=main_page['boxes'][3]) %}#}
+{#                        {% except %}#}
+{#                        {% end %}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
         </div>
 {#        <div class="row" style="direction: ltr">#}
 {#            <div id="OWL_RANDOM" class="owl-carousel">#}
