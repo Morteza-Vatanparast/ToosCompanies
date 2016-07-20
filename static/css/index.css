@@ -24,10 +24,12 @@
 
 .company-box-link img {
     transition: all .2s ease-in-out;
+    opacity: 0.8;
 }
 
 .company-box-link:hover img {
     transform: scale(1.05);
+    opacity: 1;
 }
 
 .service-box-link {
@@ -36,8 +38,10 @@
 
 .service-box-link img {
     transition: all .2s ease-in-out;
+    opacity: 0.8;
 }
 
 .service-box-link:hover img {
     transform: scale(1.05);
+    opacity: 1;
 }
