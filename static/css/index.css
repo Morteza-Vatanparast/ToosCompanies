@@ -28,7 +28,6 @@
 }
 
 .company-box-link:hover img {
-    transform: scale(1.05);
     opacity: 1;
 }
 
@@ -42,6 +41,5 @@
 }
 
 .service-box-link:hover img {
-    transform: scale(1.05);
     opacity: 1;
 }
