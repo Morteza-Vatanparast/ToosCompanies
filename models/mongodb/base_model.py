@@ -101,7 +101,7 @@ class MongodbModel(MongodbBaseModel):
 
     def get_all_key_pagination(self):
         try:
-            return self.collection.find(self.__body, self.__key).sort([(self.__sort, self.__ascending), (self.__sort, self.__ascending)]).skip(self.__size * (self.__page - 1)).limit(self.__size)
+            return self.collection.find(self.__body, self.__key).sort([(self.__sort, self.__ascending)]).skip(self.__size * (self.__page - 1)).limit(self.__size)
         except:
             return False
 
