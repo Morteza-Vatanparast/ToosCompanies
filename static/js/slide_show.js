@@ -30,13 +30,11 @@ start();
 $(document).on('mouseenter', '.custom-slider', function(){
     stop();
     $('.custom-carousel-control').fadeIn();
-    $('.custom-carousel-caption').fadeIn();
     $('.custom-carousel-indicators').fadeIn();
 });
 $(document).on('mouseleave', '.custom-slider', function(){
     start();
     $('.custom-carousel-control').fadeOut();
-    $('.custom-carousel-caption').fadeOut();
     $('.custom-carousel-indicators').fadeOut();
 });
 $(document).on('click', '.custom-carousel-control.left', function(){
