@@ -475,6 +475,7 @@ class CompaniesModel:
                 company = self.get_company(__i)
                 if company is not False:
                     __r.append(company)
+            __r = sorted(__r, key=lambda k: k['name'])
             return __r
         except:
             return []
