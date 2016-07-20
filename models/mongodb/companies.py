@@ -506,6 +506,7 @@ class CompaniesModel:
                     industrial_town=IndustrialTownCompaniesModel(_id=__i['industrial_town']).get_one()['name'],
                     description=__i['description']
                 ))
+            __r = sorted(__r, key=lambda k: k['name'])
             return __r
         except:
             return []
