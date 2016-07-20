@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="col col-md-6 visible-md visible-lg">
                                     {% try %}
-                                        {% module AdminCompaniesMediumBox(company=main_page['boxes'][1], box="BOX2") %}
+                                        {% module AdminCompaniesMediumBox(company=main_page['boxes'][0], box="BOX2") %}
                                     {% except %}
                                     {% end %}
                                 </div>
@@ -33,13 +33,13 @@
                             <div class="row">
                                 <div class="col col-md-6">
                                     {% try %}
-                                        {% module AdminCompaniesSmallBox(company=main_page['boxes'][2], box="BOX3") %}
+                                        {% module AdminCompaniesSmallBox(company=main_page['boxes'][0], box="BOX3") %}
                                     {% except %}
                                     {% end %}
                                 </div>
                                 <div class="col col-md-6 visible-md visible-lg">
                                     {% try %}
-                                        {% module AdminCompaniesSmallBox(company=main_page['boxes'][3], box="BOX4") %}
+                                        {% module AdminCompaniesSmallBox(company=main_page['boxes'][0], box="BOX4") %}
                                     {% except %}
                                     {% end %}
                                 </div>
