@@ -18,6 +18,7 @@
                         <li {% if active == "search_companies" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('search_companies') }}">جستجو شرکت ها</a></li>
                         <li {% if active == "register_companies" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('register_companies') }}">ثبت نام شرکت ها</a></li>
                         <li {% if active == "services" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('services') }}">خدمات</a></li>
+                        <li {% if active == "all_news" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('all_news') }}">اخبار</a></li>
                         <li {% if active == "contact_us" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('contact_us') }}">ارتباط با ما</a></li>
                         <li {% if active == "about_us" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('about_us') }}">درباره ما</a></li>
                     </ul>

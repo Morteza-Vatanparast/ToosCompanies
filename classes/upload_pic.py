@@ -39,11 +39,11 @@ class UploadPic:
             return []
 
     def upload_from_cropper(self, count=1, base64_str=None, name_format='{name}.{ext}'):
-        # try:
+        try:
             if base64_str is None:
                 base64_str = []
             for _str in base64_str[:count]:
-                # try:
+                try:
                     _str = base64.b64decode(_str.split(",")[1].strip())
                     _path_dir = os.path.join(Config().applications_root, "static", "images", "temp")
                     if not os.path.exists(_path_dir):
@@ -61,11 +61,11 @@ class UploadPic:
                         )
                         __folder = os.path.join(Config().applications_root, "static", "images", self.folder)
                         if not os.path.exists(__folder):
-                            os.makedirs(_path)
+                            os.makedirs(__folder)
                         img.save(os.path.join(__folder, file_name))
                         self.result.append(file_name)
-                # except:
-                #     pass
+                except:
+                    pass
             return self.result
-        # except:
-        #     return []
+        except:
+            return []

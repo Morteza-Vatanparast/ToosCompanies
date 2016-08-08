@@ -2,6 +2,8 @@ from bson import ObjectId
 
 from models.mongodb.base_model import MongodbModel
 from models.mongodb.companies import CompaniesModel
+from models.mongodb.news import NewsModel
+from models.mongodb.services import ServicesModel
 from models.mongodb.unit_companies import UnitCompaniesModel
 
 
@@ -61,46 +63,41 @@ class SettingModel:
 
     @staticmethod
     def get_main_page():
-        boxes = [None, None, None, None, None, None, None, None, None, None, None, None]
+        boxes = [None, None, None, None]
         unit_sections = []
         try:
             __body = {"key": "MAIN_PAGE"}
             __a = MongodbModel(body=__body, collection="setting").get_one()
             __c = CompaniesModel()
+            __n = NewsModel()
+            __s = ServicesModel()
             try:
                 for i in __a['boxes']:
-                    if i['box'] == "BOX1":
-                        boxes[0] = __c.get_one_main_page(i['company'])
-                    elif i['box'] == "BOX2":
-                        boxes[1] = __c.get_one_main_page(i['company'])
-                    elif i['box'] == "BOX3":
-                        boxes[2] = __c.get_one_main_page(i['company'])
-                    elif i['box'] == "BOX4":
-                        boxes[3] = __c.get_one_main_page(i['company'])
-                    elif i['box'] == "BOX5":
-                        boxes[4] = __c.get_one_main_page(i['company'])
-                    elif i['box'] == "BOX6":
-                        boxes[5] = __c.get_one_main_page(i['company'])
-                    elif i['box'] == "BOX7":
-                        boxes[6] = __c.get_one_main_page(i['company'])
-                    elif i['box'] == "BOX8":
-                        boxes[7] = __c.get_one_main_page(i['company'])
-                    elif i['box'] == "BOX9":
-                        boxes[8] = __c.get_one_main_page(i['company'])
-                    elif i['box'] == "BOX10":
-                        boxes[9] = __c.get_one_main_page(i['company'])
-                    elif i['box'] == "BOX11":
-                        boxes[10] = __c.get_one_main_page(i['company'])
-                    elif i['box'] == "BOX12":
-                        boxes[11] = __c.get_one_main_page(i['company'])
+                    try:
+                        if i['box'] == "BOX1":
+                            boxes[0] = __n.get_one_main_page(i['news'])
+                            boxes[0] = boxes[0] if boxes[0] is not False else None
+                        elif i['box'] == "BOX2":
+                            boxes[1] = __n.get_one_main_page(i['news'])
+                            boxes[1] = boxes[1] if boxes[1] is not False else None
+                        elif i['box'] == "BOX3":
+                            boxes[2] = __s.get_one_main_page(i['service'])
+                            boxes[2] = boxes[2] if boxes[2] is not False else None
+                        elif i['box'] == "BOX4":
+                            boxes[3] = __s.get_one_main_page(i['service'])
+                            boxes[3] = boxes[3] if boxes[3] is not False else None
+                    except:
+                        pass
             except:
                 pass
+            print boxes
             try:
                 for i in __a['unit_sections']:
                     a = dict(
                         unit_name=UnitCompaniesModel(_id=i['unit']).get_one()['name'],
                         unit_id=i['unit'],
                         format=i['format'],
+                        sort=i['sort'] if 'sort' in i.keys() else "",
                         companies=[]
                     )
                     for j in i['companies']:
@@ -111,6 +108,7 @@ class SettingModel:
                         unit_sections.append(a)
             except:
                 pass
+            unit_sections = sorted(unit_sections, key=lambda k: k['sort'])
             return dict(
                 boxes=boxes,
                 unit_sections=unit_sections

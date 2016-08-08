@@ -102,4 +102,11 @@ admin_url_patterns = {
 
     (r'^(?i)/Admin/News[/]?$', admin.AdminNewsHandler),
     (r'^/Admin/News', admin.AdminNewsHandler, None, "admin:news"),
+
+    (r'^(?i)/Admin/AddNews[/]?$', admin.AdminAddNewsHandler),
+    (r'^/Admin/AddNews', admin.AdminAddNewsHandler, None, "admin:add_news"),
+
+    (r'^(?i)/Admin/EditNews[/]?([\w^/]+)?[/]?$', admin.AdminEditNewsHandler),
+    (r'/Admin/EditNews', admin.AdminEditNewsHandler, None, 'admin:edit_news'),
+    (r'/Admin/EditNews/(id)', admin.AdminEditNewsHandler, None, 'admin:edit_news_by_id'),
 }

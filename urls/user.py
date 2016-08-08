@@ -20,8 +20,15 @@ user_url_patterns = {
     (r'/Service', user.ServiceHandler, None, 'service'),
     (r'/Service/(id)', user.ServiceHandler, None, 'service_by_id'),
 
+    (r'^(?i)/News/([\w^/]+)?[/]?$', user.NewsHandler),
+    (r'/News', user.NewsHandler, None, 'news'),
+    (r'/News/(id)', user.NewsHandler, None, 'news_by_id'),
+
     (r'^(?i)/Services[/]?$', user.ServicesHandler),
     (r'^/Services', user.ServicesHandler, None, "services"),
+
+    (r'^(?i)/AllNews[/]?$', user.AllNewsHandler),
+    (r'^/AllNews', user.AllNewsHandler, None, "all_news"),
 
     (r'^(?i)/ContactUs[/]?$', user.ContactUsHandler),
     (r'^/ContactUs', user.ContactUsHandler, None, "contact_us"),

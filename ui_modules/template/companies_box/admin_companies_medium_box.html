@@ -6,7 +6,7 @@
                 <div class="text-center R_butt_red delete-company" style="position: absolute;padding: 1px 5px;top: 0px;right: 11px">
                     <i class="fa fa-times"></i>
                 </div>
-                <img style="height: 212px; width: 100%" src="{{ static_url('images/company_image/' + company['image']) }}">
+                <img style="height: 212px; width: 100%" src="{{ static_url('images/news_image/' + company['image']) }}">
                 <div class="carousel-caption" style="padding: 0">
                     <h4 style="margin: 0">{{ company['name'] }}</h4>
                 </div>
@@ -19,7 +19,7 @@
         <img style="height: 212px; width: 100%" src="http://placehold.it/300x200" alt="">
         <div class="carousel-caption search" style="padding: 0">
             <div class="loader" style="display: none;position: absolute; top: 7px; left: 5px"><img src="{{ static_url('images/loading.gif') }}" width="20" height="20"></div>
-            <input data-area="1" type="text" class="form-control" name="search-company">
+            <input data-area="1" type="text" class="form-control" data-box="{{ box }}" name="search-company">
         </div>
     </div>
 </div>

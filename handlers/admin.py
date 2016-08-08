@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import base64
 import json
 
 import datetime
-import os
-import random
 
 import khayyam
 from bson import ObjectId
@@ -15,7 +12,6 @@ from classes.get_url import GetUrl
 from classes.public import Hash
 from classes.soap import Soap
 from classes.upload_pic import UploadPic
-from config import Config
 from handlers.base import AdminBaseHandler, admin_authentication
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.contact_us import ContactUsModel
@@ -1150,10 +1146,18 @@ class AdminMainPageHandler(AdminBaseHandler):
                 except:
                     unit_sections = []
                 for i in boxes:
-                    try:
-                        i['company'] = ObjectId(i['company'])
-                    except:
-                        i['company'] = None
+                    if i['box'] == "BOX1" or i['box'] == "BOX2":
+                        try:
+                            i['news'] = ObjectId(i['company'])
+                        except:
+                            i['news'] = None
+                        del i['company']
+                    else:
+                        try:
+                            i['service'] = ObjectId(i['company'])
+                        except:
+                            i['service'] = None
+                        del i['company']
                 for i in unit_sections:
                     try:
                         i['unit'] = ObjectId(i['unit'])
@@ -1163,6 +1167,10 @@ class AdminMainPageHandler(AdminBaseHandler):
                         i['companies'] = map(ObjectId, i['companies'])
                     except:
                         i['companies'] = []
+                    try:
+                        i['sort'] = int(i['sort'])
+                    except:
+                        i['sort'] = ""
                 SettingModel().update_main_page(boxes=boxes, unit_sections=unit_sections)
                 self.status = True
             elif action == "AddUnitSection":
@@ -1185,24 +1193,54 @@ class AdminMainPageHandler(AdminBaseHandler):
     def put(self, *args, **kwargs):
         try:
             text = self.get_argument('text', '')
+            box = self.get_argument('box', '')
             try:
                 unit = ObjectId(self.get_argument('unit', ''))
             except:
                 unit = None
             if text != '':
-                companies = CompaniesModel().get_all_active_main_page(_text=text, _unit=unit)
-                l = []
-                for item in companies:
-                    l.append({
-                        'id': str(item['_id']),
-                        'name': item['name'],
-                        'value': item['name'],
-                        'label': item['name'],
-                        'pic': item['image'],
-                        'city': item['city'],
-                        'industrial_town': item['industrial_town'],
-                        'description': item['description']
-                    })
+                if box == "BOX1" or box == "BOX2":
+                    news = NewsModel().get_all_like_main_page(_text=text)
+                    l = []
+                    for item in news:
+                        l.append({
+                            'id': str(item['_id']),
+                            'name': item['title'],
+                            'value': item['title'],
+                            'label': item['title'],
+                            'pic': item['image'],
+                            'type_box': "news",
+                        })
+                elif box == "BOX3" or box == "BOX4":
+                    services = ServicesModel().get_all_like_main_page(_text=text)
+                    l = []
+                    for item in services:
+                        l.append({
+                            'id': str(item['_id']),
+                            'name': item['name'],
+                            'value': item['name'],
+                            'label': item['name'],
+                            'pic': item['image'],
+                            'city': item['special_offer_text'],
+                            'industrial_town': "",
+                            'description': "",
+                            'type_box': "service",
+                        })
+                else:
+                    companies = CompaniesModel().get_all_active_main_page(_text=text, _unit=unit)
+                    l = []
+                    for item in companies:
+                        l.append({
+                            'id': str(item['_id']),
+                            'name': item['name'],
+                            'value': item['name'],
+                            'label': item['name'],
+                            'pic': item['image'],
+                            'city': item['city'],
+                            'industrial_town': item['industrial_town'],
+                            'description': item['description'],
+                            'type_box': "companies"
+                        })
                 self.write(json.dumps({'status': 'ok', 'items': [f['name'] for f in l], 'full_item': l}))
         except:
             self.write(self.error_result)
@@ -1233,3 +1271,82 @@ class AdminNewsHandler(AdminBaseHandler):
     def get(self, *args, **kwargs):
         self.data['news'] = NewsModel().get_all()
         self.render('admin/news.html', **self.data)
+
+    @gen.coroutine
+    @admin_authentication()
+    def delete(self, *args, **kwargs):
+        try:
+            news = self.get_argument('news', '')
+            NewsModel(_id=ObjectId(news)).delete()
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
+class AdminAddNewsHandler(AdminBaseHandler):
+    @gen.coroutine
+    @admin_authentication()
+    def get(self, *args, **kwargs):
+        self.render('admin/add_news.html', **self.data)
+
+    @gen.coroutine
+    @admin_authentication()
+    def post(self, *args, **kwargs):
+        try:
+            title = self.get_argument('title', '')
+            summary = self.get_argument('summary', '')
+            main_page = self.get_argument('main_page', 'false')
+            body = self.get_argument('body', '')
+            main_page = True if main_page == 'true' else False
+            if title != "" and summary != "" and body != "":
+                try:
+                    image = UploadPic(handler=self, folder='news_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])[0]
+                    print image
+                except:
+                    image = 'default.jpg'
+                NewsModel(title=title, summary=summary, image=image, main_page=main_page, body=body).insert()
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)
+
+
+class AdminEditNewsHandler(AdminBaseHandler):
+    @gen.coroutine
+    @admin_authentication()
+    def get(self, *args, **kwargs):
+        try:
+            news = args[0]
+            if news is not None:
+                news = ObjectId(news)
+        except:
+            news = None
+        self.data['news'] = NewsModel(_id=news).get_one()
+        self.render('admin/edit_news.html', **self.data)
+
+    @gen.coroutine
+    @admin_authentication()
+    def post(self, *args, **kwargs):
+        try:
+            news = args[0]
+            if news is not None:
+                news = ObjectId(news)
+        except:
+            news = None
+        try:
+            title = self.get_argument('title', '')
+            summary = self.get_argument('summary', '')
+            main_page = self.get_argument('main_page', 'false')
+            body = self.get_argument('body', '')
+            main_page = True if main_page == 'true' else False
+            if title != "" and summary != "" and body != "":
+                try:
+                    image = UploadPic(handler=self, folder='news_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])
+                except:
+                    image = []
+                NewsModel(_id=news, title=title, summary=summary, image=image, main_page=main_page, body=body).update()
+            self.status = True
+            self.write(self.result)
+        except:
+            self.write(self.error_result)

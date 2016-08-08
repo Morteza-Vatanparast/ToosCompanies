@@ -24,32 +24,8 @@ class MongodbModel(MongodbBaseModel):
         self.__option = option
         self.__ascending = ascending
 
-        self.__collection = collection
         self.__condition = condition
-        if collection == 'companies':
-            self.collection = self.db.companies
-        if collection == 'unit_companies':
-            self.collection = self.db.unit_companies
-        if collection == 'industrial_town_companies':
-            self.collection = self.db.industrial_town_companies
-        if collection == 'province':
-            self.collection = self.db.province
-        if collection == 'city':
-            self.collection = self.db.city
-        if collection == 'tables':
-            self.collection = self.db.tables
-        if collection == 'type_products':
-            self.collection = self.db.type_products
-        if collection == 'products':
-            self.collection = self.db.products
-        if collection == 'services':
-            self.collection = self.db.services
-        if collection == 'orders':
-            self.collection = self.db.orders
-        if collection == 'setting':
-            self.collection = self.db.setting
-        if collection == 'contact_us':
-            self.collection = self.db.contact_us
+        self.collection = self.db[collection]
 
     def insert(self):
         try:

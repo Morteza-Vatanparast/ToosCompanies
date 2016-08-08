@@ -28,6 +28,39 @@ class ServicesModel:
             return True
         except:
             return False
+
+    @staticmethod
+    def get_one_main_page(__id=None):
+        try:
+            __body = {'_id': __id}
+            __key = {'name': 1, 'image': 1, "special_offer_text": 1}
+            __i = MongodbModel(body=__body, key=__key, collection="services").get_one_key()
+            return dict(
+                _id=__i['_id'],
+                name=__i['name'],
+                special_offer_text=__i['special_offer_text'],
+                image=__i['image'] if "image" in __i.keys() else "",
+            )
+        except:
+            return False
+
+    @staticmethod
+    def get_all_like_main_page(_text=""):
+        # try:
+            __body = {'name': {"$regex": _text}, "main_page": True, "special_offer": True}
+            __key = {'name': 1, 'image': 1, 'special_offer_text': 1}
+            __a = MongodbModel(body=__body, key=__key, collection="services", sort="name", ascending=1, size=10).get_all_key_pagination()
+            __r = []
+            for __i in __a:
+                __r.append(dict(
+                    _id=__i['_id'],
+                    name=__i['name'],
+                    special_offer_text=__i['special_offer_text'],
+                    image=__i['image'] if "image" in __i.keys() else "",
+                ))
+            return __r
+        # except:
+        #     return []
     
     @staticmethod
     def get_all():

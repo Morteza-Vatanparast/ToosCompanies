@@ -83,7 +83,7 @@
                 </div>
                 <div class="unit-sections">
                     {% for i in main_page['unit_sections'] %}
-                        {% module AdminUnitSectionBoxes(unit_id=i['unit_id'], unit_name=i['unit_name'], _format=i['format'], companies=i['companies'], empty=False) %}
+                        {% module AdminUnitSectionBoxes(unit_id=i['unit_id'], unit_name=i['unit_name'], _format=i['format'], _sort=i['sort'], companies=i['companies'], empty=False) %}
                     {% end %}
                 </div>
             </div>
@@ -111,13 +111,13 @@
                 <div class="text-center delete-company R_butt_red" style="position: absolute;padding: 1px 5px;top: -3px;right: 12px">
                     <i class="fa fa-times"></i>
                 </div>
-                <img class="company-image" style="width: 100%; height: 100px" src="">
+                <img class="company-image" style="width: 100%; height: 90px" src="">
             </div>
             <div class="col-xs-7">
                 <div style="padding: 3px">
                     <div style="font-size: 17px; font-weight: bold" class="company-name"></div>
                     <div style="font-size: 12px; margin-top: 10px;">
-                        <span class="company-city"></span> - <span class="company-industrial-town"></span>
+                        <span class="company-city"></span><span class="company-industrial-town"></span>
                         <br><span class="company-description"></span>
                     </div>
                 </div>
@@ -227,8 +227,10 @@
 <script>
     var trash = '<i class="fa fa-trash-o"></i>';
     var loader = '<img src="{{ static_url('images/loading.gif') }}" width="20" height="20">';
-    var __company_image = '{{ static_url('images/company_image/' + '__image__') }}';
-    var __static_url = '{{ static_url('images/company_logo/' + '__pic__') }}';
+    var __company_image = '{{ static_url('images/company_image/' + '__pic__') }}';
+    var __static_url_company = '{{ static_url('images/company_logo/' + '__pic__') }}';
+    var __static_url_news = '{{ static_url('images/news_image/' + '__pic__') }}';
+    var __static_url_service = '{{ static_url('images/service_image/' + '__pic__') }}';
 
     $(document).on('mouseenter', '.show-format', function(e){
         var format = $(e.target).closest('.show-format').attr('data-format');
@@ -243,10 +245,13 @@
             select: function( a, b ) {
                 var _this = $(this).closest('.company-box');
                 var __type = _this.attr('data-type-box');
+                var __static_url = __company_image;
                 if(__type == "small"){
+                    if(b.item.type_box == "service")
+                        __static_url = __static_url_service;
                     var small_box = $("#temp_small_box");
                     small_box.html($("#small_box").html());
-                    small_box.find('.company-image').attr('src', __company_image.replace('__image__', b.item.pic));
+                    small_box.find('.company-image').attr('src', __static_url.replace('__pic__', b.item.pic));
                     small_box.find('.company-name').html(b.item.label);
                     small_box.find('.company-city').html(b.item.city);
                     small_box.find('.company-industrial-town').html(b.item.industrial_town);
@@ -256,9 +261,11 @@
                     _this.find('.info-company-box').html(small_box.html()).show();
                 }
                 if(__type == "medium"){
+                    if(b.item.type_box == "news")
+                        __static_url = __static_url_news;
                     var medium_box = $("#temp_medium_box");
                     medium_box.html($("#medium_box").html());
-                    medium_box.find('.company-image').attr('src', __company_image.replace('__image__', b.item.pic));
+                    medium_box.find('.company-image').attr('src', __static_url.replace('__pic__', b.item.pic));
                     medium_box.find('.company-name').html(b.item.label);
                     _this.attr('data-company', b.item.id);
                     _this.find('.set-company-box').hide();
@@ -267,7 +274,7 @@
                 if(__type == "section-small"){
                     var section_small_box = $("#temp_section_small_box");
                     section_small_box.html($("#section_small_box").html());
-                    section_small_box.find('.company-image').attr('src', __company_image.replace('__image__', b.item.pic));
+                    section_small_box.find('.company-image').attr('src', __company_image.replace('__pic__', b.item.pic));
                     section_small_box.find('.company-name').html(b.item.label);
                     section_small_box.find('.company-city').html(b.item.city);
                     section_small_box.find('.company-industrial-town').html(b.item.industrial_town);
@@ -279,7 +286,7 @@
                 if(__type == "section-medium"){
                     var section_medium_box = $("#temp_section_medium_box");
                     section_medium_box.html($("#section_medium_box").html());
-                    section_medium_box.find('.company-image').attr('src', __company_image.replace('__image__', b.item.pic));
+                    section_medium_box.find('.company-image').attr('src', __company_image.replace('__pic__', b.item.pic));
                     section_medium_box.find('.company-name').html(b.item.label);
                     section_medium_box.find('.company-city').html(b.item.city);
                     section_medium_box.find('.company-industrial-town').html(b.item.industrial_town);
@@ -296,11 +303,18 @@
         if($(this).val() != ''){
             var __loader = $(this).closest('.search').find('.loader');
             __loader.show();
+            var __box = $(this).attr('data-box');
             var arr = {
                 unit: $(this).closest('.unit-info').attr('data-unit'),
                 text: $(this).val(),
+                box: __box,
                 _xsrf: '{{ handler.xsrf_token }}'
             };
+            var __static_url = __static_url_company;
+            if(__box == "BOX1" || __box == "BOX2")
+                __static_url = __static_url_news;
+            if(__box == "BOX3" || __box == "BOX4")
+                __static_url = __static_url_service;
             var th = $(this);
             $.ajax({
                 data: arr,
@@ -370,6 +384,7 @@
             unit_sections.push({
                 companies: companies,
                 unit: $(this).attr('data-unit'),
+                sort: $(this).find('input.sort').val(),
                 format: $(this).attr('data-format')
             });
         });

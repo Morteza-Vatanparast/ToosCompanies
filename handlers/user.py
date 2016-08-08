@@ -14,6 +14,7 @@ from handlers.base import UserBaseHandler
 from models.mongodb.companies import CompaniesModel
 from models.mongodb.contact_us import ContactUsModel
 from models.mongodb.industrial_town_companies import IndustrialTownCompaniesModel
+from models.mongodb.news import NewsModel
 from models.mongodb.orders import OrdersModel
 from models.mongodb.province_city import ProvinceCityModel
 from models.mongodb.services import ServicesModel
@@ -30,6 +31,7 @@ class IndexHandler(UserBaseHandler):
         self.data['__now_name'] = khayyam.JalaliDatetime().now().strftime("%A - %d %B %Y")
         self.data['main_page'] = SettingModel().get_main_page()
         self.data['services'] = ServicesModel().get_all_main_page()
+        self.data['news'] = NewsModel().get_all_main_page()
         self.render('user/index.html', **self.data)
 
 
@@ -126,6 +128,28 @@ class ServicesHandler(UserBaseHandler):
             self.write({'status': 'failed', 'data': '', 'page': 0})
 
 
+class AllNewsHandler(UserBaseHandler):
+    @gen.coroutine
+    def get(self, *args, **kwargs):
+        self.data['all_news'] = NewsModel().get_all_pagination()
+        self.data['count'] = NewsModel().count()
+        self.render('user/all_news.html', **self.data)
+
+    def post(self, *args, **kwargs):
+        try:
+            page = int(self.get_argument('page', 1))
+            all_news = NewsModel().get_all_pagination(page=page)
+            html = ''
+            for _s in all_news:
+                html += '<div class="col-md-4 margin-top-10">'
+                html += self.render_string('../ui_modules/template/companies_box/news_box.html',
+                                           news=_s)
+                html += '</div>'
+            self.write({'count': len(all_news), 'status': 'success', 'data': html, 'page': int(page) + 1})
+        except:
+            self.write({'status': 'failed', 'data': '', 'page': 0})
+
+
 class ContactUsHandler(UserBaseHandler):
     @gen.coroutine
     def get(self, *args, **kwargs):
@@ -185,6 +209,19 @@ class CompanyHandler(UserBaseHandler):
         photo_name = str(self.data['company']['_id']) + '.jpg'
         img.save(os.path.join(_folder, photo_name))
         self.render('user/company.html', **self.data)
+
+
+class NewsHandler(UserBaseHandler):
+    @gen.coroutine
+    def get(self, *args, **kwargs):
+        try:
+            news = args[0]
+            if news is not None:
+                news = ObjectId(news)
+        except:
+            news = None
+        self.data['news'] = NewsModel(_id=news).get_one()
+        self.render('user/news.html', **self.data)
 
 
 class ServiceHandler(UserBaseHandler):

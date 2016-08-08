@@ -111,11 +111,11 @@ class UnitSectionBoxes(UIModule):
 
 
 class AdminUnitSectionBoxes(UIModule):
-    def render(self, unit_id=None, unit_name=None, _format=None, companies=None, empty=False):
+    def render(self, unit_id=None, unit_name=None, _format=None, _sort=None, companies=None, empty=False):
         if companies is None:
             companies = []
         return self.render_string('../ui_modules/template/companies_box/admin_unit_section_boxes.html',
-                                  unit_name=unit_name, unit_id=unit_id, _format=_format, empty=empty,
+                                  unit_name=unit_name, unit_id=unit_id, _format=_format, _sort=_sort, empty=empty,
                                   companies=companies)
 
 
@@ -123,3 +123,9 @@ class ServiceBox(UIModule):
     def render(self, service=None):
         return self.render_string('../ui_modules/template/companies_box/service_box.html',
                                   service=service)
+
+
+class NewsBox(UIModule):
+    def render(self, news=None):
+        return self.render_string('../ui_modules/template/companies_box/news_box.html',
+                                  news=news)

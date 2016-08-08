@@ -1,9 +1,9 @@
 <div class="col">
     <div class="custom-box service-box-link" style="direction: rtl" onclick="window.open('{{ reverse_url('service_by_id', service['_id']) }}')">
         {% if service['special_offer'] %}
-            <img style="position: absolute;" src="{{ static_url('images/special_offer.png') }}">
+            <img style="position: absolute; opacity: 1" class="special_offer" src="{{ static_url('images/special_offer.png') }}">
         {% end %}
-        <img style="width: 100%; height: 170px" src="{{ static_url('images/service_image/' + service['image']) }}">
+        <img style="width: 100%; height: 170px" class="service" src="{{ static_url('images/service_image/' + service['image']) }}">
         <div style="padding: 10px; height: 50px; text-align: center; font-size: 17px; font-weight: bold;">{{ service['name'] }}</div>
     </div>
 </div>
