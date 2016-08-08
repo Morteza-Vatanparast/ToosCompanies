@@ -40,6 +40,14 @@
     opacity: 0.8;
 }
 
-.service-box-link:hover img {
+.service-box-link .carousel-caption {
+    display: none;
+}
+
+.service-box-link:hover img.service {
     opacity: 1;
+}
+
+.service-box-link:hover .carousel-caption {
+    display: block;
 }
