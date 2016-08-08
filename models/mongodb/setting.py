@@ -90,7 +90,6 @@ class SettingModel:
                         pass
             except:
                 pass
-            print boxes
             try:
                 for i in __a['unit_sections']:
                     a = dict(

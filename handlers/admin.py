@@ -1302,7 +1302,6 @@ class AdminAddNewsHandler(AdminBaseHandler):
             if title != "" and summary != "" and body != "":
                 try:
                     image = UploadPic(handler=self, folder='news_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])[0]
-                    print image
                 except:
                     image = 'default.jpg'
                 NewsModel(title=title, summary=summary, image=image, main_page=main_page, body=body).insert()
