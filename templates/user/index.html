@@ -23,6 +23,11 @@
     <link rel="stylesheet" href="{{ static_url('css/navbar.css') }}">
 {#    <link rel="stylesheet" href="{{ static_url('css/slide_show.css') }}">#}
     <link type="text/css" rel="stylesheet" href="{{ static_url('plugins/fontawesome/css/font-awesome.min.css') }}">
+    <style>
+        .owl-theme .owl-controls{
+            margin-top: 0!important;
+        }
+    </style>
 <link rel="stylesheet" href="{{ static_url('plugins/mini-colors/jquery.minicolors.css') }}">
 
 </head>
@@ -73,15 +78,15 @@
                 </div>
             </div>
         </div>
-{#        <div class="row" style="direction: ltr">#}
-{#            <div id="OWL_RANDOM" class="owl-carousel">#}
-{#                {% module CompaniesSmallBoxRow(main_page['boxes'][4:]) %}#}
-{#            </div>#}
-{#        </div>#}
 
-        {% for i in main_page['unit_sections'] %}
-            {% module UnitSectionBoxes(unit_name=i['unit_name'], unit_id=i['unit_id'], _format=i['format'], companies=i['companies']) %}
-        {% end %}
+
+        <div class="row">
+            <div class="col-md-12">
+                {% for i in main_page['unit_sections'] %}
+                    {% module UnitSectionBoxes(unit_name=i['unit_name'], unit_id=i['unit_id'], _format=i['format'], companies=i['companies']) %}
+                {% end %}
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-12">
