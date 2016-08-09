@@ -1,7 +1,7 @@
-$(window).scroll(function () {
-    var $navbar = $(".navbar");
-    $navbar.offset() && ($navbar.offset().top > 200 ? $navbar.addClass("top-nav-collapse") : $navbar.removeClass("top-nav-collapse"))
-});
+//$(window).scroll(function () {
+//    var $navbar = $(".navbar");
+//    $navbar.offset() && ($navbar.offset().top > 200 ? $navbar.addClass("top-nav-collapse") : $navbar.removeClass("top-nav-collapse"))
+//});
 
 $('#search_submit').click(function(){
     if($('#search_input').hasClass('search-input-focus') && $('#search_input').val() != ""){

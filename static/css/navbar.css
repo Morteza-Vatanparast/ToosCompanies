@@ -25,7 +25,7 @@
 #search_wrap {
     display: inline-block;
     position: relative;
-    height: 45px;
+    height: 40px;
     float: left;
     padding: 0;
     position: relative;
@@ -66,7 +66,7 @@
 }
 
 #search_submit {
-    height: 45px;
+    height: 30px;
     width: 50px;
     display: inline-block;
     float: left;
