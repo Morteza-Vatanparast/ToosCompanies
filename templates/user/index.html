@@ -89,7 +89,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" style="top: -15px;">
                 <i style="font-size: 20px; font-weight: bold; margin-left: 10px" class="fa fa-angle-left"></i>
                 <span style="font-size: 15px; font-weight: bold">خدمات</span>
             </div>
@@ -182,6 +182,7 @@ var millisecond = parseInt('{{ __now.microsecond }}');
         $(".OWL_NEWS_SERVICE_TOP").owlCarousel({
             autoPlay: true,
             items: 1,
+            singleItem: true,
             stopOnHover: true
         });
         $(".OWL_SLIDE_SHOW").owlCarousel({
