@@ -1,4 +1,4 @@
-<div class="custom-slide {% if _slide == 1 %}active{% end %}" data-slide="{{ _slide }}" data-all-slide="{{ all_slide }}" style="{% if _slide == 1 %}display: block;{% end %}">
+<div class="col">
     <div onclick="window.open('{{ reverse_url('company_by_id', _format['areas'][0]['company']['_id']) }}')" style="cursor: pointer">
         <img style="height: 320px; width: 100%" src="{{ static_url('images/company_slider/' + _format['areas'][0]['company']['slider_image']) }}" alt="">
         <div style="padding: 20px 0" class="carousel-caption custom-carousel-caption">
