@@ -12,7 +12,7 @@
                     </button>
                     <a class="navbar-brand" style="font-family: Bardiya; color: white; padding: 15px 10px;" href="{{ reverse_url('index') }}">شرکت های صنعتی خراسان رضوی</a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
+                <div id="navbar" style="padding-left: 0px; padding-right: 0px;" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li {% if active == "index" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('index') }}">صفحه اصلی</a></li>
                         <li {% if active == "search_companies" %}class="active"{% end %}><a style="color: white" href="{{ reverse_url('search_companies') }}">جستجو شرکت</a></li>
@@ -26,10 +26,10 @@
             </div>
             <div class="col-md-2 hidden-sm hidden-xs">
                 <div id="search_wrap">
-                    <div class="col-xs-10" style="padding-left: 0">
+                    <div class="col-xs-9" style="padding-left: 0; padding-right: 0">
                         <input id="search_input" autocomplete="off" name="search" type="text" placeholder="جستجو">
                     </div>
-                    <div class="col-xs-2" style="padding-right: 0; padding-left: 0; padding-top: 9px; right: 15px">
+                    <div class="col-xs-3" style="padding-right: 0; padding-left: 0; padding-top: 9px; right: 15px">
                         <i id="search_submit" style="color: white; font-size: 28px; cursor: pointer;" class="fa fa-search"></i>
                     </div>
                 </div>
