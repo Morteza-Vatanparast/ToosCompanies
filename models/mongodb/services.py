@@ -5,12 +5,13 @@ from models.mongodb.base_model import MongodbModel
 
 class ServicesModel:
     def __init__(self, _id=None, name=None, description=None, image=None, main_page=None,
-                 special_offer=None, special_offer_text=None):
+                 special_offer=None, slider=None, special_offer_text=None):
         self.id = _id
         self.name = name
         self.image = image
         self.main_page = main_page
         self.special_offer = special_offer
+        self.slider = slider
         self.special_offer_text = special_offer_text
         self.description = description
 
@@ -21,6 +22,7 @@ class ServicesModel:
                 "description": self.description,
                 "main_page": self.main_page,
                 "special_offer": self.special_offer,
+                "slider": self.slider,
                 "special_offer_text": self.special_offer_text,
                 "image": self.image
             }
@@ -46,7 +48,7 @@ class ServicesModel:
 
     @staticmethod
     def get_all_like_main_page(_text=""):
-        # try:
+        try:
             __body = {'name': {"$regex": _text}, "main_page": True, "special_offer": True}
             __key = {'name': 1, 'image': 1, 'special_offer_text': 1}
             __a = MongodbModel(body=__body, key=__key, collection="services", sort="name", ascending=1, size=10).get_all_key_pagination()
@@ -59,8 +61,8 @@ class ServicesModel:
                     image=__i['image'] if "image" in __i.keys() else "",
                 ))
             return __r
-        # except:
-        #     return []
+        except:
+            return []
     
     @staticmethod
     def get_all():
@@ -78,6 +80,18 @@ class ServicesModel:
     def get_all_main_page():
         try:
             __body = {"main_page": True}
+            __a = MongodbModel(body=__body, collection="services").get_all()
+            __r = []
+            for __i in __a:
+                __r.append(__i)
+            return __r
+        except:
+            return []
+
+    @staticmethod
+    def get_all_main_page_slider():
+        try:
+            __body = {"main_page": True, "slider": True}
             __a = MongodbModel(body=__body, collection="services").get_all()
             __r = []
             for __i in __a:
@@ -112,10 +126,11 @@ class ServicesModel:
             __body = {
                 "$set": {
                     "name": self.name,
-                    "main_page": self.main_page,
                     "description": self.description,
+                    "main_page": self.main_page,
                     "special_offer": self.special_offer,
-                    "special_offer_text": self.special_offer_text,
+                    "slider": self.slider,
+                    "special_offer_text": self.special_offer_text
                 }
             }
             if len(self.image):

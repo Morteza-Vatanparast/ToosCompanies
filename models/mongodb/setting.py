@@ -63,33 +63,11 @@ class SettingModel:
 
     @staticmethod
     def get_main_page():
-        boxes = [None, None, None, None]
         unit_sections = []
         try:
             __body = {"key": "MAIN_PAGE"}
             __a = MongodbModel(body=__body, collection="setting").get_one()
             __c = CompaniesModel()
-            __n = NewsModel()
-            __s = ServicesModel()
-            try:
-                for i in __a['boxes']:
-                    try:
-                        if i['box'] == "BOX1":
-                            boxes[0] = __n.get_one_main_page(i['news'])
-                            boxes[0] = boxes[0] if boxes[0] is not False else None
-                        elif i['box'] == "BOX2":
-                            boxes[1] = __n.get_one_main_page(i['news'])
-                            boxes[1] = boxes[1] if boxes[1] is not False else None
-                        elif i['box'] == "BOX3":
-                            boxes[2] = __s.get_one_main_page(i['service'])
-                            boxes[2] = boxes[2] if boxes[2] is not False else None
-                        elif i['box'] == "BOX4":
-                            boxes[3] = __s.get_one_main_page(i['service'])
-                            boxes[3] = boxes[3] if boxes[3] is not False else None
-                    except:
-                        pass
-            except:
-                pass
             try:
                 for i in __a['unit_sections']:
                     a = dict(
@@ -109,12 +87,10 @@ class SettingModel:
                 pass
             unit_sections = sorted(unit_sections, key=lambda k: k['sort'])
             return dict(
-                boxes=boxes,
                 unit_sections=unit_sections
             )
         except:
             return dict(
-                boxes=boxes,
                 unit_sections=unit_sections
             )
 

@@ -4,13 +4,14 @@ from models.mongodb.base_model import MongodbModel
 
 
 class NewsModel:
-    def __init__(self, _id=None, title=None, image=None, summary=None, body=None, main_page=None):
+    def __init__(self, _id=None, title=None, image=None, summary=None, body=None, main_page=None, slider=None):
         self.id = _id
         self.title = title
         self.image = image
         self.summary = summary
         self.body = body
         self.main_page = main_page
+        self.slider = slider
 
     def insert(self):
         try:
@@ -18,6 +19,7 @@ class NewsModel:
                 "title": self.title,
                 "image": self.image,
                 "main_page": self.main_page,
+                "slider": self.slider,
                 "summary": self.summary,
                 "body": self.body
             }
@@ -42,6 +44,18 @@ class NewsModel:
     def get_all_main_page():
         try:
             __body = {"main_page": True}
+            __a = MongodbModel(body=__body, collection="news").get_all()
+            __r = []
+            for __i in __a:
+                __r.append(__i)
+            return __r
+        except:
+            return []
+
+    @staticmethod
+    def get_all_main_page_slider():
+        try:
+            __body = {"main_page": True, "slider": True}
             __a = MongodbModel(body=__body, collection="news").get_all()
             __r = []
             for __i in __a:
@@ -94,6 +108,7 @@ class NewsModel:
                 "$set": {
                     "title": self.title,
                     "main_page": self.main_page,
+                    "slider": self.slider,
                     "summary": self.summary,
                     "body": self.body
                 }

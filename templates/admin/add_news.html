@@ -58,11 +58,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-1 col-xs-offset-2">
-                                                    <input name="main_page" value="true" type="checkbox" class="form-control">
-                                                </div>
-                                                <div class="col-xs-3 text-right" style="padding: 8px">
-                                                    <span>صفحه اصلی</span>
+                                                <div class="col-xs-4 col-xs-offset-2">
+                                                    <div class="row">
+                                                        <div class="col-md-2"><input name="main_page" value="true" type="checkbox" style="height: 0px" class="form-control"></div>
+                                                        <div class="col-md-10"><span>صفحه اصلی</span></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-2"><input name="slider" value="true" type="checkbox" style="height: 0px" class="form-control"></div>
+                                                        <div class="col-md-10"><span>اسلایدر</span></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row margin-top-10">
@@ -202,6 +206,7 @@
             data.append('body', check_value(tinyMCE.get("editable").getContent(), 'متن را وارد کنید.'));
             data.append('image', $('input[name=image]').val());
             data.append('main_page', $('input[name=main_page]').prop('checked'));
+            data.append('slider', $('input[name=slider]').prop('checked'));
             if(__error){
                 Alert.render(__message, function(){
                     btn.html('افزودن');

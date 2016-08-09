@@ -633,7 +633,6 @@ class AdminIndustrialTownCompaniesHandler(AdminBaseHandler):
             self.write(self.error_result)
 
 
-
 class AdminTablesHandler(AdminBaseHandler):
     @gen.coroutine
     @admin_authentication()
@@ -968,16 +967,18 @@ class AdminAddServicesHandler(AdminBaseHandler):
             description = self.get_argument('description', '')
             main_page = self.get_argument('main_page', 'false')
             special_offer = self.get_argument('special_offer', 'false')
+            slider = self.get_argument('slider', 'false')
             special_offer_text = self.get_argument('special_offer_text', '')
             main_page = True if main_page == 'true' else False
             special_offer = True if special_offer == 'true' else False
+            slider = True if slider == 'true' else False
             if name != "" and description != "":
                 try:
                     image = UploadPic(handler=self, folder='service_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])[0]
                 except:
                     image = 'default.jpg'
                 ServicesModel(name=name, description=description, image=image, main_page=main_page,
-                              special_offer=special_offer, special_offer_text=special_offer_text).insert()
+                              special_offer=special_offer, slider=slider, special_offer_text=special_offer_text).insert()
             self.status = True
             self.write(self.result)
         except:
@@ -1010,13 +1011,19 @@ class AdminEditServicesHandler(AdminBaseHandler):
             name = self.get_argument('name', '')
             description = self.get_argument('description', '')
             main_page = self.get_argument('main_page', 'false')
+            special_offer = self.get_argument('special_offer', 'false')
+            slider = self.get_argument('slider', 'false')
+            special_offer_text = self.get_argument('special_offer_text', '')
             main_page = True if main_page == 'true' else False
+            special_offer = True if special_offer == 'true' else False
+            slider = True if slider == 'true' else False
             if name != "" and description != "":
                 try:
                     image = UploadPic(handler=self, folder='service_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])
                 except:
                     image = []
-                ServicesModel(_id=service, name=name, description=description, image=image, main_page=main_page).update()
+                ServicesModel(_id=service, name=name, description=description, image=image, main_page=main_page,
+                              special_offer=special_offer, slider=slider, special_offer_text=special_offer_text).update()
             self.status = True
             self.write(self.result)
         except:
@@ -1297,14 +1304,16 @@ class AdminAddNewsHandler(AdminBaseHandler):
             title = self.get_argument('title', '')
             summary = self.get_argument('summary', '')
             main_page = self.get_argument('main_page', 'false')
+            slider = self.get_argument('slider', 'false')
             body = self.get_argument('body', '')
             main_page = True if main_page == 'true' else False
+            slider = True if slider == 'true' else False
             if title != "" and summary != "" and body != "":
                 try:
                     image = UploadPic(handler=self, folder='news_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])[0]
                 except:
                     image = 'default.jpg'
-                NewsModel(title=title, summary=summary, image=image, main_page=main_page, body=body).insert()
+                NewsModel(title=title, summary=summary, image=image, main_page=main_page, slider=slider, body=body).insert()
             self.status = True
             self.write(self.result)
         except:
@@ -1337,14 +1346,16 @@ class AdminEditNewsHandler(AdminBaseHandler):
             title = self.get_argument('title', '')
             summary = self.get_argument('summary', '')
             main_page = self.get_argument('main_page', 'false')
+            slider = self.get_argument('slider', 'false')
             body = self.get_argument('body', '')
             main_page = True if main_page == 'true' else False
+            slider = True if slider == 'true' else False
             if title != "" and summary != "" and body != "":
                 try:
                     image = UploadPic(handler=self, folder='news_image').upload_from_cropper(base64_str=[self.get_argument('image', '')])
                 except:
                     image = []
-                NewsModel(_id=news, title=title, summary=summary, image=image, main_page=main_page, body=body).update()
+                NewsModel(_id=news, title=title, summary=summary, image=image, main_page=main_page, slider=slider, body=body).update()
             self.status = True
             self.write(self.result)
         except:

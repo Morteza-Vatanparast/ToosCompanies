@@ -34,7 +34,7 @@
                                                 </div>
                                             </div>
                                             <div class="row margin-top-10">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="row">
                                                         <div class="col-xs-1">
                                                             <input name="main_page" value="true" type="checkbox" class="form-control">
@@ -44,13 +44,23 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="row">
                                                         <div class="col-xs-1">
                                                             <input name="special_offer" value="true" type="checkbox" class="form-control">
                                                         </div>
                                                         <div class="col-xs-4 text-center" style="padding: 8px">
                                                             <span>پیشنهاد ویژه</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input name="slider" value="true" type="checkbox" class="form-control">
+                                                        </div>
+                                                        <div class="col-xs-4 text-center" style="padding: 8px">
+                                                            <span>اسلایدر</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -218,6 +228,7 @@
             data.append('image', $('input[name=image]').val());
             data.append('main_page', $('input[type=checkbox][name=main_page]').prop('checked'));
             data.append('special_offer', $('input[type=checkbox][name=special_offer]').prop('checked'));
+            data.append('slider', $('input[type=checkbox][name=slider]').prop('checked'));
             data.append('special_offer_text', $('input[name=special_offer_text]').val());
             if(__error){
                 Alert.render(__message, function(){

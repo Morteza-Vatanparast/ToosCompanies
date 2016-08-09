@@ -49,42 +49,22 @@
             <div class="col-md-6 col-sm-4 visible-sm visible-md visible-lg" style="padding-left: 15px; padding-right: 15px">
                 <div class="row">
                     <div class="col col-md-6">
-                        {% try %}
-                            {% module CompaniesMediumBox(company=main_page['boxes'][0]) %}
-                        {% except %}
-                        {% end %}
+                        <div class="row" style="direction: ltr">
+                            <div class="owl-carousel OWL_NEWS_SERVICE_TOP">
+                                {% for n in news_slider %}
+                                    {% module NewsMediumBox(news=n) %}
+                                {% end %}
+                            </div>
+                        </div>
                     </div>
                     <div class="col col-md-6 visible-md visible-lg">
-                        {% try %}
-                            {% module CompaniesMediumBox(company=main_page['boxes'][1]) %}
-                        {% except %}
-                        {% end %}
-{#                        <div class="custom-box">#}
-{#                            <div class="box-medium">#}
-{#                                <div id="canvasClock">#}
-{#                                    <div style="text-align: center; font-size: 19px; margin-top: 0; direction: rtl;;"></div>#}
-{#                                    <canvas class="canvas center-block" id="analogClock" width="240" height="240" style="max-width: 100%; margin-top: -25px;"></canvas>#}
-{#                                    <div class="row text-center" style="margin-top: -23px;">#}
-{#                                        <div class="col col-md-7">{{ __now_name }}</div>#}
-{#                                        <div class="col col-md-5" id="digitalClock">00:00:00 AM</div>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-md-6">
-                        {% try %}
-                            {% module CompaniesSmallBox(company=main_page['boxes'][2]) %}
-                        {% except %}
-                        {% end %}
-                    </div>
-                    <div class="col col-md-6 visible-md visible-lg">
-                        {% try %}
-                            {% module CompaniesSmallBox(company=main_page['boxes'][3]) %}
-                        {% except %}
-                        {% end %}
+                        <div class="row" style="direction: ltr">
+                            <div class="owl-carousel OWL_NEWS_SERVICE_TOP">
+                                {% for s in services_slider %}
+                                    {% module ServiceMediumBox(service=s) %}
+                                {% end %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -188,6 +168,11 @@ var millisecond = parseInt('{{ __now.microsecond }}');
         $(".owl-carousel-row").owlCarousel({
             autoPlay: true,
             items: 4,
+            stopOnHover: true
+        });
+        $(".OWL_NEWS_SERVICE_TOP").owlCarousel({
+            autoPlay: true,
+            items: 1,
             stopOnHover: true
         });
         $("#OWL_RANDOM").owlCarousel({

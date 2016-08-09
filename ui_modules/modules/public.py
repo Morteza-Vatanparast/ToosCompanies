@@ -90,10 +90,16 @@ class AdminCompaniesSmallBox(UIModule):
                                   company=company, box=box)
 
 
-class CompaniesMediumBox(UIModule):
-    def render(self, company=None):
-        return self.render_string('../ui_modules/template/companies_box/companies_medium_box.html',
-                                  company=company)
+class NewsMediumBox(UIModule):
+    def render(self, news=None):
+        return self.render_string('../ui_modules/template/companies_box/news_medium_box.html',
+                                  news=news)
+
+
+class ServiceMediumBox(UIModule):
+    def render(self, service=None):
+        return self.render_string('../ui_modules/template/companies_box/service_medium_box.html',
+                                  service=service)
 
 
 class AdminCompaniesMediumBox(UIModule):

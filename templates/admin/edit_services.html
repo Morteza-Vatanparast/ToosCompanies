@@ -54,6 +54,16 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input name="slider" {% try %}{% if service['slider'] %}checked{% end %}{% except %}{% end %} value="true" type="checkbox" class="form-control">
+                                                        </div>
+                                                        <div class="col-xs-4 text-center" style="padding: 8px">
+                                                            <span>اسلایدر</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-3 text-right">
@@ -72,7 +82,7 @@
                                                     <div class="row" style="margin: 10px 0">
                                                         <div class="col-md-12 col-sm-12 text-center" style="direction: ltr">
                                                             <div id="service_image_show" class="thumbnail preview-lg" style="overflow: hidden;width: 184px; height: 142px; margin: auto">
-                                                                <img class="recipe_photo" src="{{ static_url('images/service_image/' + service['image'] ) }}" alt="" />
+                                                                <img class="recipe_photo" src="{{ static_url('images/service_image/' + str(service['image']) ) }}" alt="" />
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 text-center margin-top-20">
@@ -218,6 +228,7 @@
             data.append('image', $('input[name=image]').val());
             data.append('main_page', $('input[type=checkbox][name=main_page]').prop('checked'));
             data.append('special_offer', $('input[type=checkbox][name=special_offer]').prop('checked'));
+            data.append('slider', $('input[type=checkbox][name=slider]').prop('checked'));
             data.append('special_offer_text', $('input[name=special_offer_text]').val());
             if(__error){
                 Alert.render(__message, function(){
