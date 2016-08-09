@@ -44,7 +44,11 @@
     <div class="col-md-12" style="padding: 0px 30px 30px 30px;">
         <div class="row">
             <div class="col col-md-6 col-sm-8 col-xs-12">
-                {% module SlideShow() %}
+                <div class="row" style="direction: ltr">
+                    <div class="owl-carousel OWL_SLIDE_SHOW">
+                        {% module SlideShow() %}
+                    </div>
+                </div>
             </div>
             <div class="col-md-6 col-sm-4 visible-sm visible-md visible-lg" style="padding-left: 15px; padding-right: 15px">
                 <div class="row">
@@ -171,6 +175,11 @@ var millisecond = parseInt('{{ __now.microsecond }}');
             stopOnHover: true
         });
         $(".OWL_NEWS_SERVICE_TOP").owlCarousel({
+            autoPlay: true,
+            items: 1,
+            stopOnHover: true
+        });
+        $(".OWL_SLIDE_SHOW").owlCarousel({
             autoPlay: true,
             items: 1,
             stopOnHover: true
