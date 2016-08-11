@@ -51,3 +51,7 @@
 .service-box-link:hover .carousel-caption {
     display: block;
 }
+
+#digitalClock strong{
+    font-size: 15px;
+}

@@ -6,7 +6,7 @@
         <div class="col-xs-7" style="padding-left: 0px">
             <div style="padding: 3px; text-align: center">
                 <div style="font-size: 17px; font-weight: bold">{{ now_name }}</div>
-                <div style="font-size: 25px; margin-top: 10px;" id="digitalClock">00:00:00 ق.ظ</div>
+                <div style="font-size: 25px; margin-top: 10px;" id="digitalClock">00:00:00 <strong>ق.ظ</strong></div>
             </div>
         </div>
     </div>
@@ -18,8 +18,8 @@
         </div>
         <div class="col-xs-7" style="padding-left: 0px">
             <div style="padding: 3px; text-align: center">
-                <div style="font-size: 17px; font-weight: bold">دلار</div>
-                <div style="font-size: 25px; margin-top: 10px;" id="DollarPrice">{{ prices['dollar'] }}</div>
+                <div style="font-size: 20px; font-weight: bold">دلار</div>
+                <div style="font-size: 20px; margin-top: 10px;"><span id="DollarPrice">{{ prices['dollar'] }}</span><span style="font-size: 15px;"> ریال</span></div>
             </div>
         </div>
     </div>
@@ -31,8 +31,8 @@
         </div>
         <div class="col-xs-7" style="padding-left: 0px">
             <div style="padding: 3px; text-align: center">
-                <div style="font-size: 17px; font-weight: bold">سکه</div>
-                <div style="font-size: 25px; margin-top: 10px;" id="CoinPrice">{{ prices['coin'] }}</div>
+                <div style="font-size: 20px; font-weight: bold">سکه</div>
+                <div style="font-size: 20px; margin-top: 10px;"><span id="CoinPrice">{{ prices['coin'] }}</span><span style="font-size: 15px;"> ریال</span></div>
             </div>
         </div>
     </div>
@@ -44,8 +44,8 @@
         </div>
         <div class="col-xs-7" style="padding-left: 0px">
             <div style="padding: 3px; text-align: center">
-                <div style="font-size: 17px; font-weight: bold">نفت</div>
-                <div style="font-size: 25px; margin-top: 10px;" id="OilPrice">{{ prices['oil'] }}</div>
+                <div style="font-size: 20px; font-weight: bold">نفت</div>
+                <div style="font-size: 20px; margin-top: 10px;"><span id="OilPrice">{{ prices['oil'] }}</span><span style="font-size: 15px;"> دلار</span></div>
             </div>
         </div>
     </div>
