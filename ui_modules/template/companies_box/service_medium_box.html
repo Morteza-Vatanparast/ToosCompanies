@@ -1,5 +1,6 @@
 <div style="direction: rtl;" class="col">
     <div class="custom-box company-box-link" onclick="window.open('{{ reverse_url('service_by_id', service['_id']) }}')">
+        <div style="position: absolute; z-index: 1000000; color: white; background-color: rgb(109, 189, 214); padding: 5px 15px; top: 20px;">خدمات</div>
         <img style="width: 100%; height: 220px" src="{{ static_url('images/service_image/' + service['image']) }}">
         <div style="padding: 10px; height: 100px; text-align: center">
             <div style="font-size: 15px; font-weight: bold">{{ service['name'] }}</div>
