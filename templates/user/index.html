@@ -78,19 +78,17 @@
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-12" style="">
-                <div class="row" style="direction: ltr">
-                    <div class="owl-carousel" id="OWL_EXTRA">
-                        {% module CompaniesSmallBox(company=None) %}
-                        {% module CompaniesSmallBox(company=None) %}
-                        {% module CompaniesSmallBox(company=None) %}
-                        {% module CompaniesSmallBox(company=None) %}
+        {% if prices is not False %}
+            <div class="row">
+                <div class="col-md-12" style="">
+                    <div class="row" style="direction: ltr">
+                        <div class="owl-carousel" id="OWL_EXTRA">
+                            {% module CompaniesSmallBox(prices=prices) %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% end %}
 
 
         <div class="row">
@@ -150,7 +148,7 @@ var millisecond = parseInt('{{ __now.microsecond }}');
 <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
 <script type="text/javascript" src="{{ static_url('plugins/owl-carousel/owl-carousel/owl.carousel.js') }}"></script>
-{#<script src="{{ static_url('js/clock.js') }}"></script>#}
+<script src="{{ static_url('js/clock.js') }}"></script>
 <script src="{{ static_url('js/navbar.js') }}"></script>
 {#<script src="{{ static_url('js/slide_show.js') }}"></script>#}
 <script src="{{ static_url('plugins/mini-colors/jquery.minicolors.js') }}"></script>

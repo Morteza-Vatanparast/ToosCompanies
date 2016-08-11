@@ -8,6 +8,7 @@ import qrcode
 from bson import ObjectId
 from tornado import gen
 
+from classes.price import PriceClass
 from classes.upload_pic import UploadPic
 from config import Config
 from handlers.base import UserBaseHandler
@@ -28,12 +29,12 @@ class IndexHandler(UserBaseHandler):
     @gen.coroutine
     def get(self, *args, **kwargs):
         self.data['__now'] = datetime.datetime.now()
-        self.data['__now_name'] = khayyam.JalaliDatetime().now().strftime("%A - %d %B %Y")
         self.data['main_page'] = SettingModel().get_main_page()
         self.data['services'] = ServicesModel().get_all_main_page()
         self.data['services_slider'] = ServicesModel().get_all_main_page_slider()
         self.data['news'] = NewsModel().get_all_main_page()
         self.data['news_slider'] = NewsModel().get_all_main_page_slider()
+        self.data['prices'] = PriceClass().get_prices()
         self.render('user/index.html', **self.data)
 
 

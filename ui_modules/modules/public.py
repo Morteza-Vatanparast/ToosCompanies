@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import khayyam
 from tornado.web import UIModule
 
 __author__ = 'Morteza'
@@ -79,9 +80,10 @@ class AdminCompaniesSmallBoxRow(UIModule):
 
 
 class CompaniesSmallBox(UIModule):
-    def render(self, company=None):
+    def render(self, prices=None):
+        now_name = khayyam.JalaliDatetime().now().strftime("%A %d %B %Y")
         return self.render_string('../ui_modules/template/companies_box/companies_small_box.html',
-                                  company=company)
+                                  prices=prices, now_name=now_name)
 
 
 class AdminCompaniesSmallBox(UIModule):

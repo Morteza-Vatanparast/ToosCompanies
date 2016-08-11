@@ -1,12 +1,51 @@
 <div style="direction: rtl;" class="col">
-    <div class="custom-box custom-small-box company-box-link" onclick="window.open('{{ reverse_url('service_by_id', "11") }}')">
+    <div class="custom-box custom-small-box company-box-link" style="cursor: unset">
         <div class="col-xs-5" style="padding-right: 0px">
-            <img style="width: 100%; height: 90px" src="{{ static_url('images/company_image/88311744795764871.jpg') }}">
+            <canvas class="canvas center-block" id="analogClock" width="240" height="240" style="max-width: 100%; margin-top: -18px; position: absolute; margin-right: -8px;"></canvas>
         </div>
         <div class="col-xs-7" style="padding-left: 0px">
-            <div style="padding: 3px">
-                <div style="font-size: 17px; font-weight: bold">سخت فلز مشهد</div>
-                <div style="font-size: 12px; margin-top: 10px;">مشهد - شهرک صنعتی توس <br>دیسک ترمز</div>
+            <div style="padding: 3px; text-align: center">
+                <div style="font-size: 17px; font-weight: bold">{{ now_name }}</div>
+                <div style="font-size: 25px; margin-top: 10px;" id="digitalClock">00:00:00 ق.ظ</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="direction: rtl;" class="col">
+    <div class="custom-box custom-small-box company-box-link" style="cursor: unset">
+        <div class="col-xs-5" style="padding-right: 0px">
+            <img style="width: 100%; height: 90px" src="{{ static_url('images/price_image/dollar.jpg') }}">
+        </div>
+        <div class="col-xs-7" style="padding-left: 0px">
+            <div style="padding: 3px; text-align: center">
+                <div style="font-size: 17px; font-weight: bold">دلار</div>
+                <div style="font-size: 25px; margin-top: 10px;">{{ prices['dollar'] }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="direction: rtl;" class="col">
+    <div class="custom-box custom-small-box company-box-link" style="cursor: unset">
+        <div class="col-xs-5" style="padding-right: 0px">
+            <img style="width: 100%; height: 90px" src="{{ static_url('images/price_image/coin.jpg') }}">
+        </div>
+        <div class="col-xs-7" style="padding-left: 0px">
+            <div style="padding: 3px; text-align: center">
+                <div style="font-size: 17px; font-weight: bold">سکه</div>
+                <div style="font-size: 25px; margin-top: 10px;">{{ prices['coin'] }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="direction: rtl;" class="col">
+    <div class="custom-box custom-small-box company-box-link" style="cursor: unset">
+        <div class="col-xs-5" style="padding-right: 0px">
+            <img style="width: 100%; height: 90px" src="{{ static_url('images/price_image/oil.jpg') }}">
+        </div>
+        <div class="col-xs-7" style="padding-left: 0px">
+            <div style="padding: 3px; text-align: center">
+                <div style="font-size: 17px; font-weight: bold">نفت</div>
+                <div style="font-size: 25px; margin-top: 10px;">{{ prices['oil'] }}</div>
             </div>
         </div>
     </div>

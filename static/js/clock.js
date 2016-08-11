@@ -136,12 +136,12 @@ setInterval(function () {
     var m = d.getMinutes();
     var s = d.getSeconds();
 
-    var dd = "AM";
+    var dd = "ق.ظ";
     var h = hh;
 
     if (h >= 12) {
         h = hh - 12;
-        dd = "PM";
+        dd = "ب.ظ";
     }
 
     if (h == 0) {
