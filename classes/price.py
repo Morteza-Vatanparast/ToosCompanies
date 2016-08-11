@@ -18,7 +18,6 @@ class PriceClass:
             data = GetUrl("http://www.tgju.org/").value
             if data:
                 soap = Soap(document=data).soap
-                print soap.select_one(self.dollar).text
                 return dict(
                     dollar=soap.select_one(self.dollar).text,
                     coin=soap.select_one(self.coin).text,

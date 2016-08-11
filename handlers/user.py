@@ -37,6 +37,13 @@ class IndexHandler(UserBaseHandler):
         self.data['prices'] = PriceClass().get_prices()
         self.render('user/index.html', **self.data)
 
+    def post(self, *args, **kwargs):
+        try:
+            prices = PriceClass().get_prices()
+            self.write(prices)
+        except:
+            self.write('error')
+
 
 class SearchCompaniesHandler(UserBaseHandler):
     @gen.coroutine

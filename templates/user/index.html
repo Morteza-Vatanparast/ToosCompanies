@@ -140,6 +140,7 @@ var hour = parseInt('{{ __now.hour }}');
 var minute = parseInt('{{ __now.minute }}');
 var second = parseInt('{{ __now.second }}');
 var millisecond = parseInt('{{ __now.microsecond }}');
+var xsrf_token = '{{ handler.xsrf_token }}';
 </script>
 <script>
     var search_url = "{{ reverse_url('search_companies_by_params', '__name__', 'all', 'all', 'all') }}";
@@ -149,6 +150,7 @@ var millisecond = parseInt('{{ __now.microsecond }}');
 <script type="text/javascript" src="{{ static_url('plugins/jquery-ui/jquery-ui.js') }}"></script>
 <script type="text/javascript" src="{{ static_url('plugins/owl-carousel/owl-carousel/owl.carousel.js') }}"></script>
 <script src="{{ static_url('js/clock.js') }}"></script>
+<script src="{{ static_url('js/price.js') }}"></script>
 <script src="{{ static_url('js/navbar.js') }}"></script>
 {#<script src="{{ static_url('js/slide_show.js') }}"></script>#}
 <script src="{{ static_url('plugins/mini-colors/jquery.minicolors.js') }}"></script>

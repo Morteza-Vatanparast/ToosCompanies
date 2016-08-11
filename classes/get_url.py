@@ -4,14 +4,47 @@ import re
 import urllib2
 import urlparse
 
+import functools
+from threading import Thread
+
 __author__ = 'Morteza'
+
+
+def time_out(__timeout=50):
+    def deco(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            res = [Exception('function [%s] timeout [%s seconds] exceeded!' % (func.__name__, __timeout))]
+
+            def new_func():
+                try:
+                    res[0] = func(*args, **kwargs)
+                except Exception, e:
+                    res[0] = e
+            t = Thread(target=new_func)
+            t.daemon = True
+            try:
+                t.start()
+                t.join(__timeout)
+            except Exception, je:
+                print 'error starting thread'
+                raise je
+            ret = res[0]
+            if isinstance(ret, BaseException):
+                raise ret
+            return ret
+        return wrapper
+    return deco
 
 
 class GetUrl:
     def __init__(self, url):
         self.url = url
         self.value = False
-        self.read_url()
+        try:
+            self.read_url()
+        except:
+            self.value = False
 
     @staticmethod
     def url_encode_none_ascii(__url):
@@ -38,6 +71,7 @@ class GetUrl:
         except:
             return False
 
+    @time_out()
     def read_url(self):
         try:
             self.clean_url()
