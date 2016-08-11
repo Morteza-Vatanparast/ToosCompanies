@@ -79,9 +79,22 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-12" style="">
+                <div class="row" style="direction: ltr">
+                    <div class="owl-carousel" id="OWL_EXTRA">
+                        {% module CompaniesSmallBox(company=None) %}
+                        {% module CompaniesSmallBox(company=None) %}
+                        {% module CompaniesSmallBox(company=None) %}
+                        {% module CompaniesSmallBox(company=None) %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="row">
-            <div class="col-md-12" style="top: -15px">
+            <div class="col-md-12" style="">
                 {% for i in main_page['unit_sections'] %}
                     {% module UnitSectionBoxes(unit_name=i['unit_name'], unit_id=i['unit_id'], _format=i['format'], companies=i['companies']) %}
                 {% end %}
@@ -89,7 +102,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12" style="top: -15px;">
+            <div class="col-md-12" style=";">
                 <i style="font-size: 20px; font-weight: bold; margin-left: 10px" class="fa fa-angle-double-left blink"></i>
                 <span style="font-size: 15px; font-weight: bold">خدمات</span>
             </div>
@@ -206,6 +219,11 @@ blink('.blink');
             stopOnHover: true
         });
         $("#OWL_RANDOM").owlCarousel({
+            autoPlay: true,
+            items: 4,
+            stopOnHover: true
+        });
+        $("#OWL_EXTRA").owlCarousel({
             autoPlay: true,
             items: 4,
             stopOnHover: true
