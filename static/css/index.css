@@ -24,7 +24,7 @@
 
 .company-box-link img {
     transition: all .2s ease-in-out;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .company-box-link:hover img {
@@ -37,7 +37,7 @@
 
 .service-box-link img.service {
     transition: all .2s ease-in-out;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .service-box-link .carousel-caption {
