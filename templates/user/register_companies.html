@@ -918,7 +918,7 @@
             data.append('_xsrf', '{{ handler.xsrf_token }}');
             data.append('name', check_value($('input[name=name]').val(), 'نام را وارد کنید.'));
             data.append('address', $('textarea[name=address]').val());
-            data.append('phone', $('input[name=phone]').val());
+            data.append('phone', check_value($('input[name=phone]').val(), 'تلفن را وارد کنید.'));
             data.append('mobile', $('input[name=mobile]').val());
             data.append('phone2', $('input[name=phone2]').val());
             data.append('fax', $('input[name=fax]').val());

@@ -331,12 +331,7 @@ class RegisterCompaniesHandler(UserBaseHandler):
                 try:
                     slider_image = UploadPic(handler=self, folder='company_slider').upload_from_cropper(base64_str=[self.get_argument('slider_image', '')])[0]
                 except:
-                    slider_image = False
-                if slider_image is False:
-                    self.messages = ['اسلایدر شرکت را انتخاب کنید.']
-                    self.status = False
-                    self.write(self.result)
-                    return
+                    slider_image = None
                 try:
                     try:
                         images = self.request.arguments['images']
