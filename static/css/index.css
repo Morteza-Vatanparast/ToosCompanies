@@ -40,16 +40,8 @@
     opacity: 0.9;
 }
 
-.service-box-link .carousel-caption {
-    display: none;
-}
-
 .service-box-link:hover img.service {
     opacity: 1;
-}
-
-.service-box-link:hover .carousel-caption {
-    display: block;
 }
 
 #digitalClock strong{

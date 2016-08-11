@@ -242,6 +242,14 @@ blink('.blink');
         $("#BODY_SECTION").css('background-color', $(this).val());
     });
 
+    $(document).on('mouseenter', '.service_box_link', function(e){
+        $(e.target).closest('.service_box_link').find('.special_offer_text').slideDown();
+    });
+
+    $(document).on('mouseleave', '.service_box_link', function(e){
+        $(e.target).closest('.service_box_link').find('.special_offer_text').slideUp();
+    });
+
 </script>
 </body>
 
