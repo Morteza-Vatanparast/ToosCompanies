@@ -2,7 +2,7 @@
     <div class="custom-box service-box-link service_box_link" style="direction: rtl" onclick="window.open('{{ reverse_url('service_by_id', service['_id']) }}')">
         <div style="position: relative">
             {% if service['special_offer'] %}
-                <div class="special_offer_text" style="display: none;position: absolute; z-index: 1000; color: white; right: 0px; width: 100%; bottom: 51px; text-align: center; padding: 15px 10px; background-color: rgba(0, 0, 0, 0.8);">{{ service['special_offer_text'] }}</div>
+                <div class="special_offer_text" style="display: none;position: absolute; z-index: 1000; color: white; right: 0px; width: 100%; bottom: 67px; text-align: center; padding: 15px 10px; background-color: rgba(0, 0, 0, 0.8);">{{ service['special_offer_text'] }}</div>
             {% end %}
             {% if service['special_offer'] %}
                 <img style="position: absolute; opacity: 1;z-index: 10000;" class="special_offer" src="{{ static_url('images/special_offer.png') }}">
