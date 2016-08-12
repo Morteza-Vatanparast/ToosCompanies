@@ -9,7 +9,7 @@
 <div style="direction: rtl;" class="col">
     <div class="custom-box company-box-link" onclick="window.open('{{ reverse_url('company_by_id', _format['areas'][0]['company']['_id']) }}')" style="cursor: pointer">
         <img style="height: 320px; width: 100%" src="{{ static_url('images/company_slider/' + _format['areas'][0]['company']['slider_image']) }}" alt="">
-        <div style="padding: 20px 0" class="carousel-caption custom-carousel-caption">
+        <div style="padding: 20px 0; background-color: rgba(0, 0, 0, 0.5);" class="carousel-caption custom-carousel-caption">
             <h4 style="margin: 0; font-family: Yekan">{{ _format['areas'][0]['company']['name'] }}</h4>
         </div>
     </div>
