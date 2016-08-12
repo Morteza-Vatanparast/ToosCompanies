@@ -2,7 +2,7 @@
     <div class="custom-box company-box-link" onclick="window.open('{{ reverse_url('company_by_id', company['_id']) }}')">
         <img style="width: 84%; height: 150px; margin-right: 8%" src="{{ static_url('images/company_image/' + company['image']) }}">
         <div style="padding: 10px; height: 120px;">
-            <div style="font-size: 15px; font-weight: bold">{{ company['name'] }}</div>
+            <div style="font-size: 15px; font-weight: bold; margin-top: 10px">{{ company['name'] }}</div>
             <div style="font-size: 11px; margin-top: 5px;">{{ company['city'] }} - {{ company['industrial_town'] }}<br>{{ company['description'] }}</div>
         </div>
     </div>

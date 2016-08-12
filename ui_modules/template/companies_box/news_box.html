@@ -1,6 +1,6 @@
 <div class="col">
     <div class="custom-box service-box-link" style="direction: rtl" onclick="window.open('{{ reverse_url('news_by_id', news['_id']) }}')">
         <img style="width: 100%; height: 153px" class="service" src="{{ static_url('images/news_image/' + news['image']) }}">
-        <div style="padding: 10px; height: 67px; text-align: center; font-size: 12px; font-weight: bold;">{{ news['title'] }}</div>
+        <div style="padding: 10px; height: 67px; text-align: center; font-size: 12px; font-weight: bold; margin-top: 10px">{{ news['title'] }}</div>
     </div>
 </div>
