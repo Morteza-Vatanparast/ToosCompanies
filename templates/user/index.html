@@ -82,8 +82,8 @@
             <div class="row">
                 <div class="col-md-12" style="">
                     <div class="row" style="direction: ltr">
-                        <div class="owl-carousel" id="OWL_EXTRA">
-                            {% module CompaniesSmallBox(prices=prices) %}
+                        <div class="owl-carousel" id="OWL_PRICES">
+                            {% module PricesSmallBox(prices=prices) %}
                         </div>
                     </div>
                 </div>
@@ -223,7 +223,7 @@ blink('.blink');
             items: 4,
             stopOnHover: true
         });
-        $("#OWL_EXTRA").owlCarousel({
+        $("#OWL_PRICES").owlCarousel({
             autoPlay: true,
             items: 4,
             stopOnHover: true

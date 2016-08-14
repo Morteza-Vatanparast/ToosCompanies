@@ -80,9 +80,15 @@ class AdminCompaniesSmallBoxRow(UIModule):
 
 
 class CompaniesSmallBox(UIModule):
+    def render(self, company=None):
+        return self.render_string('../ui_modules/template/companies_box/companies_small_box.html',
+                                  company=company)
+
+
+class PricesSmallBox(UIModule):
     def render(self, prices=None):
         now_name = khayyam.JalaliDatetime().now().strftime("%A %d %B %Y")
-        return self.render_string('../ui_modules/template/companies_box/companies_small_box.html',
+        return self.render_string('../ui_modules/template/companies_box/prices_small_box.html',
                                   prices=prices, now_name=now_name)
 
 
